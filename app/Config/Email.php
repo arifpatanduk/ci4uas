@@ -9,12 +9,12 @@ class Email extends BaseConfig
 	/**
 	 * @var string
 	 */
-	public $fromEmail;
+	public $fromEmail = 'arip@student.uns.ac.id';
 
 	/**
 	 * @var string
 	 */
-	public $fromName;
+	public $fromName = 'SIMAD - Sistem Manajemen Arsip Dokumen PTIK';
 
 	/**
 	 * @var string
@@ -167,5 +167,4 @@ class Email extends BaseConfig
 	 * @var boolean
 	 */
 	public $DSN = false;
-
 }
