@@ -12,6 +12,6 @@ class UserController extends BaseController
 			'title' => 'Home',
 			'active' => 'home'
 		];
-		return view('user/index', $data);
+		return view('index', $data);
 	}
 }

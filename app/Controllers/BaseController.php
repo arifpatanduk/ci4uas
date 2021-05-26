@@ -30,6 +30,13 @@ class BaseController extends Controller
 	protected $helpers = ['auth'];
 
 	/**
+	 * Instance of the main Request object.
+	 *
+	 * @var HTTP\IncomingRequest
+	 */
+	protected $request;
+
+	/**
 	 * Constructor.
 	 *
 	 * @param RequestInterface  $request

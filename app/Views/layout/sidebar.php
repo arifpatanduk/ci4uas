@@ -1,24 +1,27 @@
 <div class="main-sidebar">
     <aside id="sidebar-wrapper">
         <div class="sidebar-brand">
-            <a href="index.html">Stisla</a>
+            <a href="<?= base_url(); ?>">
+                <img src="<?= base_url(); ?>/stisla/assets/img/stisla-fill.svg" alt="logo" width="35">
+                SIMAD
+            </a>
         </div>
         <div class="sidebar-brand sidebar-brand-sm">
-            <a href="index.html">St</a>
+            <img src="<?= base_url(); ?>/stisla/assets/img/stisla-fill.svg" alt="logo" width="35">
         </div>
         <ul class="sidebar-menu">
             <li class="menu-header">Dashboard</li>
-            <li class="nav-item dropdown active">
+            <li class="nav-item dropdown">
                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-fire"></i><span>Dashboard</span></a>
                 <ul class="dropdown-menu">
-                    <li class="active"><a class="nav-link" href="index-0.html">General Dashboard</a></li>
+                    <li class=""><a class="nav-link" href="index-0.html">General Dashboard</a></li>
                     <li><a class="nav-link" href="index.html">Ecommerce Dashboard</a></li>
                 </ul>
             </li>
 
             <?php if (in_groups('admin')) : ?>
                 <li class="menu-header">User Management</li>
-                <li><a class="nav-link" href="blank.html"><i class="fas fa-users"></i> <span>Users</span></a></li>
+                <li><a class="nav-link" href="<?= base_url('admin/users'); ?>"><i class="fas fa-users"></i> <span>Users</span></a></li>
             <?php endif; ?>
 
             <li class="menu-header">Starter</li>
@@ -34,8 +37,12 @@
 
             <li><a class="nav-link" href="credits.html"><i class="fas fa-pencil-ruler"></i> <span>Credits</span></a></li>
 
-            <!-- logout -->
-            <li><a class="nav-link" href="<?= base_url('logout'); ?>"><i class="fas fa-sign-out-alt"></i> <span>Logout</span></a></li>
+            <!-- logout / Login-->
+            <?php if (logged_in()) : ?>
+                <li><a class="nav-link" href="<?= base_url('logout'); ?>"><i class="fas fa-sign-out-alt"></i> <span>Logout</span></a></li>
+            <?php else : ?>
+                <li><a class="nav-link" href="<?= base_url('login'); ?>"><i class="fas fa-sign-in-alt"></i> <span>Login</span></a></li>
+            <?php endif; ?>
         </ul>
 
         <div class="mt-4 mb-4 p-3 hide-sidebar-mini">

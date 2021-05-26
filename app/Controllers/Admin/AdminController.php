@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controllers;
+namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
 
@@ -9,9 +9,9 @@ class AdminController extends BaseController
 	public function index()
 	{
 		$data = [
-			'title' => 'Home',
-			'active' => 'home'
+			'title' => 'Kelola User',
+			'active' => 'users'
 		];
-		return view('admin/index', $data);
+		return view('admin/kelola_user', $data);
 	}
 }
