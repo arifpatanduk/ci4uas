@@ -4,7 +4,7 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 
-class GuestController extends BaseController
+class UserController extends BaseController
 {
 	public function index()
 	{
@@ -12,7 +12,6 @@ class GuestController extends BaseController
 			'title' => 'Home',
 			'active' => 'home'
 		];
-		// return view('index', $data);
-		return view('user/index', $data);
+		return view('index', $data);
 	}
 }

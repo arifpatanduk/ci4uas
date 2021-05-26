@@ -31,7 +31,8 @@ $routes->setAutoRoute(true);
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
-$routes->get('/', 'GuestController::index');
+$routes->get('/', 'UserController::index');
+$routes->get('/admin/users', 'Admin/AdminController::index', ['filter' => 'role:admin']);
 
 /*
  * --------------------------------------------------------------------
