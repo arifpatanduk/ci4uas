@@ -1,3 +1,18 @@
+# Catatan 
+## Login & Registrasi
+### Registrasi
+1. Daftar hanya bisa dengan email uns
+2. Klik link activation di email
+3. Auto terdaftar sebagai member
+4. Login dengan username/email & password
+
+### Admin `Sementara`
+1. Ubah group permission secara manual di database
+
+
+
+
+
 # CodeIgniter 4 Application Starter
 
 ## What is CodeIgniter?
