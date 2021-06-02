@@ -152,8 +152,19 @@ class AuthController extends Controller
 		// Validate here first, since some things,
 		// like the password, can only be validated properly here.
 		$rules = [
+			'nama' => 'required',
 			'username'  	=> 'required|alpha_numeric_space|min_length[3]|is_unique[users.username]',
-			'email'			=> 'required|valid_email|is_unique[users.email]|emailSSO[email]',
+			'email'			=> [
+				'label' => 'Email',
+				'rules' => 'required|valid_email|is_unique[users.email]|emailSSO[email]',
+				'errors' => [
+					'emailSSO' => '{field} must use email SSO UNS.',
+				]
+				// 'required|valid_email|is_unique[users.email]|emailSSO[email]',
+			],
+			'nim' => 'required|is_unique[users.nim]',
+			'no_hp' => 'required|numeric',
+			'alamat' => 'required',
 			'password'	 	=> 'required|strong_password',
 			'pass_confirm' 	=> 'required|matches[password]',
 		];
@@ -163,7 +174,7 @@ class AuthController extends Controller
 		}
 
 		// Save the user
-		$allowedPostFields = array_merge(['password'], $this->config->validFields, $this->config->personalFields);
+		$allowedPostFields = array_merge(['password', 'nama', 'nim', 'no_hp', 'alamat'], $this->config->validFields, $this->config->personalFields);
 		$user = new User($this->request->getPost($allowedPostFields));
 
 		$this->config->requireActivation !== false ? $user->generateActivateHash() : $user->activate();

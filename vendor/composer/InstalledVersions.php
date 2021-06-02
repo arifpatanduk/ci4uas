@@ -30,7 +30,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '12ef9caa65aae65f684064af413e1b2415627908',
+    'reference' => 'e730d6bbad25395ca2054712137400248e1a6bf4',
     'name' => 'codeigniter4/appstarter',
   ),
   'versions' => 
@@ -42,16 +42,16 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '12ef9caa65aae65f684064af413e1b2415627908',
+      'reference' => 'e730d6bbad25395ca2054712137400248e1a6bf4',
     ),
     'codeigniter4/framework' => 
     array (
-      'pretty_version' => 'v4.1.1',
-      'version' => '4.1.1.0',
+      'pretty_version' => 'v4.1.2',
+      'version' => '4.1.2.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'ddc18eb2f42a17a51347c4c25cce9d2aaebcb718',
+      'reference' => '0bf61820417a3e4a6e7f6c725c5cccf285a1b7c4',
     ),
     'doctrine/instantiator' => 
     array (
@@ -419,12 +419,12 @@ private static $installed = array (
     ),
     'symfony/polyfill-ctype' => 
     array (
-      'pretty_version' => 'v1.22.1',
-      'version' => '1.22.1.0',
+      'pretty_version' => 'v1.23.0',
+      'version' => '1.23.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'c6c942b1ac76c82448322025e084cadc56048b4e',
+      'reference' => '46cd95797e9df938fdd2b03693b5fca5e64b01ce',
     ),
     'theseer/tokenizer' => 
     array (
