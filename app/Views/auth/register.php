@@ -1,5 +1,10 @@
 <?= $this->extend('auth/template/index'); ?>
 
+<?= $this->section('title'); ?>
+Register &mdash; SIMAD
+<?= $this->endSection(); ?>
+
+
 <?= $this->section('content'); ?>
 <div id="app">
     <section class="section">
@@ -17,51 +22,62 @@
 
                         <div class="card-body">
 
-                            <!-- pesan dari proses register -->
-                            <?= view('Myth\Auth\Views\_message_block') ?>
-
                             <form action="<?= route_to('register') ?>" method="post">
                                 <?= csrf_field() ?>
 
 
-                                <!-- <div class="form-group">
-                                    <label for="nama">Nama</label>
-                                    <input id="nama" type="text" class="form-control" name="nama" autofocus>
+                                <div class="form-group">
+                                    <label for="nama">Nama Lengkap</label>
+                                    <input id="nama" type="text" class="form-control <?php if (session('errors.nama')) : ?>is-invalid<?php endif ?>" name="nama" placeholder="Nama lengkap" value="<?= old('nama') ?>">
                                     <div class="invalid-feedback">
+                                        <?= session('errors.nama'); ?>
                                     </div>
                                 </div>
 
                                 <div class="row">
                                     <div class="form-group col-6">
-                                        <label for="nim">NIM</label>
-                                        <input id="nim" type="text" class="form-control" name="nim">
+                                        <label for="email"><?= lang('Auth.email') ?></label>
+                                        <input id="email" type="email" class="form-control <?php if (session('errors.email')) : ?>is-invalid<?php endif ?>" name="email" value="<?= old('email') ?>" placeholder="<?= lang('Auth.email') ?>">
+                                        <div class="invalid-feedback">
+                                            <?= session('errors.email'); ?>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-6">
+                                        <label for="username"><?= lang('Auth.username') ?></label>
+                                        <input id="username" type="text" class="form-control <?php if (session('errors.username')) : ?>is-invalid<?php endif ?>" name="username" placeholder="<?= lang('Auth.username') ?>" value="<?= old('username') ?>">
+                                        <div class="invalid-feedback">
+                                            <?= session('errors.username'); ?>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="form-group col-6">
+                                        <label for="nim">NIM / NIP</label>
+                                        <input id="nim" type="text" class="form-control <?php if (session('errors.nim')) : ?>is-invalid<?php endif ?>" name="nim" placeholder="NIM atau NIP" value="<?= old('nim') ?>">
+                                        <div class="invalid-feedback">
+                                            <?= session('errors.nim'); ?>
+                                        </div>
                                     </div>
                                     <div class="form-group col-6">
                                         <label for="no_hp">No. HP</label>
-                                        <input id="no_hp" type="text" class="form-control" name="no_hp">
+                                        <input id="no_hp" type="number" class="form-control <?php if (session('errors.no_hp')) : ?>is-invalid<?php endif ?>" name="no_hp" placeholder="Nomor HP aktif" value="<?= old('no_hp') ?>">
+                                        <div class="invalid-feedback">
+                                            <?= session('errors.no_hp'); ?>
+                                        </div>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="alamat">Alamat</label>
-                                    <input id="alamat" type="text" class="form-control" name="alamat" autofocus>
+                                    <input id="alamat" type="text" class="form-control <?php if (session('errors.alamat')) : ?>is-invalid<?php endif ?>" name="alamat" placeholder="Alamat" value="<?= old('alamat') ?>">
                                     <div class="invalid-feedback">
-                                    </div>
-                                </div> -->
-
-                                <div class="form-group">
-                                    <label for="email"><?= lang('Auth.email') ?></label>
-                                    <input id="email" type="email" class="form-control <?php if (session('errors.email')) : ?>is-invalid<?php endif ?>" name="email" value="<?= old('email') ?>" placeholder="<?= lang('Auth.email') ?>">
-                                    <div class="invalid-feedback">
+                                        <?= session('errors.alamat'); ?>
                                     </div>
                                 </div>
 
-                                <div class="form-group">
-                                    <label for="username"><?= lang('Auth.username') ?></label>
-                                    <input id="username" type="text" class="form-control <?php if (session('errors.username')) : ?>is-invalid<?php endif ?>" name="username" placeholder="<?= lang('Auth.username') ?>" value="<?= old('username') ?>">
-                                    <div class="invalid-feedback">
-                                    </div>
-                                </div>
+
 
                                 <div class="row">
                                     <div class="form-group col-6">
@@ -71,11 +87,16 @@
                                             <div class="bar"></div>
                                             <div class="label"></div>
                                         </div>
+                                        <div class="invalid-feedback">
+                                            <?= session('errors.password'); ?>
+                                        </div>
                                     </div>
                                     <div class="form-group col-6">
-                                        <!-- <label for="pass_confirm" class="d-block">Password Confirmation</label> -->
                                         <label for="pass_confirm"><?= lang('Auth.repeatPassword') ?></label>
                                         <input id="password2" type="password" class="form-control <?php if (session('errors.pass_confirm')) : ?>is-invalid<?php endif ?>" name="pass_confirm" placeholder="<?= lang('Auth.repeatPassword') ?>" autocomplete="off">
+                                        <div class="invalid-feedback">
+                                            <?= session('errors.pass_confirm'); ?>
+                                        </div>
                                     </div>
                                 </div>
 
