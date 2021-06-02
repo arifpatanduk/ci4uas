@@ -1,5 +1,9 @@
 <?= $this->extend('auth/template/index'); ?>
 
+<?= $this->section('title'); ?>
+Login &mdash; SIMAD
+<?= $this->endSection(); ?>
+
 <?= $this->section('content'); ?>
 <div id="app">
     <section class="section">
@@ -51,13 +55,6 @@
                                     </div>
                                 </div>
 
-                                <!-- <div class="form-group">
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" name="remember" class="custom-control-input" tabindex="3" id="remember-me">
-                                        <label class="custom-control-label" for="remember-me">Remember Me</label>
-                                    </div>
-                                </div> -->
-
                                 <div class="form-group">
                                     <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
                                         <?= lang('Auth.loginAction') ?>
@@ -72,10 +69,6 @@
                             <a href="<?= route_to('register') ?>"><?= lang('Auth.needAnAccount') ?></a>
                         <?php endif; ?>
                         <br>
-                        <?php if ($config->activeResetter) : ?>
-                            <a href="<?= route_to('forgot') ?>"><?= lang('Auth.forgotYourPassword') ?></a>
-                        <?php endif; ?>
-                        <!-- Don't have an account? <a href="auth-register.html">Create One</a> -->
                     </div>
                     <div class="simple-footer">
                         Copyright &copy; SIMAD <?= date('Y'); ?>

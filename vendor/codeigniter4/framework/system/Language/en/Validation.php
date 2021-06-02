@@ -70,6 +70,4 @@ return [
 	'ext_in'                => '{field} does not have a valid file extension.',
 	'max_dims'              => '{field} is either not an image, or it is too wide or tall.',
 
-	// Custom SSO
-	'emailSSO'              => '{field} harus menggunakan email SSO UNS!',
 ];

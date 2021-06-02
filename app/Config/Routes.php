@@ -32,6 +32,11 @@ $routes->setAutoRoute(true);
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 $routes->get('/', 'UserController::index');
+
+$routes->get('/user/profile', 'ProfileController::index');
+$routes->post('/user/profile/update', 'ProfileController::update');
+
+
 $routes->get('/admin/users', 'Admin/AdminController::index', ['filter' => 'role:admin']);
 
 /*
