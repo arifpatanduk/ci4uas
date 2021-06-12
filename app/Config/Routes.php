@@ -37,7 +37,8 @@ $routes->get('/', 'UserController::index');
 
 // GUEST DOKUMEN
 // $routes->get('/doc/(:segment)', 'Member\DocController::detail/$1');
-$routes->get('/doc', 'Member\DocController::detail');
+$routes->get('/doc', 'Member\DocController::detail_guest');
+$routes->get('/user/doc', 'Member\DocController::detail_member');
 
 // MEMBER 
 $routes->get('/user/profile', 'Member\ProfileController::index');
