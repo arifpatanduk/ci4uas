@@ -29,10 +29,11 @@
                       </thead>
                       <tbody>
                         <?php
-                            foreach ($list as $item) {
+                          $no = 1;
+                          foreach ($list as $item) {
                         ?>
                         <tr>
-                          <th scope="row">1</th>
+                          <th scope="row"><?= $no++ ?></th>
                           <td><?= $item['judul'] ?></td>
                           <td><?= $item['penulis'] ?></td>
                           <td><?= $item['jenis'] ?></td>
