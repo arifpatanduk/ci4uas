@@ -31,6 +31,7 @@
                         <?php
                           $no = 1;
                           foreach ($list as $item) {
+                            
                         ?>
                         <tr>
                           <th scope="row"><?= $no++ ?></th>
