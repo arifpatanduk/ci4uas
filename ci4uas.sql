@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 12, 2021 at 09:04 AM
+-- Generation Time: Jun 12, 2021 at 09:34 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.1
 
@@ -274,6 +274,7 @@ CREATE TABLE `dokumen` (
   `abstrak` text NOT NULL,
   `penulis` varchar(50) NOT NULL,
   `tahun_publikasi` int(11) NOT NULL,
+  `status` varchar(50) NOT NULL DEFAULT 'Tersedia',
   `id_sub_kategori` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
@@ -283,9 +284,9 @@ CREATE TABLE `dokumen` (
 -- Dumping data for table `dokumen`
 --
 
-INSERT INTO `dokumen` (`id`, `judul`, `nama_file`, `abstrak`, `penulis`, `tahun_publikasi`, `id_sub_kategori`, `created_at`, `updated_at`) VALUES
-(1, 'Pengembangan Aplikasi Mobile', 'pengembalian_aplikasi_mobile.pdf', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum as', 'Bintang Timur', 2020, 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(2, 'Pengembangan Aplikasi Web', 'pengembangan_aplikasi_web.pdf', 'Lorem bala bala bla blas lfkwlka\r\ndkskask lsldk slakdla aklasdk lskdlaksd laslkdlaksldk jtjr slakdlaskd lwksldkls', 'Arif Wiranata', 2019, 1, '2021-06-11 11:07:45', '2021-06-11 11:07:45');
+INSERT INTO `dokumen` (`id`, `judul`, `nama_file`, `abstrak`, `penulis`, `tahun_publikasi`, `status`, `id_sub_kategori`, `created_at`, `updated_at`) VALUES
+(1, 'Pengembangan Aplikasi Mobile', 'pengembalian_aplikasi_mobile.pdf', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum as', 'Bintang Timur', 2020, 'Tersedia', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(2, 'Pengembangan Aplikasi Web', 'pengembangan_aplikasi_web.pdf', 'Lorem bala bala bla blas lfkwlka\r\ndkskask lsldk slakdla aklasdk lskdlaksd laslkdlaksldk jtjr slakdlaskd lwksldkls', 'Arif Wiranata', 2019, 'Tersedia', 1, '2021-06-11 11:07:45', '2021-06-11 11:07:45');
 
 -- --------------------------------------------------------
 
@@ -493,6 +494,13 @@ ALTER TABLE `dokumen`
 --
 ALTER TABLE `migrations`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `peminjaman`
+--
+ALTER TABLE `peminjaman`
+  ADD KEY `id_dokumen` (`id_dokumen`),
+  ADD KEY `id_user` (`id_user`);
 
 --
 -- Indexes for table `ref_kategori`
