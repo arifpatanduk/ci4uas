@@ -48,7 +48,7 @@
                         </tr>
                         <tr>
                             <th colspan="2" class="text-center">
-                                <a href="<?= base_url('user/doc') . '/' . $dokumen->id; ?>" class="btn btn-primary">Full Document</a>
+                                <a href="<?= base_url('user/doc') . '/' . $dokumen->id; ?>" class="btn btn-primary"><i class="fas fa-file-alt"></i> Full Document</a>
                             </th>
                         </tr>
                     </tbody>

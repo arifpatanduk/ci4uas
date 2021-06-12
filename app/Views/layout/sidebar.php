@@ -18,9 +18,13 @@
                 </a>
             </li>
 
+            <!-- Peminajaman Member -->
             <?php if (in_groups('member')) : ?>
-                <li><a class="nav-link" href="<?= base_url('member/pinjam'); ?>"><i class="fas fa-table"></i> <span>Peminjaman</span></a></li>
+                <li class="<?= ($active === 'peminjaman') ? 'active' : ''; ?>">
+                    <a class="nav-link " href="<?= base_url('user/peminjaman'); ?>"><i class="fas fa-table"></i> <span>Peminjaman</span></a>
+                </li>
             <?php endif; ?>
+
 
             <?php if (in_groups('admin')) : ?>
                 <li class="menu-header">Peminjaman</li>

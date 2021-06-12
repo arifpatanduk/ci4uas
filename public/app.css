@@ -7,3 +7,13 @@ a.custom-card:hover {
 html {
   scroll-behavior: smooth;
 }
+
+td.min {
+  /* width: 0.2%; */
+  white-space: nowrap;
+}
+
+th.max {
+  width: 20%;
+  white-space: nowrap;
+}

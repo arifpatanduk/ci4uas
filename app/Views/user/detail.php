@@ -48,13 +48,20 @@
                         </tr>
                         <tr>
                             <th colspan="2" class="text-center">
-                                <a href="#full" class="btn btn-primary">Full Document</a>
+                                <a href="#full" class="btn btn-primary my-2"><i class="fas fa-file-alt"></i> Full Document</a>
+
+                                <button class="btn btn-warning my-2" data-toggle="modal" data-target="#modal-pinjam">
+                                    <i class="fas fa-file-import"></i>
+                                    Pinjam Document
+                                </button>
                             </th>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
+
+
 
         <div class="card mb-3" id="full">
             <div class="card-body">
@@ -63,5 +70,52 @@
             </div>
         </div>
     </section>
+
+    <!-- Modal Pinjam Dokumen -->
+    <div class="modal fade" tabindex="-1" role="dialog" id="modal-pinjam">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Pinjam Dokumen</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p class="card-text">
+                        Ketersediaan Dokumen : <span class="badge badge-sm badge-success">Tersedia</span>
+                    </p>
+
+
+                    <!-- if else ketersediaan dokumen here -->
+
+
+
+                    <hr>
+
+                    <p>
+                        <small><i>*Silahkan masukkan tanggal pengambilan dokumen. Tanggal peminjaman akan dihitung dari tanggal pengambilan.</i></small>
+                    </p>
+
+                    <form id="formnya" action="" method="post">
+                        <?= csrf_field(); ?>
+                        <div class="row">
+                            <div class="form-group col-sm-6">
+                                <label>Tanggal Pengambilan Dokumen</label>
+                                <input type="date" class="form-control">
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+                <div class="modal-footer bg-whitesmoke br">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Kirim</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 </div>
 <?= $this->endSection(); ?>

@@ -32,17 +32,31 @@ $routes->setAutoRoute(true);
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 
+
+
 // GUEST 
+// home
 $routes->get('/', 'HomeController::index');
 
-// GUEST DOKUMEN
-// $routes->get('/doc/(:segment)', 'Member\DocController::detail/$1');
+// dokumen
 $routes->get('/doc/(:segment)', 'Member\DocController::detail_guest/$1');
-$routes->get('/user/doc/(:segment)', 'Member\DocController::detail_member/$1');
+
+
 
 // MEMBER 
-$routes->get('/user/profile', 'Member\ProfileController::index');
-$routes->post('/user/profile/update', 'Member\ProfileController::update');
+// dokumen
+$routes->get('/user/doc/(:segment)', 'Member\DocController::detail_member/$1', ['filter' => 'role:member']);
+
+// profile
+$routes->get('/user/profile', 'Member\ProfileController::index', ['filter' => 'role:member']);
+$routes->post('/user/profile/update', 'Member\ProfileController::update', ['filter' => 'role:member']);
+
+// peminjaman
+$routes->get('/user/peminjaman', 'Member\PeminjamanController::index', ['filter' => 'role:member']);
+$routes->get('/user/peminjaman/detail/(:segment)', 'Member\PeminjamanController::detail_pinjam/$1', ['filter' => 'role:member']);
+
+
+
 
 // ADMIN
 $routes->get('/admin/users', 'Admin/AdminController::index', ['filter' => 'role:admin']);
