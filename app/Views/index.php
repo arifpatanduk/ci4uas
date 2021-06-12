@@ -17,11 +17,11 @@
                         </div>
 
                         <div class="form-group col-md-3">
-                            <select class="form-control">
-                                <option selected>Semua Kategori</option>
-                                <option>Option 1</option>
-                                <option>Option 2</option>
-                                <option>Option 3</option>
+                            <select class="form-control" name="kategori">
+                                <option value="0" selected>Semua Kategori</option>
+                                <?php foreach ($kategori as $kat) : ?>
+                                    <option value="<?= $kat['id_kategori']; ?>"><?= $kat['jenis']; ?></option>
+                                <?php endforeach; ?>
                             </select>
                         </div>
 
@@ -42,7 +42,8 @@
                         <p class="card-text"><?= $dok['tahun_publikasi']; ?>,
                             <strong><?= $dok['penulis']; ?></strong>
                             <br>
-                            <span class="badge badge-sm badge-info">Skripsi</span>
+                            <span class="badge badge-sm badge-success"><?= $dok['jenis']; ?></span>
+                            <span class="badge badge-sm badge-info"><?= $dok['nama']; ?></span>
                         </p>
                     </div>
                 </div>

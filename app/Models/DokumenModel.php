@@ -6,26 +6,50 @@ use CodeIgniter\Model;
 
 class DokumenModel extends Model
 {
-	public function getDokumen() 
+    public function getDokumen()
     {
         return $this->db->table('dokumen')
-         ->join('ref_sub_kategori','ref_sub_kategori.id_sub_kategori = dokumen.id_sub_kategori')
-         ->join('ref_kategori', 'ref_kategori.id_kategori = ref_sub_kategori.id_kategori')
-         ->get()->getResultArray();
+            ->join('ref_sub_kategori', 'ref_sub_kategori.id_sub_kategori = dokumen.id_sub_kategori')
+            ->join('ref_kategori', 'ref_kategori.id_kategori = ref_sub_kategori.id_kategori')
+            ->get()->getResultArray();
     }
-    
+
     // Get cities
-    public function getKategori(){
+    public function getKategori()
+    {
 
         return $this->db->table('ref_kategori')
-         ->get()->getResultArray();
-
+            ->get()->getResultArray();
     }
 
     // Get City departments
-    public function getSubKategori($id){
+    public function getSubKategori($id)
+    {
 
         return $this->db->table('ref_sub_kategori')->where('id_kategori', $id)
-        ->get()->getResultArray();
+            ->get()->getResultArray();
+    }
+
+    public function search($keyword, $kategori)
+    {
+        if ($kategori == "0") {
+            return $this->db->table('dokumen')
+                ->join('ref_sub_kategori', 'ref_sub_kategori.id_sub_kategori = dokumen.id_sub_kategori')
+                ->join('ref_kategori', 'ref_kategori.id_kategori = ref_sub_kategori.id_kategori')
+                ->like('judul', $keyword);
+        } else {
+            return $this->db->table('dokumen')
+                ->join('ref_sub_kategori', 'ref_sub_kategori.id_sub_kategori = dokumen.id_sub_kategori')
+                ->join('ref_kategori', 'ref_kategori.id_kategori = ref_sub_kategori.id_kategori')
+                ->like('dokumen.judul', $keyword)
+                ->like('ref_kategori.id_kategori', $kategori);
+        }
+    }
+
+    public function objectDokumen()
+    {
+        return $this->db->table('dokumen')
+            ->join('ref_sub_kategori', 'ref_sub_kategori.id_sub_kategori = dokumen.id_sub_kategori')
+            ->join('ref_kategori', 'ref_kategori.id_kategori = ref_sub_kategori.id_kategori');
     }
 }

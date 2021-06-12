@@ -17,7 +17,7 @@ if (file_exists(SYSTEMPATH . 'Config/Routes.php')) {
  * --------------------------------------------------------------------
  */
 $routes->setDefaultNamespace('App\Controllers');
-$routes->setDefaultController('UserController');
+$routes->setDefaultController('HomeController');
 $routes->setDefaultMethod('index');
 $routes->setTranslateURIDashes(false);
 $routes->set404Override();
@@ -33,7 +33,7 @@ $routes->setAutoRoute(true);
 // route since we don't have to scan directories.
 
 // GUEST 
-$routes->get('/', 'UserController::index');
+$routes->get('/', 'HomeController::index');
 
 // GUEST DOKUMEN
 // $routes->get('/doc/(:segment)', 'Member\DocController::detail/$1');
@@ -47,8 +47,8 @@ $routes->post('/user/profile/update', 'Member\ProfileController::update');
 // ADMIN
 $routes->get('/admin/users', 'Admin/AdminController::index', ['filter' => 'role:admin']);
 $routes->get('/admin/dokumen', 'Admin/AdminController::dokumen');
-$routes->get('/admin/getData', 'Admin/AdminController::getSubKategori');								
-$routes->get('/test', 'Admin/AdminController::getSubKategori');								
+$routes->get('/admin/getData', 'Admin/AdminController::getSubKategori');
+$routes->get('/test', 'Admin/AdminController::getSubKategori');
 /*
  * --------------------------------------------------------------------
  * Additional Routing

@@ -3,6 +3,7 @@
 namespace App\Controllers\Member;
 
 use App\Controllers\BaseController;
+use App\Models\DokumenModel;
 
 class DocController extends BaseController
 {
@@ -15,9 +16,10 @@ class DocController extends BaseController
 
 	public function detail_guest($id)
 	{
-		$dokumen = $this->db->table('dokumen');
-		$doc = $dokumen->where('id', $id)->get()->getResultArray();
-		// dd($doc);
+		$docs = new DokumenModel();
+		$doc = $docs->objectDokumen()->where('id', $id)->get()->getRow();
+
+
 		$data = [
 			'title' => 'Document',
 			'active' => 'home',
@@ -29,9 +31,13 @@ class DocController extends BaseController
 
 	public function detail_member($id)
 	{
+		$docs = new DokumenModel();
+		$doc = $docs->objectDokumen()->where('id', $id)->get()->getRow();
+
 		$data = [
 			'title' => 'Document',
 			'active' => 'home',
+			'dokumen' => $doc,
 		];
 
 		return view('/user/detail', $data);
