@@ -33,7 +33,7 @@
             </div>
         </div>
 
-        <a href="<?= base_url('doc'); ?>" class="custom-card">
+        <a href="<?= (logged_in()) ? base_url('user/doc') : base_url('doc'); ?>" class="custom-card">
             <div class="card mb-3">
                 <div class="card-body">
                     <h5 class="card-title">Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa saepe alias, sit voluptatem cumque consectetur, aliquam eum iste assumenda ab exercitationem dolores ducimus ipsa soluta cupiditate odit impedit eveniet veniam?</h5>
