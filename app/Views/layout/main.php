@@ -19,6 +19,9 @@
     <!-- Template CSS -->
     <link rel="stylesheet" href="<?= base_url(); ?>/stisla/assets/css/style.css">
     <link rel="stylesheet" href="<?= base_url(); ?>/stisla/assets/css/components.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="<?= base_url(); ?>/app.css">
 </head>
 
 <body>

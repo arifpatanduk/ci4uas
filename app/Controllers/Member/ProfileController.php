@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controllers;
+namespace App\Controllers\Member;
 
 use App\Controllers\BaseController;
 
