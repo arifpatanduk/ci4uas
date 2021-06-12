@@ -18,13 +18,28 @@ class AdminController extends BaseController
 	}
 
 	public function dokumen()
-	{
+	{;
+
 		$model = new DokumenModel();
 		$data = [
 			'title' => 'Dokumen',
 			'active' => 'dokumen',
+			'kategori' => $model->getKategori(),
 			'list' => $model->getDokumen()
 		];
 		return view('admin/dokumen', $data);
 	}
+
+	public function getSubKategori(){ 
+		// POST data 
+		$postData = $this->request->getGet('kat');
+		
+		$model = new DokumenModel();
+		
+		// get data 
+		$data = $model->getSubKategori($postData);
+		echo json_encode($data); 
+		// dd($data);
+	  }
+
 }
