@@ -17,7 +17,7 @@ if (file_exists(SYSTEMPATH . 'Config/Routes.php')) {
  * --------------------------------------------------------------------
  */
 $routes->setDefaultNamespace('App\Controllers');
-$routes->setDefaultController('Home');
+$routes->setDefaultController('UserController');
 $routes->setDefaultMethod('index');
 $routes->setTranslateURIDashes(false);
 $routes->set404Override();
@@ -37,8 +37,8 @@ $routes->get('/', 'UserController::index');
 
 // GUEST DOKUMEN
 // $routes->get('/doc/(:segment)', 'Member\DocController::detail/$1');
-$routes->get('/doc', 'Member\DocController::detail_guest');
-$routes->get('/user/doc', 'Member\DocController::detail_member');
+$routes->get('/doc/(:segment)', 'Member\DocController::detail_guest/$1');
+$routes->get('/user/doc/(:segment)', 'Member\DocController::detail_member/$1');
 
 // MEMBER 
 $routes->get('/user/profile', 'Member\ProfileController::index');

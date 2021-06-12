@@ -15,7 +15,7 @@
                     <tbody>
                         <tr>
                             <th>Judul</th>
-                            <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati at sapiente laboriosam deserunt quas cupiditate. Rerum fuga magnam explicabo aspernatur laboriosam nostrum assumenda eum? Molestias porro expedita sint nisi consequuntur.</td>
+                            <td><?= $dokumen['judul']; ?></td>
                         </tr>
                         <tr>
                             <th>Penulis</th>
