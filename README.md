@@ -7,8 +7,16 @@
 4. Login dengan username/email & password
 
 ### Admin `Sementara`
-1. Ubah group permission secara manual di database
+Untuk menjadi level admin, ubah group_id secara manual di database. Caranya :
+1. Buka table `auth_groups_users`
+2. Ganti `group_id` menjadi 2 pada `user_id` yang ingin dijadikan Admin.
 
+### Filter halaman yang perlu akses login
+1. Buka `\app\Config\Filters.php`
+2. Tambahkan route pada `$filters`. Contoh :
+  `'login' => ['before' => ['admin/*', 'user/*']]`
+  
+  
 
 
 

@@ -45,7 +45,7 @@ $routes->post('/user/profile/update', 'Member\ProfileController::update');
 
 // ADMIN
 $routes->get('/admin/users', 'Admin/AdminController::index', ['filter' => 'role:admin']);
-
+$routes->get('/admin/dokumen', 'Admin/AdminController::dokumen');
 /*
  * --------------------------------------------------------------------
  * Additional Routing

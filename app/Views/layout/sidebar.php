@@ -23,8 +23,9 @@
             <?php endif; ?>
 
             <?php if (in_groups('admin')) : ?>
-                <li class="menu-header">User Management</li>
-                <li><a class="nav-link" href="<?= base_url('admin/users'); ?>"><i class="fas fa-users"></i> <span>Users</span></a></li>
+                <li class="menu-header">Peminjaman</li>
+                <li><a class="nav-link" href="#"><i class="fas fa-briefcase"></i> <span>Peminjaman</span></a></li>
+                <li><a class="nav-link" href="#"><i class="fas fa-book-reader"></i> <span>History</span></a></li>
             <?php endif; ?>
 
             <!-- logout / Login-->
@@ -38,6 +39,23 @@
                 </div>
 
             <?php endif; ?>
+
+            <?php if (in_groups('admin')) : ?>
+                <li class="menu-header">Dokumen</li>
+                <li class="nav-item dropdown <?php if ($active == "dokumen") {
+                                                    echo "active";
+                                                } ?>">
+                    <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-book"></i> <span>Dokumen</span></a>
+                    <ul class="dropdown-menu">
+                        <li <?php if ($active == "dokumen") {
+                                echo "class='active'";
+                            } ?>><a class="nav-link" href="/admin/dokumen"><span>Daftar Dokumen</span></a></li>
+                        <li><a class="nav-link" href="#"></i> <span>Kategori</span></a></li>
+                        <li><a class="nav-link" href="#"><span>Sub Kategori</span></a></li>
+                    </ul>
+                </li>
+            <?php endif; ?>
+
         </ul>
     </aside>
 </div>
