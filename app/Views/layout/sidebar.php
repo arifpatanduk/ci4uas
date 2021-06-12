@@ -28,6 +28,12 @@
                 <li><a class="nav-link" href="#"><i class="fas fa-book-reader"></i> <span>History</span></a></li>
             <?php endif; ?>
 
+
+            <?php if (in_groups('admin')) : ?>
+                <li class="menu-header">User Management</li>
+                <li><a class="nav-link" href="<?= base_url('admin/users'); ?>"><i class="fas fa-users"></i> <span>Users</span></a></li>
+            <?php endif; ?>
+
             <!-- logout / Login-->
             <?php if (logged_in()) : ?>
                 <li><a class="nav-link" href="<?= base_url('logout'); ?>"><i class="fas fa-sign-out-alt"></i> <span>Logout</span></a></li>
