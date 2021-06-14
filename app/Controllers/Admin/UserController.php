@@ -24,15 +24,26 @@ class UserController extends BaseController
 
 	public function changeStatus()
 	{
-		$user = new UserModel();
+		$user = new UserModel;
 		$id	= $this->request->getVar('user_id');
 		$active = $this->request->getVar('status');
 
-		$user->update($id, ['active' => $active]);
+		$input = [
+			'id' => $id,
+			'active' => $active
+		];
+
+		$user
+			->where('id', $id)
+			->set(['active' => $active])
+			->update();
+
+		// $user->save($input);
 
 		$pesan = [
 			'success' => 'Status active berhasil diupdate.',
-			'id' => $id
+			'id' => $id,
+			'active' => $active,
 		];
 		echo json_encode($pesan);
 	}

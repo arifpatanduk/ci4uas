@@ -56,7 +56,7 @@
                                             <?php endif; ?>
                                         </td>
                                         <td>
-                                            <input data-id="<?= $user['id']; ?>" class="toggle-class" type="checkbox" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="Active" data-off="InActive" <?= ($user['active'] == 1) ? 'checked' : ''; ?>>
+                                            <input data-id="<?= $user['user_id']; ?>" class="toggle-class" type="checkbox" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="Active" data-off="InActive" <?= ($user['active'] == 1) ? 'checked' : ''; ?>>
                                         </td>
                                         <td class="min">
                                             <a href="#" class="btn btn-sm btn-secondary mx-1"><i class="fas fa-eye"></i> Detail</a>
@@ -105,8 +105,6 @@
                     'user_id': user_id
                 },
                 success: function(data) {
-                    console.log(data.success)
-                    console.log(data.id)
                     Swal.fire({
                         title: 'Berhasil!',
                         text: data.success,
