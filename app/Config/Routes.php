@@ -76,6 +76,7 @@ $routes->group('admin', ['filter' => 'role:admin'], function ($routes) {
 	$routes->get('dokumen/(:segment)', 'Admin\AdminController::detail/$1');
 	$routes->get('dokumen/edit/(:segment)', 'Admin\AdminController::edit/$1');
 	$routes->post('dokumen/update/(:segment)', 'Admin\AdminController::update/$1');
+	$routes->delete('dokumen/delete/(:segment)', 'Admin\AdminController::delete/$1');
 });
 
 /*

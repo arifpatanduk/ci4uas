@@ -263,4 +263,18 @@ class AdminController extends BaseController
 		}
 		
 	}
+
+	public function delete($id)
+	{
+		if ($this->request->isAjax()) {
+			$model = new DokumenModel();
+			$model->delete($id);
+			$pesan = [
+				'sukses' => "Data dengan Id=".$id."berhasil dihapus"
+			];
+			echo json_encode($pesan);
+		} else {
+			exit('Data tidak dapat dihapus');
+		}
+	}
 }
