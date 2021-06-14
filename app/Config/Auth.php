@@ -126,8 +126,8 @@ class Auth extends \Myth\Auth\Config\Auth
     // When enabled, every user will have the option to reset his password
     // via specified resetter. Default setting is email.
     //
-    public $activeResetter = 'Myth\Auth\Authentication\Resetters\EmailResetter';
-    // public $activeResetter = false;
+    // public $activeResetter = 'Myth\Auth\Authentication\Resetters\EmailResetter';
+    public $activeResetter = false;
 
     //--------------------------------------------------------------------
     // Allow Persistent Login Cookies (Remember me)
