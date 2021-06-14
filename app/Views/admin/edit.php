@@ -64,6 +64,7 @@
                         File Dokumen : <div class="form-outline mb-4">
                             <input type="hidden" name="file_old" value="<?= $list->nama_file; ?>">
                             <input type="file" id="dok" name="dokumen" class="form-control" />
+                            <p class="text-muted"><small><i>*Jika tidak terdapat perubahan dokumen silahkan kosongkan bagian ini</i></small></p>
                             <div class="invalid-feedback" id="errordok"></div>
                         </div>
 
