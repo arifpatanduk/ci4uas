@@ -24,7 +24,7 @@
                           <th scope="col">Kategori</th>
                           <th scope="col">Status</th>                          
                           <th scope="col">Tanggal Upload</th>
-                          <th scope="col">Aksi</th>
+                          <th scope="col" width="22%">Aksi</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -40,8 +40,8 @@
                           <td><?= $item['status'] ?></td>
                           <td><?= $item['updated_at'] ?></td>                          
                           <td>
-                                <a class="btn btn-primary" href="#">Detail</a>
-                                <a class="btn btn-warning" href="#">Edit</a>
+                                <a class="btn btn-primary" href="<?= base_url('admin/dokumen/' . $item['id']); ?>">Detail</a>
+                                <a class="btn btn-warning" href="<?= base_url('admin/dokumen/edit/' . $item['id']); ?>">Edit</a>
                                 <a class="btn btn-danger" href="#">Delete</a>
 
                           </td>
@@ -54,7 +54,7 @@
         </div>
     </section>
     
-    <!-- Modal Content Detail -->
+    <!-- Modal  -->
     <div class="modal fade" tabindex="-1" role="dialog" id="exampleModal">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
@@ -65,13 +65,13 @@
                         </button>
                 </div>
                 <div class="modal-body">
-                  <form id="formnya" action="" method="post" enctype="multipart/form-data">
+                  <form id="formnya" action="dokumen/insert" method="post" enctype="multipart/form-data">
                       <?= csrf_field(); ?>
 
                       <div class=" mb-4">
                           <label class="form-label" for="tel">Kategori</label>
                           <select id="sel_kat" name="kategori" class="form-control">
-                            <option>-- Select Kategori --</option>
+                            <option value="">-- Select Kategori --</option>
                             <?php
                             foreach($kategori as $kat){
                               echo "<option value='".$kat['id_kategori']."'>".$kat['jenis']."</option>";
@@ -84,37 +84,37 @@
                       <div class=" mb-4">
                           <label class="form-label" for="tel">Sub Kategori</label>
                           <select id='sel_SubKat' name="subkategori" class="form-control">
-                            <option>-- Select Sub Kategori --</option>
+                            <option value="">-- Select Sub Kategori --</option>
                           </select>
                           <div class="invalid-feedback" id="errorsub"></div>
                       </div>
                       
                       <div class=" mb-4">
                           <label class="form-label" for="tel">Judul</label>
-                          <input type="text" id="tel" name="judul" class="form-control" />
+                          <input type="text" id="jdl" name="judul" class="form-control" />
                           <div class="invalid-feedback" id="errorjdl"></div>
                       </div>
 
                       <div class=" mb-4">
                           <label class="form-label" for="tel">Penulis</label>
-                          <input type="text" id="tel" name="penulis" class="form-control" />
+                          <input type="text" id="pen" name="penulis" class="form-control" />
                           <div class="invalid-feedback" id="errorpen"></div>
                       </div>
 
                       <div class=" mb-4">
                           <label class="form-label" for="tel">Tahun Publikasi</label>
-                          <input type="text" id="tel" name="tahun" class="form-control" />
+                          <input type="text" id="thn" name="tahun" class="form-control" />
                           <div class="invalid-feedback" id="errorthn"></div>
                       </div>
                       <div class=" mb-4">
                           <label class="form-label" for="tel">Abstrak</label>
-                          <textarea class="form-control" name="abstrak" id="abs" rows="4"></textarea>
+                          <textarea class="form-control" name="abstrak" id="abs" rows="4" style="height: 100px;"></textarea>
                           <div class="invalid-feedback" id="errorabs"></div>
                       </div>
 
                       File Dokumen : <div class="form-outline mb-4">
-                          <input type="file" id="ava" name="avatar" class="form-control" />
-                          <div class="invalid-feedback" id="errorava"></div>
+                          <input type="file" id="dok" name="dokumen" class="form-control" required />
+                          <div class="invalid-feedback" id="errordok"></div>
                       </div>
 
                       <button type="submit" id="submit" class="btn btn-primary mb-4">Tambah Data</button>
@@ -158,6 +158,106 @@
 $('#sel_city').change(function(){
       
    });
+</script>
+
+<script>
+    $(document).ready(function() {
+        $('#formnya').submit(function(e) {
+            e.preventDefault();
+            $.ajax({
+                type: $(this).attr('method'),
+                url: $(this).attr('action'),
+                data: new FormData(this),
+                processData: false,
+                contentType: false,
+                beforeSend: function() {
+                    $('#submit').attr('disable', 'disabled');
+                    $('#submit').html('<i class="fa fa-spin fa-spinner"></i>');
+                },
+                complete: function() {
+                    $('#submit').removeAttr('disable');
+                    $('#submit').html('Tambah Data');
+                },
+                success: function(response) {
+                    var respon = JSON.parse(response);
+                    if (respon.error) {
+                        if (respon.error.kategori) {
+                            $('#sel_kat').addClass('is-invalid');
+                            $('#errorkat').html(respon.error.kategori);
+                        }
+                        else {
+                            $('#sel_kat').removeClass('is-invalid');
+                            $('#errorkat').html('');
+                        }
+
+                        if (respon.error.subkategori) {
+                            $('#sel_SubKat').addClass('is-invalid');
+                            $('#errorsub').html(respon.error.subkategori);
+                        }
+                        else {
+                            $('#sel_SubKat').removeClass('is-invalid');
+                            $('#errorsub').html('');
+                        }
+                        
+                        if (respon.error.judul) {
+                            $('#jdl').addClass('is-invalid');
+                            $('#errorjdl').html(respon.error.judul);
+                        }
+                        else {
+                            $('#jdl').removeClass('is-invalid');
+                            $('#errorjdl').html('');
+                        }
+
+                        if (respon.error.penulis) {
+                            $('#pen').addClass('is-invalid');
+                            $('#errorpen').html(respon.error.penulis);
+                        }
+                        else {
+                            $('#pen').removeClass('is-invalid');
+                            $('#errorpen').html('');
+                        }
+
+                        if (respon.error.tahun) {
+                            $('#thn').addClass('is-invalid');
+                            $('#errorthn').html(respon.error.tahun);
+                        }
+                        else {
+                            $('#thn').removeClass('is-invalid');
+                            $('#errorthn').html('');
+                        }
+
+                        if (respon.error.abstrak) {
+                            $('#abs').addClass('is-invalid');
+                            $('#errorabs').html(respon.error.abstrak);
+                        }
+                        else {
+                            $('#abs').removeClass('is-invalid');
+                            $('#errorabs').html('');
+                        }
+
+                        if (respon.error.dokumen) {
+                            $('#dok').addClass('is-invalid');
+                            $('#errordok').html(respon.error.dokumen);
+                        }
+                        else {
+                            $('#dok').removeClass('is-invalid');
+                            $('#errordok').html('');
+                        }
+
+                    } else {
+                        alert(respon.sukses);
+                        window.location.reload();
+                        $('#exampleModal').modal('hide');
+                    }
+                },
+                error: function(xhr, ajaxOptions, thrownError) {
+                    alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
+                }
+            });
+
+            return false;
+        });
+    });
 </script>
 
 <?= $this->endSection(); ?>

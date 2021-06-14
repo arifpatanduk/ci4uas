@@ -47,8 +47,11 @@ $routes->post('/user/profile/update', 'Member\ProfileController::update');
 // ADMIN
 $routes->get('/admin/users', 'Admin/AdminController::index', ['filter' => 'role:admin']);
 $routes->get('/admin/dokumen', 'Admin/AdminController::dokumen');
-$routes->get('/admin/getData', 'Admin/AdminController::getSubKategori');								
-$routes->get('/test', 'Admin/AdminController::getSubKategori');								
+$routes->get('/admin/getData', 'Admin/AdminController::getSubKategori');
+$routes->post('/admin/dokumen/insert', 'Admin/AdminController::insert');
+$routes->get('/admin/dokumen/(:segment)', 'Admin\AdminController::detail/$1');
+$routes->get('/admin/dokumen/edit/(:segment)', 'Admin\AdminController::edit/$1');
+$routes->post('/admin/dokumen/update/', 'Admin/AdminController::update');
 /*
  * --------------------------------------------------------------------
  * Additional Routing
