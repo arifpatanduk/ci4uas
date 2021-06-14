@@ -52,8 +52,7 @@
                                     <td>
                                         <a class="btn btn-primary" href="<?= base_url('admin/dokumen/' . $item['id']); ?>">Detail</a>
                                         <a class="btn btn-warning" href="<?= base_url('admin/dokumen/edit/' . $item['id']); ?>">Edit</a>
-                                        <a class="btn btn-danger" href="#">Delete</a>
-
+                                        <a class="btn btn-danger" href="#" onclick="hapus('<?= $item['id'] ?>')">Delete </a>
                                     </td>
                                 </tr>
                             <?php } ?>
@@ -252,7 +251,6 @@
                     } else {
                         alert(respon.sukses);
                         window.location.reload();
-                        $('#exampleModal').modal('hide');
                     }
                 },
                 error: function(xhr, ajaxOptions, thrownError) {
@@ -263,6 +261,31 @@
             return false;
         });
     });
+</script>
+
+<script>
+function hapus(id) {
+    Swal.fire({
+        title: 'Hapus Dokumen',
+        text: "Apakah Anda yakin akan menghapus data dengan ID="+id+"?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Ya, hapus!',
+        cancelButtonText: 'Tidak'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                type: "delete",
+                url: "<?= base_url('/admin/dokumen/delete')?>" + "/" + id
+            });
+            location.reload();
+        }
+        
+    })
+}
+
 </script>
 
 <?= $this->endSection(); ?>
