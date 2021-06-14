@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 12, 2021 at 09:34 AM
+-- Generation Time: Jun 14, 2021 at 12:48 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.1
 
@@ -199,7 +199,16 @@ INSERT INTO `auth_logins` (`id`, `ip_address`, `email`, `user_id`, `date`, `succ
 (45, '::1', 'b.timur504@student.uns.ac.id', 19, '2021-06-12 01:27:46', 1),
 (46, '::1', 'b.timur504@student.uns.ac.id', NULL, '2021-06-12 01:55:49', 0),
 (47, '::1', 'b.timur504@student.uns.ac.id', 19, '2021-06-12 01:55:58', 1),
-(48, '::1', 'b.timur504@student.uns.ac.id', 19, '2021-06-12 02:03:45', 1);
+(48, '::1', 'b.timur504@student.uns.ac.id', 19, '2021-06-12 02:03:45', 1),
+(49, '::1', 'b.timur504@student.uns.ac.id', 19, '2021-06-12 07:09:32', 1),
+(50, '::1', 'b.timur504@student.uns.ac.id', NULL, '2021-06-14 01:14:59', 0),
+(51, '::1', 'b.timur504@student.uns.ac.id', NULL, '2021-06-14 01:15:04', 0),
+(52, '::1', 'b.timur504@student.uns.ac.id', 19, '2021-06-14 01:15:12', 1),
+(53, '::1', 'arifp@student.uns.ac.id', 12, '2021-06-14 01:16:26', 1),
+(54, '::1', 'arifp@student.uns.ac.id', 12, '2021-06-14 01:18:32', 1),
+(55, '::1', 'b.timur504@student.uns.ac.id', 19, '2021-06-14 01:24:21', 1),
+(56, '::1', 'b.timur504@student.uns.ac.id', 19, '2021-06-14 03:56:26', 1),
+(57, '::1', 'arifp@student.uns.ac.id', 12, '2021-06-14 05:46:01', 1);
 
 -- --------------------------------------------------------
 
@@ -269,15 +278,15 @@ CREATE TABLE `auth_users_permissions` (
 
 CREATE TABLE `dokumen` (
   `id` int(11) NOT NULL,
-  `judul` varchar(255) NOT NULL,
+  `judul` text NOT NULL,
   `nama_file` varchar(255) NOT NULL,
   `abstrak` text NOT NULL,
   `penulis` varchar(50) NOT NULL,
   `tahun_publikasi` int(11) NOT NULL,
   `status` varchar(50) NOT NULL DEFAULT 'Tersedia',
   `id_sub_kategori` int(11) NOT NULL,
-  `created_at` timestamp NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -285,8 +294,7 @@ CREATE TABLE `dokumen` (
 --
 
 INSERT INTO `dokumen` (`id`, `judul`, `nama_file`, `abstrak`, `penulis`, `tahun_publikasi`, `status`, `id_sub_kategori`, `created_at`, `updated_at`) VALUES
-(1, 'Pengembangan Aplikasi Mobile', 'pengembalian_aplikasi_mobile.pdf', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum as', 'Bintang Timur', 2020, 'Tersedia', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(2, 'Pengembangan Aplikasi Web', 'pengembangan_aplikasi_web.pdf', 'Lorem bala bala bla blas lfkwlka\r\ndkskask lsldk slakdla aklasdk lskdlaksd laslkdlaksldk jtjr slakdlaskd lwksldkls', 'Arif Wiranata', 2019, 'Tersedia', 1, '2021-06-11 11:07:45', '2021-06-11 11:07:45');
+(1, 'Pengembangan Aplikasi Mobile', 'pengembalian_aplikasi_mobile.pdf', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum as', 'Bintang Timur', 2020, 'Tersedia', 1, '0000-00-00 00:00:00', '2021-06-14 03:33:47');
 
 -- --------------------------------------------------------
 
@@ -414,7 +422,7 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `email`, `username`, `nama`, `nim`, `no_hp`, `alamat`, `avatar`, `password_hash`, `reset_hash`, `reset_at`, `reset_expires`, `activate_hash`, `status`, `status_message`, `active`, `force_pass_reset`, `created_at`, `updated_at`, `deleted_at`) VALUES
 (1, 'arifpatanduk2@gmail.com', 'arifpatanduk', NULL, NULL, NULL, NULL, 'default.png', '$2y$10$flTlCVPGXkrnapFL.S49uubSX5Amzn9DSr9WMJ/4qtROxhxkErTeq', NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, '2021-05-14 14:53:23', '2021-05-14 14:53:23', NULL),
 (6, 'andriapuspita9@gmail.com', 'test', NULL, NULL, NULL, NULL, 'default.png', '$2y$10$nJHjgJU.vtZ15zSeZGnb/usfmK75eLnNRiO0sSMK4SoqYlWb5ixm6', NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, '2021-05-19 02:35:15', '2021-05-26 01:30:51', NULL),
-(12, 'arifp@student.uns.ac.id', 'arifp', NULL, NULL, NULL, NULL, 'default.png', '$2y$10$QF0sbYKLmNuG8J6/y52tLeECnD8aStMT9HjGmVwnnp997kt2IfkRG', NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, '2021-05-26 23:00:18', '2021-05-26 23:00:33', NULL),
+(12, 'arifp@student.uns.ac.id', 'arifp', 'Arif W', 'K35180112', '123532', 'Solooo', 'default.png', '$2y$10$QF0sbYKLmNuG8J6/y52tLeECnD8aStMT9HjGmVwnnp997kt2IfkRG', NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, '2021-05-26 23:00:18', '2021-06-14 05:47:31', NULL),
 (19, 'b.timur504@student.uns.ac.id', 'bintangtimurk', 'bintang', 'K3518015', '134', 'Surakarta', 'default.png', '$2y$10$d3mgWE6P/Q6vMTonpQGG6uEnntGSQ/WAk35bc0WBIsGbG/JTBGMQ2', NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, '2021-06-11 03:19:53', '2021-06-11 03:19:53', NULL);
 
 --
@@ -542,7 +550,7 @@ ALTER TABLE `auth_groups`
 -- AUTO_INCREMENT for table `auth_logins`
 --
 ALTER TABLE `auth_logins`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
 
 --
 -- AUTO_INCREMENT for table `auth_permissions`
@@ -566,7 +574,7 @@ ALTER TABLE `auth_tokens`
 -- AUTO_INCREMENT for table `dokumen`
 --
 ALTER TABLE `dokumen`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `migrations`
