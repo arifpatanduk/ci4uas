@@ -7,6 +7,10 @@
     <section class="section">
         <div class="section-header">
             <h1>Document</h1>
+            <div class="section-header-breadcrumb">
+                <div class="breadcrumb-item active"><a href="<?= base_url(); ?>">Home</a></div>
+                <div class="breadcrumb-item">Document</div>
+            </div>
         </div>
 
         <div class="card mb-3">
@@ -15,19 +19,22 @@
                     <tbody>
                         <tr>
                             <th>Judul</th>
-                            <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati at sapiente laboriosam deserunt quas cupiditate. Rerum fuga magnam explicabo aspernatur laboriosam nostrum assumenda eum? Molestias porro expedita sint nisi consequuntur.</td>
+                            <td><?= $dokumen->judul; ?></td>
                         </tr>
                         <tr>
                             <th>Penulis</th>
-                            <td>Jacob</td>
+                            <td><?= $dokumen->penulis; ?></td>
                         </tr>
                         <tr>
                             <th>Tahun Publikasi</th>
-                            <td>2015</td>
+                            <td><?= $dokumen->tahun_publikasi; ?></td>
                         </tr>
                         <tr>
                             <th>Kategori</th>
-                            <td><span class="badge badge-sm badge-info">Skripsi</span></td>
+                            <td>
+                                <span class="badge badge-sm badge-success"><?= $dokumen->jenis; ?></span>
+                                <span class="badge badge-sm badge-info"><?= $dokumen->nama; ?></span>
+                            </td>
                         </tr>
                         <tr>
                             <th colspan="2" class="text-center">Abstrak / Pendahuluan</th>
@@ -35,15 +42,13 @@
                         <tr>
                             <td colspan="2">
                                 <p>
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam minima sequi, tempora porro assumenda perferendis exercitationem. Vel ullam veniam aut odit praesentium, adipisci harum iure eum nulla placeat? Nulla, unde.
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque veniam atque fugit! Omnis, veritatis neque? Quod ad inventore, hic minus ea eos magnam rem dolores illum, laudantium dignissimos maiores fugiat.
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis, quis? Asperiores dolores ullam labore dolore iusto! Quod facere praesentium aperiam eius esse unde similique quas perspiciatis magnam. Qui, voluptatibus officia?
+                                    <?= $dokumen->abstrak; ?>
                                 </p>
                             </td>
                         </tr>
                         <tr>
                             <th colspan="2" class="text-center">
-                                <a href="<?= base_url('user/doc'); ?>" class="btn btn-primary">Full Document</a>
+                                <a href="<?= base_url('user/doc') . '/' . $dokumen->id; ?>" class="btn btn-primary"><i class="fas fa-file-alt"></i> Full Document</a>
                             </th>
                         </tr>
                     </tbody>

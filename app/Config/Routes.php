@@ -17,7 +17,7 @@ if (file_exists(SYSTEMPATH . 'Config/Routes.php')) {
  * --------------------------------------------------------------------
  */
 $routes->setDefaultNamespace('App\Controllers');
-$routes->setDefaultController('Home');
+$routes->setDefaultController('HomeController');
 $routes->setDefaultMethod('index');
 $routes->setTranslateURIDashes(false);
 $routes->set404Override();
@@ -32,26 +32,47 @@ $routes->setAutoRoute(true);
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 
-// GUEST 
-$routes->get('/', 'UserController::index');
 
-// GUEST DOKUMEN
-// $routes->get('/doc/(:segment)', 'Member\DocController::detail/$1');
-$routes->get('/doc', 'Member\DocController::detail_guest');
-$routes->get('/user/doc', 'Member\DocController::detail_member');
+
+// GUEST 
+// home
+$routes->get('/', 'HomeController::index');
+
+// dokumen
+$routes->get('/doc/(:segment)', 'Member\DocController::detail_guest/$1');
+
+
 
 // MEMBER 
-$routes->get('/user/profile', 'Member\ProfileController::index');
-$routes->post('/user/profile/update', 'Member\ProfileController::update');
+// dokumen
+$routes->get('/user/doc/(:segment)', 'Member\DocController::detail_member/$1', ['filter' => 'role:member,admin']);
+
+// profile
+$routes->get('/user/profile', 'Member\ProfileController::index', ['filter' => 'role:member']);
+$routes->post('/user/profile/update', 'Member\ProfileController::update', ['filter' => 'role:member']);
+
+// peminjaman
+$routes->get('/user/peminjaman', 'Member\PeminjamanController::index', ['filter' => 'role:member']);
+$routes->get('/user/peminjaman/detail/(:segment)', 'Member\PeminjamanController::detail_pinjam/$1', ['filter' => 'role:member']);
+
+
+
 
 // ADMIN
-$routes->get('/admin/users', 'Admin/AdminController::index', ['filter' => 'role:admin']);
-$routes->get('/admin/dokumen', 'Admin/AdminController::dokumen');
-$routes->get('/admin/getData', 'Admin/AdminController::getSubKategori');
-$routes->post('/admin/dokumen/insert', 'Admin/AdminController::insert');
-$routes->get('/admin/dokumen/(:segment)', 'Admin\AdminController::detail/$1');
-$routes->get('/admin/dokumen/edit/(:segment)', 'Admin\AdminController::edit/$1');
-$routes->post('/admin/dokumen/update/', 'Admin/AdminController::update');
+$routes->group('admin', ['filter' => 'role:admin'], function ($routes) {
+	$routes->get('infografis', 'Admin/InfografisController::index');
+	$routes->get('users', 'Admin/AdminController::index');
+	$routes->get('dokumen', 'Admin/AdminController::dokumen');
+	$routes->get('getData', 'Admin/AdminController::getSubKategori');
+	$routes->get('/test', 'Admin/AdminController::getSubKategori');
+
+	//dokumen routes
+	$routes->post('dokumen/insert', 'Admin/AdminController::insert');
+	$routes->get('dokumen/(:segment)', 'Admin\AdminController::detail/$1');
+	$routes->get('dokumen/edit/(:segment)', 'Admin\AdminController::edit/$1');
+	$routes->post('dokumen/update/', 'Admin/AdminController::update');
+});
+
 /*
  * --------------------------------------------------------------------
  * Additional Routing
