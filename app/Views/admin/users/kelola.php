@@ -31,27 +31,44 @@
                 <div class="card-body p-0">
                     <div class="table-responsive">
                         <table class="table table-striped">
-                            <tr>
-                                <th>#</th>
-                                <th>Nama</th>
-                                <th>NIM / NIP</th>
-                                <th>Role</th>
-                                <th>Active</th>
-                                <th>Aksi</th>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>Lorem ipsum dolor sit amet</td>
-                                <td>20210613</td>
-                                <td>Member</td>
-                                <td>
-                                    <div class="badge badge-success">Active</div>
-                                </td>
-                                <td class="min">
-                                    <a href="#" class="btn btn-sm btn-secondary mx-1"><i class="fas fa-eye"></i> Detail</a>
-                                    <a href="#" class="btn btn-sm btn-warning mx-1"><i class="fas fa-edit"></i> Edit</a>
-                                </td>
-                            </tr>
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Nama</th>
+                                    <th>NIM / NIP</th>
+                                    <th>Role</th>
+                                    <th>Active</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php $no = 1; ?>
+                                <?php foreach ($users as $user) : ?>
+                                    <tr>
+                                        <td><?= $no++; ?></td>
+                                        <td><?= $user['nama']; ?></td>
+                                        <td><?= $user['nim']; ?></td>
+                                        <td>
+                                            <?php if ($user['name'] == 'admin') : ?>
+                                                <div class="badge badge-info"><?= $user['name']; ?></div>
+                                            <?php else : ?>
+                                                <div class="badge badge-secondary"><?= $user['name']; ?></div>
+                                            <?php endif; ?>
+                                        </td>
+                                        <td>
+                                            <?php if ($user['active'] == 1) : ?>
+                                                <div class="badge badge-success">Active</div>
+                                            <?php else : ?>
+                                                <div class="badge badge-danger">Non Active</div>
+                                            <?php endif; ?>
+                                        </td>
+                                        <td class="min">
+                                            <a href="#" class="btn btn-sm btn-secondary mx-1"><i class="fas fa-eye"></i> Detail</a>
+                                            <a href="#" class="btn btn-sm btn-warning mx-1"><i class="fas fa-edit"></i> Edit</a>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
                         </table>
                     </div>
                 </div>

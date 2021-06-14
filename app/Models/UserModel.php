@@ -120,4 +120,12 @@ class UserModel extends Model
 
         return $data;
     }
+
+    function getUsersWithGroup()
+    {
+        return $this->db->table('users')
+            ->join('auth_groups_users', 'auth_groups_users.user_id = users.id')
+            ->join('auth_groups', 'auth_groups.id = auth_groups_users.group_id')
+            ->get()->getResultArray();
+    }
 }
