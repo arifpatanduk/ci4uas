@@ -110,4 +110,96 @@
 
     });
 </script>
+
+<script>
+    $(document).ready(function() {
+        $('#formnya').submit(function(e) {
+            e.preventDefault();
+            $.ajax({
+                type: $(this).attr('method'),
+                url: $(this).attr('action'),
+                data: new FormData(this),
+                processData: false,
+                contentType: false,
+                beforeSend: function() {
+                    $('#submit').attr('disable', 'disabled');
+                    $('#submit').html('<i class="fa fa-spin fa-spinner"></i>');
+                },
+                complete: function() {
+                    $('#submit').removeAttr('disable');
+                    $('#submit').html('Update Data');
+                },
+                success: function(response) {
+                    var respon = JSON.parse(response);
+                    if (respon.error) {
+                        if (respon.error.kategori) {
+                            $('#sel_kat').addClass('is-invalid');
+                            $('#errorkat').html(respon.error.kategori);
+                        } else {
+                            $('#sel_kat').removeClass('is-invalid');
+                            $('#errorkat').html('');
+                        }
+
+                        if (respon.error.subkategori) {
+                            $('#sel_SubKat').addClass('is-invalid');
+                            $('#errorsub').html(respon.error.subkategori);
+                        } else {
+                            $('#sel_SubKat').removeClass('is-invalid');
+                            $('#errorsub').html('');
+                        }
+
+                        if (respon.error.judul) {
+                            $('#jdl').addClass('is-invalid');
+                            $('#errorjdl').html(respon.error.judul);
+                        } else {
+                            $('#jdl').removeClass('is-invalid');
+                            $('#errorjdl').html('');
+                        }
+
+                        if (respon.error.penulis) {
+                            $('#pen').addClass('is-invalid');
+                            $('#errorpen').html(respon.error.penulis);
+                        } else {
+                            $('#pen').removeClass('is-invalid');
+                            $('#errorpen').html('');
+                        }
+
+                        if (respon.error.tahun) {
+                            $('#thn').addClass('is-invalid');
+                            $('#errorthn').html(respon.error.tahun);
+                        } else {
+                            $('#thn').removeClass('is-invalid');
+                            $('#errorthn').html('');
+                        }
+
+                        if (respon.error.abstrak) {
+                            $('#abs').addClass('is-invalid');
+                            $('#errorabs').html(respon.error.abstrak);
+                        } else {
+                            $('#abs').removeClass('is-invalid');
+                            $('#errorabs').html('');
+                        }
+
+                        if (respon.error.dokumen) {
+                            $('#dok').addClass('is-invalid');
+                            $('#errordok').html(respon.error.dokumen);
+                        } else {
+                            $('#dok').removeClass('is-invalid');
+                            $('#errordok').html('');
+                        }
+
+                    } else {
+                        alert(respon.sukses);
+                        window.location.href = "<?= base_url() ?>/admin/dokumen";
+                    }
+                },
+                error: function(xhr, ajaxOptions, thrownError) {
+                    alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
+                }
+            });
+
+            return false;
+        });
+    });
+</script>
 <?= $this->endSection(); ?>

@@ -161,99 +161,106 @@ class AdminController extends BaseController
 
 	public function update($id)
 	{
+		if ($this->request->isAJAX()) {
 
-		$validasi = \Config\Services::validation();
-		$valid = $this->validate([
-			'kategori' => [
-				'label' => 'Kategori',
-				'rules' => 'required',
-				'errors' => [
-					'required' => '{field} tidak boleh kosong'
-				]
-			],
-			'subkategori' => [
-				'label' => 'Sub Kategori',
-				'rules' => 'required',
-				'errors' => [
-					'required' => '{field} tidak boleh kosong'
-				]
-			],
-			'judul' => [
-				'label' => 'Judul',
-				'rules' => 'required',
-				'errors' => [
-					'required' => '{field} tidak boleh kosong'
-				]
-			],
-			'penulis' => [
-				'label' => 'Penulis',
-				'rules' => 'required',
-				'errors' => [
-					'required' => '{field} tidak boleh kosong'
-				]
-			],
-			'tahun' => [
-				'label' => 'Tahun Publikasi',
-				'rules' => 'required|numeric',
-				'errors' => [
-					'required'  => '{field} tidak boleh kosong',
-					'numeric' => '{field} harus angka'
-				]
-			],
-			'abstrak' => [
-				'label' => 'Abstrak',
-				'rules' => 'required|is_unique[users.email]',
-				'errors' => [
-					'required'  => '{field} tidak boleh kosong',
-					'is_unique' => '{field} sudah terdaftar'
-				]
-			],
-			'dokumen' => [
-				'label' => 'Dokumen',
-				'rules' => 'ext_in[dokumen,pdf]|max_size[dokumen,20000]',
-				'errors' => [
+			$validasi = \Config\Services::validation();
+			$valid = $this->validate([
+				'kategori' => [
+					'label' => 'Kategori',
+					'rules' => 'required',
+					'errors' => [
+						'required' => '{field} tidak boleh kosong'
+					]
+				],
+				'subkategori' => [
+					'label' => 'Sub Kategori',
+					'rules' => 'required',
+					'errors' => [
+						'required' => '{field} tidak boleh kosong'
+					]
+				],
+				'judul' => [
+					'label' => 'Judul',
+					'rules' => 'required',
+					'errors' => [
+						'required' => '{field} tidak boleh kosong'
+					]
+				],
+				'penulis' => [
+					'label' => 'Penulis',
+					'rules' => 'required',
+					'errors' => [
+						'required' => '{field} tidak boleh kosong'
+					]
+				],
+				'tahun' => [
+					'label' => 'Tahun Publikasi',
+					'rules' => 'required|numeric',
+					'errors' => [
+						'required'  => '{field} tidak boleh kosong',
+						'numeric' => '{field} harus angka'
+					]
+				],
+				'abstrak' => [
+					'label' => 'Abstrak',
+					'rules' => 'required|is_unique[users.email]',
+					'errors' => [
+						'required'  => '{field} tidak boleh kosong',
+						'is_unique' => '{field} sudah terdaftar'
+					]
+				],
+				'dokumen' => [
+					'label' => 'Dokumen',
+					'rules' => 'ext_in[dokumen,pdf]|max_size[dokumen,20000]',
+					'errors' => [
 
-					'ext_in'      => 'File {field} harus pdf',
-					'max_size'    => 'File {field} maximal 20Mb'
+						'ext_in'      => 'File {field} harus pdf',
+						'max_size'    => 'File {field} maximal 20Mb'
+					]
 				]
-			]
-		]);
-		if (!$valid) {
-			$pesan = [
-				'error' => [
-					'kategori'		=> $validasi->getError('kategori'),
-					'subkategori'	=> $validasi->getError('subkategori'),
-					'judul'			=> $validasi->getError('judul'),
-					'penulis'		=> $validasi->getError('penulis'),
-					'tahun'			=> $validasi->getError('tahun'),
-					'abstrak'		=> $validasi->getError('abstrak'),
-					'dokumen'		=> $validasi->getError('dokumen'),
-				]
-			];
-			echo json_encode($pesan);
-		} else {
-			$dokumenModel = new DokumenModel();
-			$id = $dokumenModel->find($id);
-			if ($this->request->getFile('dokumen')->getName() != '') {
-				$dokumen = $this->request->getFile('dokumen');
-				$namadokumen = $dokumen->getRandomName();
-				$dokumen->move(ROOTPATH . 'public/dokumen', $namadokumen);
+			]);
+			if (!$valid) {
+				$pesan = [
+					'error' => [
+						'kategori'		=> $validasi->getError('kategori'),
+						'subkategori'	=> $validasi->getError('subkategori'),
+						'judul'			=> $validasi->getError('judul'),
+						'penulis'		=> $validasi->getError('penulis'),
+						'tahun'			=> $validasi->getError('tahun'),
+						'abstrak'		=> $validasi->getError('abstrak'),
+						'dokumen'		=> $validasi->getError('dokumen'),
+					]
+				];
+				echo json_encode($pesan);
 			} else {
-				$namadokumen = $this->request->getVar('file_old');
+				$dokumenModel = new DokumenModel();
+				$id = $dokumenModel->find($id);
+				if ($this->request->getFile('dokumen')->getName() != '') {
+					$dokumen = $this->request->getFile('dokumen');
+					$namadokumen = $dokumen->getRandomName();
+					$dokumen->move(ROOTPATH . 'public/dokumen', $namadokumen);
+				} else {
+					$namadokumen = $this->request->getVar('file_old');
+				}
+
+				$input = [
+					'judul' => $this->request->getVar('judul'),
+					'nama_file' => $namadokumen,
+					'abstrak' => $this->request->getVar('abstrak'),
+					'penulis' => $this->request->getVar('penulis'),
+					'tahun_publikasi' => $this->request->getVar('tahun'),
+					'id_sub_kategori' => $this->request->getVar('subkategori'),
+				];
+				$dokumenModel->update($id, $input);
+				$pesan = [
+					'sukses' => 'Data dokumen berhasil diupdate'
+				];
+				echo json_encode($pesan);
 			}
 
-			$input = [
-				'judul' => $this->request->getVar('judul'),
-				'nama_file' => $namadokumen,
-				'abstrak' => $this->request->getVar('abstrak'),
-				'penulis' => $this->request->getVar('penulis'),
-				'tahun_publikasi' => $this->request->getVar('tahun'),
-				'id_sub_kategori' => $this->request->getVar('subkategori'),
-			];
-			$dokumenModel->update($id, $input);
-			session()->setFlashData('update-dokumen', 'Data Dokumen berahasil diedit.');
+		} else {
+			exit('Request salah');
 		}
-
-		return redirect('admin/dokumen');
+		
 	}
 }
