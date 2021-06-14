@@ -13,32 +13,29 @@
             <div class="card-body">
                 <table class="table ">
                     <tbody>
-                    <?php
-                        foreach ($list as $item) {
-                    ?>
                         <tr>
                             <th width="15%">Judul</th>
-                            <td><?= $item['judul'] ?></td>
+                            <td><?= $list->judul ?></td>
                         </tr>
                         <tr>
                             <th>Penulis</th>
-                            <td><?= $item['penulis'] ?></td>
+                            <td><?= $list->penulis ?></td>
                         </tr>
                         <tr>
                             <th>Tahun Publikasi</th>
-                            <td><?= $item['tahun_publikasi'] ?></td>
+                            <td><?= $list->tahun_publikasi ?></td>
                         </tr>
                         <tr>
                             <th>Kategori</th>
-                            <td><span class="badge badge-sm badge-info"><?= $item['jenis'] ?></span></td>
+                            <td><span class="badge badge-sm badge-info"><?= $list->jenis ?></span></td>
                         </tr>
                         <tr>
                             <th>Sub Kategori</th>
-                            <td><span class="badge badge-sm badge-info"><?= $item['nama'] ?></span></td>
+                            <td><span class="badge badge-sm badge-info"><?= $list->nama ?></span></td>
                         </tr>
                         <tr>
                             <th>Status</th>
-                            <td><span class="badge badge-sm badge-info"><?= $item['status'] ?></span></td>
+                            <td><span class="badge badge-sm badge-info"><?= $list->status ?></span></td>
                         </tr>
                         <tr>
                             <th colspan="2" class="text-center">Abstrak / Pendahuluan</th>
@@ -46,7 +43,7 @@
                         <tr>
                             <td colspan="2">
                                 <p>
-                                    <?= $item['abstrak'] ?>    
+                                    <?= $list->abstrak ?>    
                                 </p>
                             </td>
                         </tr>
@@ -55,7 +52,6 @@
                                 <a href="#full" class="btn btn-primary">Full Document</a>
                             </th>
                         </tr>
-                        <?php } ?>
                     </tbody>
                 </table>
             </div>
