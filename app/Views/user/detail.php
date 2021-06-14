@@ -50,10 +50,12 @@
                             <th colspan="2" class="text-center">
                                 <a href="#full" class="btn btn-primary my-2"><i class="fas fa-file-alt"></i> Full Document</a>
 
-                                <button class="btn btn-warning my-2" data-toggle="modal" data-target="#modal-pinjam">
-                                    <i class="fas fa-file-import"></i>
-                                    Pinjam Document
-                                </button>
+                                <?php if (in_groups('member')) : ?>
+                                    <button class="btn btn-warning my-2" data-toggle="modal" data-target="#modal-pinjam">
+                                        <i class="fas fa-file-import"></i>
+                                        Pinjam Document
+                                    </button>
+                                <?php endif; ?>
                             </th>
                         </tr>
                     </tbody>
