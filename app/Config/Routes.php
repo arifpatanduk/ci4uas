@@ -64,6 +64,7 @@ $routes->group('admin', ['filter' => 'role:admin'], function ($routes) {
 
 	// kelola users
 	$routes->get('users', 'Admin/UserController::index');
+	$routes->get('changeStatus', 'Admin/UserController::changeStatus');
 
 
 	$routes->get('dokumen', 'Admin/AdminController::dokumen');

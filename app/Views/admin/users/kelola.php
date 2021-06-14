@@ -56,11 +56,7 @@
                                             <?php endif; ?>
                                         </td>
                                         <td>
-                                            <?php if ($user['active'] == 1) : ?>
-                                                <div class="badge badge-success">Active</div>
-                                            <?php else : ?>
-                                                <div class="badge badge-danger">Non Active</div>
-                                            <?php endif; ?>
+                                            <input data-id="<?= $user['id']; ?>" class="toggle-class" type="checkbox" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="Active" data-off="InActive" <?= ($user['active'] == 1) ? 'checked' : ''; ?>>
                                         </td>
                                         <td class="min">
                                             <a href="#" class="btn btn-sm btn-secondary mx-1"><i class="fas fa-eye"></i> Detail</a>
@@ -93,4 +89,34 @@
         </div>
     </section>
 </div>
+
+<script>
+    $(function() {
+        $('.toggle-class').change(function() {
+            var status = $(this).prop('checked') == true ? 1 : 0;
+            var user_id = $(this).data('id');
+
+            $.ajax({
+                type: "GET",
+                dataType: "json",
+                url: '/admin/changeStatus',
+                data: {
+                    'status': status,
+                    'user_id': user_id
+                },
+                success: function(data) {
+                    console.log(data.success)
+                    console.log(data.id)
+                    Swal.fire({
+                        title: 'Berhasil!',
+                        text: data.success,
+                        icon: 'success',
+                        confirmButtonText: 'Ok'
+                    })
+
+                }
+            });
+        })
+    })
+</script>
 <?= $this->endSection(); ?>
