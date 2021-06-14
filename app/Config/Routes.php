@@ -45,7 +45,7 @@ $routes->get('/doc/(:segment)', 'Member\DocController::detail_guest/$1');
 
 // MEMBER 
 // dokumen
-$routes->get('/user/doc/(:segment)', 'Member\DocController::detail_member/$1', ['filter' => 'role:member']);
+$routes->get('/user/doc/(:segment)', 'Member\DocController::detail_member/$1', ['filter' => 'role:member,admin']);
 
 // profile
 $routes->get('/user/profile', 'Member\ProfileController::index', ['filter' => 'role:member']);
@@ -59,10 +59,14 @@ $routes->get('/user/peminjaman/detail/(:segment)', 'Member\PeminjamanController:
 
 
 // ADMIN
-$routes->get('/admin/users', 'Admin/AdminController::index', ['filter' => 'role:admin']);
-$routes->get('/admin/dokumen', 'Admin/AdminController::dokumen');
-$routes->get('/admin/getData', 'Admin/AdminController::getSubKategori');
-$routes->get('/test', 'Admin/AdminController::getSubKategori');
+$routes->group('admin', ['filter' => 'role:admin'], function ($routes) {
+	$routes->get('infografis', 'Admin/InfografisController::index');
+	$routes->get('users', 'Admin/AdminController::index');
+	$routes->get('dokumen', 'Admin/AdminController::dokumen');
+	$routes->get('getData', 'Admin/AdminController::getSubKategori');
+	$routes->get('/test', 'Admin/AdminController::getSubKategori');
+});
+
 /*
  * --------------------------------------------------------------------
  * Additional Routing
