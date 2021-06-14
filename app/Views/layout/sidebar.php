@@ -32,14 +32,22 @@
                     <a class="nav-link " href="<?= base_url('admin/infografis'); ?>"><i class="fas fa-chart-pie"></i> <span>Infografis</span></a>
                 </li>
 
+
                 <!-- peminjaman -->
                 <li class="menu-header">Peminjaman</li>
-                <li><a class="nav-link" href="#"><i class="fas fa-briefcase"></i> <span>Peminjaman</span></a></li>
+                <li class="<?= ($active === 'peminjaman') ? 'active' : ''; ?>">
+                    <a class="nav-link" href="<?= base_url('admin/peminjaman'); ?>"><i class="fas fa-briefcase"></i> <span>Peminjaman</span></a>
+                </li>
+
                 <li><a class="nav-link" href="#"><i class="fas fa-book-reader"></i> <span>History</span></a></li>
+
 
                 <!-- user management -->
                 <li class="menu-header">User Management</li>
-                <li><a class="nav-link" href="<?= base_url('admin/users'); ?>"><i class="fas fa-users"></i> <span>Users</span></a></li>
+                <li class="<?= ($active === 'users') ? 'active' : ''; ?>">
+                    <a class="nav-link" href="<?= base_url('admin/users'); ?>"><i class="fas fa-users"></i> <span>Users</span></a>
+                </li>
+
 
                 <!-- dokumen management -->
                 <li class="menu-header">Dokumen</li>

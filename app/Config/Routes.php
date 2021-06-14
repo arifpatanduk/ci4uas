@@ -41,26 +41,39 @@ $routes->get('/', 'HomeController::index');
 // dokumen
 $routes->get('/doc/(:segment)', 'Member\DocController::detail_guest/$1');
 
+// -----------------------------------------------------------------------------------------
+
+
+// MEMBER & ADMIN
+// profile
+$routes->get('/user/profile', 'Member\ProfileController::index');
+$routes->post('/user/profile/update', 'Member\ProfileController::update');
+
+// dokumen
+$routes->get('/user/doc/(:segment)', 'Member\DocController::detail_member/$1');
+
+// -----------------------------------------------------------------------------------------
+
 
 
 // MEMBER 
-// dokumen
-$routes->get('/user/doc/(:segment)', 'Member\DocController::detail_member/$1', ['filter' => 'role:member,admin']);
-
-// profile
-$routes->get('/user/profile', 'Member\ProfileController::index', ['filter' => 'role:member']);
-$routes->post('/user/profile/update', 'Member\ProfileController::update', ['filter' => 'role:member']);
-
 // peminjaman
-$routes->get('/user/peminjaman', 'Member\PeminjamanController::index', ['filter' => 'role:member']);
-$routes->get('/user/peminjaman/detail/(:segment)', 'Member\PeminjamanController::detail_pinjam/$1', ['filter' => 'role:member']);
+$routes->group('user', ['filter' => 'role:member'], function ($routes) {
+	$routes->get('peminjaman', 'Member\PeminjamanController::index');
+	$routes->get('peminjaman/detail/(:segment)', 'Member\PeminjamanController::detail_pinjam/$1');
+});
 
+// -----------------------------------------------------------------------------------------
 
 
 
 // ADMIN
 $routes->group('admin', ['filter' => 'role:admin'], function ($routes) {
 	$routes->get('infografis', 'Admin/InfografisController::index');
+
+	// kelola peminjaman
+	$routes->get('peminjaman', 'Admin\PeminjamanController::index');
+	$routes->get('peminjaman/detail/(:segment)', 'Admin\PeminjamanController::detail/$1');
 
 	// kelola users
 	$routes->get('users', 'Admin/UserController::index');
