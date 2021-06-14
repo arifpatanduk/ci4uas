@@ -77,6 +77,20 @@ $routes->group('admin', ['filter' => 'role:admin'], function ($routes) {
 	$routes->get('dokumen/edit/(:segment)', 'Admin\AdminController::edit/$1');
 	$routes->post('dokumen/update/(:segment)', 'Admin\AdminController::update/$1');
 	$routes->delete('dokumen/delete/(:segment)', 'Admin\AdminController::delete/$1');
+
+	//kategori routes
+	$routes->get('kategori', 'Admin\KategoriController::index');
+	$routes->post('kategori/insert', 'Admin\KategoriController::insert');
+	$routes->get('kategori/edit/(:segment)', 'Admin\KategoriController::edit/$1');
+	$routes->post('kategori/update/(:segment)', 'Admin\KategoriController::update/$1');
+	$routes->delete('kategori/delete/(:segment)', 'Admin\KategoriController::delete/$1');
+
+	//Sub kategori routes
+	$routes->get('subkategori', 'Admin\SubKategoriController::index');
+	$routes->post('subkategori/insert', 'Admin\SubKategoriController::insert');
+	$routes->get('subkategori/edit/(:segment)', 'Admin\SubKategoriController::edit/$1');
+	$routes->post('subkategori/update/(:segment)', 'Admin\SubKategoriController::update/$1');
+	$routes->delete('subkategori/delete/(:segment)', 'Admin\SubKategoriController::delete/$1');
 });
 
 /*

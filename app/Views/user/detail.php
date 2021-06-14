@@ -68,7 +68,7 @@
         <div class="card mb-3" id="full">
             <div class="card-body">
                 <div class="embed-responsive embed-responsive-16by9">
-                    <iframe src="https://drive.google.com/file/d/1LgI1y6bmVNMQENcFyPuf1faAFUqqiBgL/preview" width="640" height="480" frameborder="0" scrolling="no" seamless="" allowfullscreen="allowfullscreen"></iframe>
+                    <iframe src="https://drive.google.com/file/d/1WjgQOl-B6Ri08KhsSC1bOLlOZe9yZgx5/preview" width="640" height="480" frameborder="0" scrolling="no" seamless="" allowfullscreen="allowfullscreen"></iframe>
                     <div style="width: 80px; height: 80px; position: absolute; opacity: 0; right: 0px; top: 0px;"></div>
                 </div>
             </div>

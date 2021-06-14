@@ -43,14 +43,18 @@
 
                 <!-- dokumen management -->
                 <li class="menu-header">Dokumen</li>
-                <li class="nav-item dropdown <?= ($active === 'dokumen') ? 'active' : ''; ?>">
+                <li class="nav-item dropdown <?= ($active === 'dokumen') || ($active === 'kategori') || ($active === 'subkategori') ? 'active' : ''; ?>">
                     <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-book"></i> <span>Dokumen</span></a>
                     <ul class="dropdown-menu">
                         <li <?php if ($active == "dokumen") {
                                 echo "class='active'";
                             } ?>><a class="nav-link" href="/admin/dokumen"><span>Daftar Dokumen</span></a></li>
-                        <li><a class="nav-link" href="#"></i> <span>Kategori</span></a></li>
-                        <li><a class="nav-link" href="#"><span>Sub Kategori</span></a></li>
+                        <li <?php if ($active == "kategori") {
+                                echo "class='active'";
+                            } ?>><a class="nav-link" href="/admin/kategori"></i> <span>Kategori</span></a></li>
+                        <li <?php if ($active == "subkategori") {
+                                echo "class='active'";
+                            } ?>><a class="nav-link" href="/admin/subkategori"><span>Sub Kategori</span></a></li>
                     </ul>
                 </li>
             <?php endif; ?>
