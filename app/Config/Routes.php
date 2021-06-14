@@ -68,7 +68,17 @@ $routes->group('admin', ['filter' => 'role:admin'], function ($routes) {
 
 	$routes->get('dokumen', 'Admin/AdminController::dokumen');
 	$routes->get('getData', 'Admin/AdminController::getSubKategori');
+<<<<<<< HEAD
 	$routes->get('test', 'Admin/AdminController::getSubKategori');
+=======
+	$routes->get('/test', 'Admin/AdminController::getSubKategori');
+
+	//dokumen routes
+	$routes->post('dokumen/insert', 'Admin/AdminController::insert');
+	$routes->get('dokumen/(:segment)', 'Admin\AdminController::detail/$1');
+	$routes->get('dokumen/edit/(:segment)', 'Admin\AdminController::edit/$1');
+	$routes->post('dokumen/update/', 'Admin/AdminController::update');
+>>>>>>> f8a720767c3b7bbc9ee39dddc68f339af5177318
 });
 
 /*
