@@ -61,10 +61,14 @@ $routes->get('/user/peminjaman/detail/(:segment)', 'Member\PeminjamanController:
 // ADMIN
 $routes->group('admin', ['filter' => 'role:admin'], function ($routes) {
 	$routes->get('infografis', 'Admin/InfografisController::index');
-	$routes->get('users', 'Admin/AdminController::index');
+
+	// kelola users
+	$routes->get('users', 'Admin/UserController::index');
+
+
 	$routes->get('dokumen', 'Admin/AdminController::dokumen');
 	$routes->get('getData', 'Admin/AdminController::getSubKategori');
-	$routes->get('/test', 'Admin/AdminController::getSubKategori');
+	$routes->get('test', 'Admin/AdminController::getSubKategori');
 });
 
 /*
