@@ -51,11 +51,16 @@
                                 <a href="#full" class="btn btn-primary my-2"><i class="fas fa-file-alt"></i> Full Document</a>
 
                                 <?php if (in_groups('member')) : ?>
-                                    <button class="btn btn-warning my-2" data-toggle="modal" data-target="#modal-pinjam">
-                                        <i class="fas fa-file-import"></i>
-                                        Pinjam Document
-                                    </button>
+                                    <?php if (!$pinjam) : ?>
+                                        <?php if ($jml_pinjam < 2) : ?>
+                                            <button id="pinjam" class="btn btn-warning my-2" data-toggle="modal" data-target="<?= $dokumen->status == 'Tersedia' ? '#modal-pinjam' : '#modal-no-pinjam'; ?>" data-status="<?= $dokumen->status; ?>">
+                                                <i class="fas fa-file-import"></i>
+                                                Pinjam Document
+                                            </button>
+                                        <?php endif; ?>
+                                    <?php endif; ?>
                                 <?php endif; ?>
+
                             </th>
                         </tr>
                     </tbody>
@@ -75,7 +80,7 @@
         </div>
     </section>
 
-    <!-- Modal Pinjam Dokumen -->
+    <!-- Modal Pinjam Dokumen Tersedia -->
     <div class="modal fade" tabindex="-1" role="dialog" id="modal-pinjam">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
@@ -85,41 +90,66 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
-                    <p class="card-text">
-                        Ketersediaan Dokumen : <span class="badge badge-sm badge-success">Tersedia</span>
-                    </p>
-
-
-                    <!-- if else ketersediaan dokumen here -->
-
-
-
-                    <hr>
-
-                    <p>
-                        <small><i>*Silahkan masukkan tanggal pengambilan dokumen. Tanggal peminjaman akan dihitung dari tanggal pengambilan.</i></small>
-                    </p>
-
-                    <form id="formnya" action="" method="post">
-                        <?= csrf_field(); ?>
-                        <div class="row">
-                            <div class="form-group col-sm-6">
-                                <label>Tanggal Pengambilan Dokumen</label>
-                                <input type="date" class="form-control">
+                <form id="form" action="<?= base_url('user/peminjaman/pinjam/' . $dokumen->id); ?>" method="post">
+                    <?= csrf_field(); ?>
+                    <div class="modal-body">
+                        <div id="input-tanggal">
+                            <div class="row">
+                                <div class="form-group col-sm-6">
+                                    <label>Tanggal Pengambilan Dokumen</label>
+                                    <input type="date" class="form-control" name="tgl_pinjam">
+                                </div>
+                                <p>
+                                    <small><i>*Silahkan masukkan tanggal pengambilan dokumen. Tanggal peminjaman akan dihitung dari tanggal pengambilan.</i></small>
+                                </p>
                             </div>
                         </div>
-                    </form>
+                    </div>
+                    <div class="modal-footer bg-whitesmoke">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button id="submit-button" type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Kirim</button>
+                    </div>
+                </form>
 
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Pinjam Dokumen Tidak Tersedia -->
+    <div class="modal fade" tabindex="-1" role="dialog" id="modal-no-pinjam">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Pinjam Dokumen</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <p class="card-text">
+                        Dokumen tidak dapat dipinjam. Saat ini dokumen<span class="badge badge-sm badge-danger"> Tidak Tersedia</span>
+                    </p>
                 </div>
                 <div class="modal-footer bg-whitesmoke br">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Kirim</button>
                 </div>
+
+
             </div>
         </div>
     </div>
 
 
 </div>
+
+
+<script>
+    // $(document).ready(function() {
+    //     $("#pinjam").click(function() {
+    //         var status = $(this).data('status');
+    //         $("#ketersediaan").text(status);
+    //     });
+    // });
+</script>
 <?= $this->endSection(); ?>

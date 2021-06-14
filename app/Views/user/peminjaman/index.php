@@ -13,6 +13,16 @@
             </div>
         </div>
 
+        <!-- update profile -->
+        <?php if ((session()->getFlashdata('pinjam'))) : ?>
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong><?= session()->getFlashdata('pinjam') ?></strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        <?php endif; ?>
+
         <div class="card">
             <div class="card-header">
                 <h4>Daftar Peminjaman Saya</h4>
@@ -30,34 +40,43 @@
             <div class="card-body p-0">
                 <div class="table-responsive">
                     <table class="table table-striped">
-                        <tr>
-                            <th>#</th>
-                            <th>Judul</th>
-                            <th>Tanggal Pinjam</th>
-                            <th>Jatuh Tempo</th>
-                            <th>Tanggal Kembali</th>
-                            <th>Status</th>
-                            <th>Denda</th>
-                            <th>Aksi</th>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ducimus amet est officiis earum laboriosam culpa quaerat tempore, voluptate nesciunt expedita quia unde enim eligendi ut odit blanditiis sint porro quae.</td>
-                            <td>2021-06-13</td>
-                            <td>2021-06-16</td>
-                            <td></td>
-                            <td>
-                                <div class="badge badge-danger">Terlambat</div>
-                            </td>
-                            <td>
-                                2 hari :
-                                <span class="badge badge-danger">Rp 6.000</span>
-                            </td>
-                            <td class="min">
-                                <a href="<?= base_url('user/peminjaman/detail/') . '/1'; ?>" class="btn btn-sm btn-secondary mx-1"><i class="fas fa-eye"></i> Detail</a>
-                                <a href="#" class="btn btn-sm btn-primary mx-1"><i class="fas fa-download"></i> Tiket</a>
-                            </td>
-                        </tr>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Judul</th>
+                                <th>Tanggal Pinjam</th>
+                                <th>Jatuh Tempo</th>
+                                <th>Tanggal Kembali</th>
+                                <th>Status</th>
+                                <th>Denda</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php $no = 1; ?>
+                            <?php foreach ($peminjaman as $data) : ?>
+                                <tr>
+                                    <td><?= $no++; ?></td>
+                                    <td><?= $data['judul']; ?></td>
+                                    <td><?= $data['tgl_pinjam']; ?></td>
+                                    <td><?= $data['deadline']; ?></td>
+                                    <td><?= $data['tgl_kembali']; ?></td>
+                                    <td><?= $data['status']; ?></td>
+                                    <!-- <td>
+                                        <div class="badge badge-danger">Terlambat</div>
+                                    </td> -->
+                                    <td><?= $data['denda']; ?></td>
+                                    <!-- <td>
+                                        2 hari :
+                                        <span class="badge badge-danger">Rp 6.000</span>
+                                    </td> -->
+                                    <td class="min">
+                                        <a href="<?= base_url('user/peminjaman/detail/' . $data['id_dokumen']); ?>" class="btn btn-sm btn-secondary mx-1"><i class="fas fa-eye"></i> Detail</a>
+                                        <a href="#" class="btn btn-sm btn-primary mx-1"><i class="fas fa-download"></i> Tiket</a>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
                     </table>
                 </div>
             </div>

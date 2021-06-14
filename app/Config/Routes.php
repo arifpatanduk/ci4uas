@@ -61,6 +61,7 @@ $routes->get('/user/doc/(:segment)', 'Member\DocController::detail_member/$1');
 $routes->group('user', ['filter' => 'role:member'], function ($routes) {
 	$routes->get('peminjaman', 'Member\PeminjamanController::index');
 	$routes->get('peminjaman/detail/(:segment)', 'Member\PeminjamanController::detail_pinjam/$1');
+	$routes->post('peminjaman/pinjam/(:segment)', 'Member\PeminjamanController::pinjam/$1');
 });
 
 // -----------------------------------------------------------------------------------------

@@ -4,6 +4,7 @@ namespace App\Controllers\Member;
 
 use App\Controllers\BaseController;
 use App\Models\DokumenModel;
+use App\Models\PeminjamanModel;
 
 class DocController extends BaseController
 {
@@ -34,10 +35,16 @@ class DocController extends BaseController
 		$docs = new DokumenModel();
 		$doc = $docs->objectDokumen()->where('id', $id)->get()->getRow();
 
+		$peminjaman = new PeminjamanModel();
+		$pinjam = $peminjaman->where('id_user', user_id())->where('id_dokumen', $id)->get()->getRow();
+		$jml_pinjam = count($peminjaman->where('id_user', user_id())->get()->getResultArray());
+
 		$data = [
 			'title' => 'Document',
 			'active' => 'home',
 			'dokumen' => $doc,
+			'pinjam' => $pinjam,
+			'jml_pinjam' => $jml_pinjam,
 		];
 
 		return view('/user/detail', $data);
