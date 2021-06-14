@@ -36,9 +36,10 @@
                                     <th>#</th>
                                     <th>Nama</th>
                                     <th>NIM / NIP</th>
+                                    <th>No HP</th>
+                                    <th>Alamat</th>
                                     <th>Role</th>
                                     <th>Active</th>
-                                    <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -48,6 +49,8 @@
                                         <td><?= $no++; ?></td>
                                         <td><?= $user['nama']; ?></td>
                                         <td><?= $user['nim']; ?></td>
+                                        <td><?= $user['no_hp']; ?></td>
+                                        <td><?= $user['alamat']; ?></td>
                                         <td>
                                             <?php if ($user['name'] == 'admin') : ?>
                                                 <div class="badge badge-info"><?= $user['name']; ?></div>
@@ -57,10 +60,6 @@
                                         </td>
                                         <td>
                                             <input data-id="<?= $user['user_id']; ?>" class="toggle-class" type="checkbox" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="Active" data-off="InActive" <?= ($user['active'] == 1) ? 'checked' : ''; ?>>
-                                        </td>
-                                        <td class="min">
-                                            <a href="#" class="btn btn-sm btn-secondary mx-1"><i class="fas fa-eye"></i> Detail</a>
-                                            <a href="#" class="btn btn-sm btn-warning mx-1"><i class="fas fa-edit"></i> Edit</a>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>
