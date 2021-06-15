@@ -105,6 +105,10 @@ $routes->group('admin', ['filter' => 'role:admin'], function ($routes) {
 	$routes->get('subkategori/edit/(:segment)', 'Admin\SubKategoriController::edit/$1');
 	$routes->post('subkategori/update/(:segment)', 'Admin\SubKategoriController::update/$1');
 	$routes->delete('subkategori/delete/(:segment)', 'Admin\SubKategoriController::delete/$1');
+
+	// test upload gdrive
+	$routes->get('gdrive', 'Admin\GDriveController::gdrive');
+	$routes->post('gdrive/insert', 'Admin\GDriveController::upload');
 });
 
 /*
