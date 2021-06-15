@@ -8,7 +8,7 @@
                 <th>Tanggal Pinjam</th>
                 <th>Jatuh Tempo</th>
                 <th>Status</th>
-                <th>Denda</th>
+                <th>Denda (Rp)</th>
                 <th>Aksi</th>
             </tr>
         </thead>
@@ -21,17 +21,17 @@
                     <td><?= $data['token_pinjam']; ?></td>
                     <td><?= $data['tgl_pinjam']; ?></td>
                     <td><?= $data['deadline']; ?></td>
-                    <td><?= $data['status_pinjam']; ?></td>
-                    <td><?= $data['denda']; ?></td>
-                    <!-- <td>
-                                        <div class="badge badge-danger">Terlambat</div>
-                                    </td>
-                                    <td>
-                                        2 hari :
-                                        <span class="badge badge-danger">Rp 6.000</span>
-                                    </td> -->
+                    <td>
+                        <?= $data['is_late'] ? '<div class="badge badge-danger">Terlambat ' . $data['jml_late'] . ' hari' . '</div>' : '<div class="badge badge-success">Belum Terlambat</div>' ?>
+                    </td>
+                    <td>
+                        <?= $data['denda'] ? '<span class="badge badge-danger">' . $data['denda'] . '</span>' : '' ?>
+                    </td>
                     <td class="min">
-                        <a href="<?= base_url('admin/peminjaman/detail/') . '/1'; ?>" class="btn btn-sm btn-warning mx-1"><i class="fas fa-eye"></i> Detail</a>
+
+                        <a href="<?= base_url('admin/peminjaman/detail/') . '/' . $data['id_peminjaman']; ?>" class="btn btn-sm btn-warning mx-1"><i class="fas fa-eye"></i> Detail</a>
+
+
                         <button id="button-kembali" class="btn btn-sm btn-primary mx-1" onclick="kembali('<?= $data['token_pinjam']; ?>', '<?= $data['denda']; ?>')">
                             <i class="fas fa-arrow-circle-left"></i> Kembali
                         </button>
