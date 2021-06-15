@@ -14,7 +14,7 @@ class PeminjamanModel extends Model
 	protected $returnType           = 'array';
 	protected $useSoftDeletes       = false;
 	protected $protectFields        = true;
-	protected $allowedFields        = ['tgl_pinjam', 'tgl_kembali', 'deadline', 'token_pinjam', 'status', 'denda', 'id_dokumen', 'id_user', 'created_at', 'updated_at'];
+	protected $allowedFields        = ['tgl_pinjam', 'tgl_kembali', 'deadline', 'token_pinjam', 'is_late', 'jml_late', 'total_denda', 'id_dokumen', 'id_user', 'created_at', 'updated_at'];
 
 	// Dates
 	protected $useTimestamps        = true;
@@ -44,6 +44,14 @@ class PeminjamanModel extends Model
 	{
 		return $this->db->table('peminjaman')
 			->join('dokumen', 'dokumen.id = peminjaman.id_dokumen');
+	}
+
+	function withDocumentAndKategori()
+	{
+		return $this->db->table('peminjaman')
+			->join('dokumen', 'dokumen.id = peminjaman.id_dokumen')
+			->join('ref_sub_kategori', 'ref_sub_kategori.id_sub_kategori = dokumen.id_sub_kategori')
+			->join('ref_kategori', 'ref_kategori.id_kategori = ref_sub_kategori.id_kategori');
 	}
 
 	function withDocumentAndUsers()

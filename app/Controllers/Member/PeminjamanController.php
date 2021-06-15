@@ -8,6 +8,49 @@ use App\Models\PeminjamanModel;
 
 class PeminjamanController extends BaseController
 {
+
+	public function __construct()
+	{
+
+		// create date now
+		$now = date_create(date("Y-m-d H:i:s"));
+
+		// get data peminjaman
+		$peminjaman = new PeminjamanModel();
+
+		// get peminjaman belum kembali
+		$pemdoc = $peminjaman->withDocumentAndKategori()->where('tgl_kembali', null)->get()->getResultArray();
+
+		foreach ($pemdoc as $pinjam) {
+
+			// create & get deadline
+			$deadline = date_create($pinjam['deadline']);
+
+			// get besaran denda from kategori
+			$denda = $pinjam['denda'];
+
+			if ($now > $deadline) {
+
+				// set different between deadline & now
+				$diff = date_diff($deadline, $now);
+
+				// set jumlah hari late
+				$jml_late = (int)$diff->format("%a");
+
+				// set total denda  
+				$total_denda = $denda * $jml_late;
+
+				// update database
+				$peminjaman->set('is_late', 1);
+				$peminjaman->set('jml_late', $jml_late);
+				$peminjaman->set('total_denda', $total_denda);
+				$peminjaman->where('id_peminjaman', $pinjam['id_peminjaman']);
+				$peminjaman->update();
+			}
+		}
+	}
+
+
 	public function index()
 	{
 		$peminjaman = new PeminjamanModel();
@@ -63,7 +106,7 @@ class PeminjamanController extends BaseController
 
 		// // update status on dokumen
 		$dokumen = new DokumenModel();
-		$dokumen->update($id, ['status' => 'Tidak Tersedia']);
+		$dokumen->update($id, ['status_tersedia' => 'Tidak Tersedia']);
 
 		session()->setFlashData('pinjam', 'Peminjaman Berhasil dikirim');
 
