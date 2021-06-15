@@ -45,4 +45,11 @@ class PeminjamanModel extends Model
 		return $this->db->table('peminjaman')
 			->join('dokumen', 'dokumen.id = peminjaman.id_dokumen');
 	}
+
+	function withDocumentAndUsers()
+	{
+		return $this->db->table('peminjaman')
+			->join('dokumen', 'dokumen.id = peminjaman.id_dokumen')
+			->join('users', 'users.id = peminjaman.id_user');
+	}
 }

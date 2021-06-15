@@ -38,9 +38,6 @@ class PeminjamanController extends BaseController
 
 	public function pinjam($id)
 	{
-		// $docs = new DokumenModel();
-		// $doc = $docs->objectDokumen()->where('id', $id)->get()->getRow();
-
 		if (!$this->validate(['tgl_pinjam' => 'required'])) {
 			return redirect('/user/doc/' . $id)->withInput()->with('errors', service('validation')->getErrors());
 		}
@@ -49,6 +46,7 @@ class PeminjamanController extends BaseController
 		$deadline = date('Y-m-d H:i:s', strtotime('+3 days 17 hours', strtotime($this->request->getVar('tgl_pinjam'))));
 		$token_pinjam = strtoupper(user()->nama[0] . user()->nama[1]) . user_id() . '-' . strtotime($this->request->getVar('tgl_pinjam'));
 
+		// insert to peminjaman
 		$peminjaman = new PeminjamanModel();
 		$input = [
 			'tgl_pinjam' => $tgl_pinjam,
@@ -57,8 +55,13 @@ class PeminjamanController extends BaseController
 			'id_dokumen' => $id,
 			'id_user' => user_id(),
 		];
-
 		$peminjaman->save($input);
+
+		// update status on dokumen
+		$dokumen = new DokumenModel();
+		$dokumen->set('status', 'Tidak Tersedia');
+		$dokumen->where('id', $id);
+		$dokumen->update();
 
 		session()->setFlashData('pinjam', 'Peminjaman Berhasil dikirim');
 

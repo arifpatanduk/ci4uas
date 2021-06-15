@@ -28,40 +28,7 @@
                 </div>
             </div>
             <div class="card-body p-0">
-                <div class="table-responsive">
-                    <table class="table table-striped">
-                        <tr>
-                            <th>#</th>
-                            <th>Member</th>
-                            <th>Kode</th>
-                            <th>Tanggal Pinjam</th>
-                            <th>Jatuh Tempo</th>
-                            <th>Tanggal Kembali</th>
-                            <th>Status</th>
-                            <th>Denda</th>
-                            <th>Aksi</th>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>Arif Patanduk</td>
-                            <td>12-3563456</td>
-                            <td>2021-06-13</td>
-                            <td>2021-06-16</td>
-                            <td></td>
-                            <td>
-                                <div class="badge badge-danger">Terlambat</div>
-                            </td>
-                            <td>
-                                2 hari :
-                                <span class="badge badge-danger">Rp 6.000</span>
-                            </td>
-                            <td class="min">
-                                <a href="<?= base_url('admin/peminjaman/detail/') . '/1'; ?>" class="btn btn-sm btn-warning mx-1"><i class="fas fa-eye"></i> Detail</a>
-                                <a href="#" class="btn btn-sm btn-primary mx-1"><i class="fas fa-arrow-circle-left"></i> Kembali</a>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
+                <div id="viewdata"></div>
             </div>
             <div class="card-footer text-right">
                 <nav class="d-inline-block">
@@ -84,4 +51,22 @@
 
     </section>
 </div>
+
+<script>
+    function tampilkan() {
+        $.ajax({
+            url: "<?= base_url('/admin/peminjaman/getdata') ?>",
+            dataType: "json",
+            success: function(response) {
+                $('#viewdata').html(response.data);
+            }
+        });
+    }
+
+    $(document).ready(function() {
+        tampilkan();
+    });
+</script>
+
+
 <?= $this->endSection(); ?>
