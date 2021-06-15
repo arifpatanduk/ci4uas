@@ -8,7 +8,7 @@ class PeminjamanModel extends Model
 {
 	protected $DBGroup              = 'default';
 	protected $table                = 'peminjaman';
-	protected $primaryKey           = 'id';
+	protected $primaryKey           = 'id_peminjaman';
 	protected $useAutoIncrement     = true;
 	protected $insertID             = 1;
 	protected $returnType           = 'array';

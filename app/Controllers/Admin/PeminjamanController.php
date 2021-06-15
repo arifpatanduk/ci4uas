@@ -40,13 +40,17 @@ class PeminjamanController extends BaseController
 
 	public function detail($id)
 	{
+		$peminjaman = new PeminjamanModel();
+		$pinjam = $peminjaman->where('id_peminjaman', $id)->get()->getRow();
+
 		$docs = new DokumenModel();
-		$doc = $docs->objectDokumen()->where('id', $id)->get()->getRow();
+		$doc = $docs->objectDokumen()->where('id', $pinjam->id_dokumen)->get()->getRow();
 
 		$data = [
 			'title' => 'Detail Peminjaman',
 			'active' => 'peminjaman',
-			'dokumen' => $doc,
+			'doc' => $doc,
+			'pinjam' => $pinjam,
 		];
 
 		return view('/admin/peminjaman/detail', $data);

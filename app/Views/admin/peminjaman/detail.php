@@ -24,30 +24,20 @@
                         <tbody>
                             <tr>
                                 <th class="max">Tangal Pinjam</th>
-                                <td>2021-06-13</td>
+                                <td><?= $pinjam->tgl_pinjam; ?></td>
                             </tr>
                             <tr>
                                 <th class="max">Jatuh Tempo</th>
-                                <td>2021-06-16</td>
-                            </tr>
-                            <tr>
-                                <th class="max">Tanggal Kembali</th>
-                                <td></td>
+                                <td><?= $pinjam->deadline; ?></td>
                             </tr>
                             <tr>
                                 <th class="max">Status</th>
-                                <td>
-                                    <div class="badge badge-danger">Terlambat</div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th class="max">Terlambat</th>
-                                <td>2 hari</td>
+                                <td><?= $pinjam->is_late ? '<div class="badge badge-danger">Terlambat ' . $pinjam->jml_late . ' hari' . '</div>' : '<div class="badge badge-success">Belum Terlambat</div>' ?></td>
                             </tr>
                             <tr>
                                 <th class="max">Denda</th>
                                 <td>
-                                    <span class="badge badge-danger">Rp 6.000</span>
+                                    <?= $pinjam->denda ? '<span class="badge badge-danger"> Rp ' . $pinjam->denda . '</span>' : '' ?>
                                 </td>
                             </tr>
                         </tbody>
@@ -64,21 +54,21 @@
                         <tbody>
                             <tr>
                                 <th>Judul</th>
-                                <td><?= $dokumen->judul; ?></td>
+                                <td><?= $doc->judul; ?></td>
                             </tr>
                             <tr>
                                 <th>Penulis</th>
-                                <td><?= $dokumen->penulis; ?></td>
+                                <td><?= $doc->penulis; ?></td>
                             </tr>
                             <tr>
                                 <th>Tahun Publikasi</th>
-                                <td><?= $dokumen->tahun_publikasi; ?></td>
+                                <td><?= $doc->tahun_publikasi; ?></td>
                             </tr>
                             <tr>
                                 <th>Kategori</th>
                                 <td>
-                                    <span class="badge badge-sm badge-success"><?= $dokumen->jenis; ?></span>
-                                    <span class="badge badge-sm badge-info"><?= $dokumen->nama; ?></span>
+                                    <span class="badge badge-sm badge-success"><?= $doc->jenis; ?></span>
+                                    <span class="badge badge-sm badge-info"><?= $doc->nama; ?></span>
                                 </td>
                             </tr>
                             <tr>
@@ -87,7 +77,7 @@
                             <tr>
                                 <td colspan="2">
                                     <p>
-                                        <?= $dokumen->abstrak; ?>
+                                        <?= $doc->abstrak; ?>
                                     </p>
                                 </td>
                             </tr>
@@ -106,8 +96,10 @@
 
         <div class="card mb-3" id="full">
             <div class="card-body">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur totam hic iste, deserunt incidunt laboriosam aspernatur blanditiis consequatur cumque quo earum odio ullam non. Quis numquam ipsam et aliquid ex?
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur totam hic iste, deserunt incidunt laboriosam aspernatur blanditiis consequatur cumque quo earum odio ullam non. Quis numquam ipsam et aliquid ex?
+                <div class="embed-responsive embed-responsive-16by9">
+                    <iframe src="https://drive.google.com/file/d/<?= $doc->nama_file; ?>/preview" width="640" height="480" frameborder="0" scrolling="no" seamless="" allowfullscreen="allowfullscreen"></iframe>
+                    <div style="width: 80px; height: 80px; position: absolute; opacity: 0; right: 0px; top: 0px;"></div>
+                </div>
             </div>
         </div>
     </section>
