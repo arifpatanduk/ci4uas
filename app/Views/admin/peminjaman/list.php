@@ -1,5 +1,5 @@
 <div class="table-responsive">
-    <table class="table table-striped">
+    <table class="table table-striped" id="myTable">
         <thead>
             <tr>
                 <th>#</th>
@@ -44,6 +44,10 @@
 </div>
 
 <script>
+    $(document).ready(function() {
+        $('#myTable').DataTable();
+    });
+
     function kembali(token, denda) {
         var denda = denda != '' ? denda : 0;
         Swal.fire({

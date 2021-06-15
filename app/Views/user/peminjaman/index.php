@@ -61,15 +61,12 @@
                                     <td><?= $data['tgl_pinjam']; ?></td>
                                     <td><?= $data['deadline']; ?></td>
                                     <td><?= $data['tgl_kembali']; ?></td>
-                                    <td><?= $data['status']; ?></td>
-                                    <!-- <td>
-                                        <div class="badge badge-danger">Terlambat</div>
-                                    </td> -->
-                                    <td><?= $data['denda']; ?></td>
-                                    <!-- <td>
-                                        2 hari :
-                                        <span class="badge badge-danger">Rp 6.000</span>
-                                    </td> -->
+                                    <td>
+                                        <?= $data['is_late'] ? '<div class="badge badge-danger">Terlambat ' . $data['jml_late'] . ' hari' . '</div>' : '<div class="badge badge-success">Belum Terlambat</div>' ?>
+                                    </td>
+                                    <td>
+                                        <?= $data['denda'] ? '<span class="badge badge-danger">' . $data['denda'] . '</span>' : '' ?>
+                                    </td>
                                     <td class="min">
                                         <a href="<?= base_url('user/peminjaman/detail/' . $data['id_dokumen']); ?>" class="btn btn-sm btn-secondary mx-1"><i class="fas fa-eye"></i> Detail</a>
                                         <a href="#" class="btn btn-sm btn-primary mx-1"><i class="fas fa-download"></i> Tiket</a>
