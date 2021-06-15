@@ -25,14 +25,14 @@
                         <?= $data['is_late'] ? '<div class="badge badge-danger">Terlambat ' . $data['jml_late'] . ' hari' . '</div>' : '<div class="badge badge-success">Belum Terlambat</div>' ?>
                     </td>
                     <td>
-                        <?= $data['denda'] ? '<span class="badge badge-danger">' . $data['denda'] . '</span>' : '' ?>
+                        <?= $data['total_denda'] ? '<span class="badge badge-danger">' . $data['total_denda'] . '</span>' : '' ?>
                     </td>
                     <td class="min">
 
                         <a href="<?= base_url('admin/peminjaman/detail/') . '/' . $data['id_peminjaman']; ?>" class="btn btn-sm btn-warning mx-1"><i class="fas fa-eye"></i> Detail</a>
 
 
-                        <button id="button-kembali" class="btn btn-sm btn-primary mx-1" onclick="kembali('<?= $data['token_pinjam']; ?>', '<?= $data['denda']; ?>')">
+                        <button id="button-kembali" class="btn btn-sm btn-primary mx-1" onclick="kembali('<?= $data['token_pinjam']; ?>', '<?= $data['total_denda']; ?>')">
                             <i class="fas fa-arrow-circle-left"></i> Kembali
                         </button>
 

@@ -47,7 +47,7 @@
                                     <td><?= $item['judul'] ?></td>
                                     <td><?= $item['penulis'] ?></td>
                                     <td><?= $item['jenis'] ?></td>
-                                    <td><?= $item['status'] ?></td>
+                                    <td><?= $item['status_tersedia'] ?></td>
                                     <td><?= $item['updated_at'] ?></td>
                                     <td>
                                         <a class="btn btn-primary" href="<?= base_url('admin/dokumen/' . $item['id']); ?>">Detail</a>
@@ -158,28 +158,27 @@
 </script>
 
 <script>
-function hapus(id) {
-    Swal.fire({
-        title: 'Hapus Dokumen',
-        text: "Apakah Anda yakin akan menghapus data dengan ID="+id+"?",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Ya, hapus!',
-        cancelButtonText: 'Tidak'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            $.ajax({
-                type: "delete",
-                url: "<?= base_url('/admin/dokumen/delete')?>" + "/" + id
-            });
-            location.reload();
-        }
-        
-    })
-}
+    function hapus(id) {
+        Swal.fire({
+            title: 'Hapus Dokumen',
+            text: "Apakah Anda yakin akan menghapus data dengan ID=" + id + "?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya, hapus!',
+            cancelButtonText: 'Tidak'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    type: "delete",
+                    url: "<?= base_url('/admin/dokumen/delete') ?>" + "/" + id
+                });
+                location.reload();
+            }
 
+        })
+    }
 </script>
 
 <?= $this->endSection(); ?>

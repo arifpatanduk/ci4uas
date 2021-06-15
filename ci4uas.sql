@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 15, 2021 at 06:39 PM
+-- Generation Time: Jun 15, 2021 at 09:04 PM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.3.2
 
@@ -218,7 +218,13 @@ INSERT INTO `auth_logins` (`id`, `ip_address`, `email`, `user_id`, `date`, `succ
 (64, '0.0.0.0', 'arifpatanduk2@gmail.com', 1, '2021-06-15 06:51:23', 1),
 (65, '0.0.0.0', 'arifpatanduk2@gmail.com', 1, '2021-06-15 07:08:15', 1),
 (66, '0.0.0.0', 'arifp@student.uns.ac.id', 12, '2021-06-15 10:00:31', 1),
-(67, '0.0.0.0', 'arifpatanduk2@gmail.com', 1, '2021-06-15 10:51:37', 1);
+(67, '0.0.0.0', 'arifpatanduk2@gmail.com', 1, '2021-06-15 10:51:37', 1),
+(68, '0.0.0.0', 'arifp@student.uns.ac.id', 12, '2021-06-15 11:43:57', 1),
+(69, '0.0.0.0', 'andriapuspita9@gmail.com', 6, '2021-06-15 12:16:18', 1),
+(70, '0.0.0.0', 'arifpatanduk2@gmail.com', 1, '2021-06-15 13:33:01', 1),
+(71, '0.0.0.0', 'arifp@student.uns.ac.id', 12, '2021-06-15 13:57:14', 1),
+(72, '0.0.0.0', 'andriapuspita9@gmail.com', 6, '2021-06-15 13:57:30', 1),
+(73, '0.0.0.0', 'arifpatanduk2@gmail.com', 1, '2021-06-15 13:58:12', 1);
 
 -- --------------------------------------------------------
 
@@ -305,7 +311,7 @@ CREATE TABLE `dokumen` (
 
 INSERT INTO `dokumen` (`id`, `judul`, `nama_file`, `abstrak`, `penulis`, `tahun_publikasi`, `status_tersedia`, `id_sub_kategori`, `created_at`, `updated_at`) VALUES
 (1, 'Pengembangan Aplikasi Mobile', '1NsXLTJLNQix_K3uwqx6TZp8126yMDf_g', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum as', 'Bintang Timur', 2020, 'Tersedia', 1, '0000-00-00 00:00:00', '2021-06-14 03:33:47'),
-(19, 'test judul', '1EfEBtbDSKrX6xn0LFqhr68kAixB72i23', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas quia alias deleniti cumque fuga. Perspiciatis corporis expedita aliquam nesciunt obcaecati doloremque facilis accusantium illo distinctio quis, fugiat quae. Possimus, error!', 'siapa', 2011, 'Tersedia', 6, '2021-06-14 13:06:29', '2021-06-14 13:06:29'),
+(19, 'test judul', '1EfEBtbDSKrX6xn0LFqhr68kAixB72i23', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas quia alias deleniti cumque fuga. Perspiciatis corporis expedita aliquam nesciunt obcaecati doloremque facilis accusantium illo distinctio quis, fugiat quae. Possimus, error!', 'siapa', 2011, 'Tidak Tersedia', 6, '2021-06-14 13:06:29', '2021-06-15 13:04:32'),
 (20, 'asdfghjkl', '1EfEBtbDSKrX6xn0LFqhr68kAixB72i23', 'aga sdnfhaofhnapefyanewyraioluwe', 'dfghjkl;', 2013, 'Tidak Tersedia', 4, '2021-06-14 14:17:54', '2021-06-15 10:50:23');
 
 -- --------------------------------------------------------
@@ -347,7 +353,7 @@ CREATE TABLE `peminjaman` (
   `token_pinjam` varchar(255) NOT NULL,
   `is_late` int(11) NOT NULL,
   `jml_late` int(255) DEFAULT NULL,
-  `denda` int(255) DEFAULT NULL,
+  `total_denda` int(255) DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -356,10 +362,11 @@ CREATE TABLE `peminjaman` (
 -- Dumping data for table `peminjaman`
 --
 
-INSERT INTO `peminjaman` (`id_peminjaman`, `id_dokumen`, `id_user`, `tgl_pinjam`, `tgl_kembali`, `deadline`, `token_pinjam`, `is_late`, `jml_late`, `denda`, `created_at`, `updated_at`) VALUES
+INSERT INTO `peminjaman` (`id_peminjaman`, `id_dokumen`, `id_user`, `tgl_pinjam`, `tgl_kembali`, `deadline`, `token_pinjam`, `is_late`, `jml_late`, `total_denda`, `created_at`, `updated_at`) VALUES
 (1, 19, 12, '2021-06-16 00:00:00', '2021-06-15 09:53:50', '2021-06-19 17:00:00', 'AR12-1623819600', 0, NULL, NULL, '2021-06-14 13:58:54', '2021-06-15 09:53:50'),
 (2, 1, 12, '2021-06-17 00:00:00', '2021-06-15 09:52:12', '2021-06-20 17:00:00', 'AR12-1623906000', 0, NULL, NULL, '2021-06-14 14:13:57', '2021-06-15 09:52:12'),
-(6, 20, 12, '2021-06-15 00:00:00', NULL, '2021-06-18 17:00:00', 'AR12-1623733200', 0, NULL, NULL, '2021-06-15 10:42:20', '2021-06-15 10:42:20');
+(6, 20, 12, '2021-06-15 00:00:00', NULL, '2021-06-18 17:00:00', 'AR12-1623733200', 0, NULL, NULL, '2021-06-15 10:42:20', '2021-06-15 10:42:20'),
+(8, 19, 6, '2021-06-13 00:00:00', NULL, '2021-06-14 00:00:00', '6-1623646800', 1, 1, 3000, '2021-06-15 13:04:32', '2021-06-15 13:58:38');
 
 -- --------------------------------------------------------
 
@@ -575,7 +582,7 @@ ALTER TABLE `auth_groups`
 -- AUTO_INCREMENT for table `auth_logins`
 --
 ALTER TABLE `auth_logins`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
 
 --
 -- AUTO_INCREMENT for table `auth_permissions`
@@ -611,7 +618,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `peminjaman`
 --
 ALTER TABLE `peminjaman`
-  MODIFY `id_peminjaman` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_peminjaman` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `ref_kategori`

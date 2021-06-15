@@ -41,7 +41,7 @@
                             <tr>
                                 <th class="max">Denda</th>
                                 <td>
-                                    <?= $pinjam->denda ? '<span class="badge badge-danger"> Rp ' . $pinjam->denda . '</span>' : '' ?>
+                                    <?= $pinjam->total_denda ? '<span class="badge badge-danger"> Rp ' . $pinjam->total_denda . '</span>' : '' ?>
                                 </td>
                             </tr>
                         </tbody>

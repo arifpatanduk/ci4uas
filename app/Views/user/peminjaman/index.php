@@ -61,7 +61,7 @@
                                         <?php endif; ?>
                                     </td>
                                     <td>
-                                        <?= $data['denda'] ? '<span class="badge badge-danger">' . $data['denda'] . '</span>' : '' ?>
+                                        <?= $data['total_denda'] ? '<span class="badge badge-danger">' . $data['total_denda'] . '</span>' : '' ?>
                                     </td>
                                     <td class="min">
                                         <a href="<?= base_url('user/peminjaman/detail/' . $data['id_peminjaman']); ?>" class="btn btn-sm btn-secondary mx-1"><i class="fas fa-eye"></i> Detail</a>
