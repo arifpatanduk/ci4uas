@@ -1,5 +1,8 @@
-<?php namespace Myth\Auth\Filters;
+<?php
 
+namespace Myth\Auth\Filters;
+
+use Config\Services;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use CodeIgniter\Filters\FilterInterface;
@@ -16,15 +19,13 @@ class LoginFilter implements FilterInterface
 	 * sent back to the client, allowing for error pages,
 	 * redirects, etc.
 	 *
-	 * @param RequestInterface $request
-	 * @param array|null                         $params
+	 * @param \CodeIgniter\HTTP\RequestInterface $request
 	 *
 	 * @return mixed
 	 */
-	public function before(RequestInterface $request, $params = null)
+	public function before(RequestInterface $request, $arguments = NULL)
 	{
-		if (! function_exists('logged_in'))
-		{
+		if (!function_exists('logged_in')) {
 			helper('auth');
 		}
 
@@ -33,23 +34,14 @@ class LoginFilter implements FilterInterface
 			->setScheme('')
 			->stripQuery('token');
 
-		$config = config(App::class);
-		if($config->forceGlobalSecureRequests)
-		{
-			# Remove "https:/"
-			$current = substr($current, 7);
-		}
-
 		// Make sure this isn't already a login route
-		if (in_array((string)$current, [route_to('login'), route_to('forgot'), route_to('reset-password'), route_to('register'), route_to('activate-account')]))
-		{
+		if (in_array((string)$current, [route_to('login'), route_to('forgot'), route_to('reset-password'), route_to('register')])) {
 			return;
 		}
 
 		// if no user is logged in then send to the login form
-		$authenticate = service('authentication');
-		if (! $authenticate->check())
-		{
+		$authenticate = Services::authentication();
+		if (!$authenticate->check()) {
 			session()->set('redirect_url', current_url());
 			return redirect('login');
 		}
@@ -63,15 +55,13 @@ class LoginFilter implements FilterInterface
 	 * to stop execution of other after filters, short of
 	 * throwing an Exception or Error.
 	 *
-	 * @param RequestInterface  $request
-	 * @param ResponseInterface $response
-	 * @param array|null                          $arguments
+	 * @param \CodeIgniter\HTTP\RequestInterface  $request
+	 * @param \CodeIgniter\HTTP\ResponseInterface $response
 	 *
-	 * @return void
+	 * @return mixed
 	 */
-	public function after(RequestInterface $request, ResponseInterface $response, $arguments = null)
+	public function after(RequestInterface $request, ResponseInterface $response, $arguments = NULL)
 	{
-
 	}
 
 	//--------------------------------------------------------------------

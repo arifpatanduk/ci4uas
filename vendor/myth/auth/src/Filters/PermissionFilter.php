@@ -1,9 +1,9 @@
 <?php namespace Myth\Auth\Filters;
 
+use Config\Services;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use CodeIgniter\Filters\FilterInterface;
-use Myth\Auth\Exceptions\PermissionException;
 
 class PermissionFilter implements FilterInterface
 {
@@ -17,7 +17,7 @@ class PermissionFilter implements FilterInterface
 	 * sent back to the client, allowing for error pages,
 	 * redirects, etc.
 	 *
-	 * @param RequestInterface $request
+	 * @param \CodeIgniter\HTTP\RequestInterface $request
 	 * @param array|null                         $params
 	 *
 	 * @return mixed
@@ -34,7 +34,7 @@ class PermissionFilter implements FilterInterface
 			return;
 		}
 
-		$authenticate = service('authentication');
+		$authenticate = Services::authentication();
 
 		// if no user is logged in then send to the login form
 		if (! $authenticate->check())
@@ -43,7 +43,7 @@ class PermissionFilter implements FilterInterface
 			return redirect('login');
 		}
 
-		$authorize = service('authorization');
+		$authorize = Services::authorization();
 		$result = true;
 
 		// Check each requested permission
@@ -61,7 +61,7 @@ class PermissionFilter implements FilterInterface
 				return redirect()->to($redirectURL)->with('error', lang('Auth.notEnoughPrivilege'));
 			}
 			else {
-				throw new PermissionException(lang('Auth.notEnoughPrivilege'));
+				throw new \RuntimeException(lang('Auth.notEnoughPrivilege'));
 			}
 		}
 	}
@@ -74,13 +74,12 @@ class PermissionFilter implements FilterInterface
 	 * to stop execution of other after filters, short of
 	 * throwing an Exception or Error.
 	 *
-	 * @param RequestInterface  $request
-	 * @param ResponseInterface $response
-	 * @param array|null                          $arguments
+	 * @param \CodeIgniter\HTTP\RequestInterface  $request
+	 * @param \CodeIgniter\HTTP\ResponseInterface $response
 	 *
-	 * @return void
+	 * @return mixed
 	 */
-	public function after(RequestInterface $request, ResponseInterface $response, $arguments = null)
+	public function after(RequestInterface $request, ResponseInterface $response)
 	{
 
 	}

@@ -1,6 +1,6 @@
 <?php
 
-use Myth\Auth\Entities\User;
+use Config\Services;
 
 if (! function_exists('logged_in'))
 {
@@ -11,7 +11,7 @@ if (! function_exists('logged_in'))
 	 */
 	function logged_in()
 	{
-		return service('authentication')->check();
+		return Services::authentication()->check();
 	}
 }
 
@@ -20,11 +20,11 @@ if (! function_exists('user'))
 	/**
 	 * Returns the User instance for the current logged in user.
 	 *
-	 * @return User|null
+	 * @return \Myth\Auth\Entities\User|null
 	 */
 	function user()
 	{
-		$authenticate = service('authentication');
+		$authenticate = Services::authentication();
 		$authenticate->check();
 		return $authenticate->user();
 	}
@@ -35,11 +35,11 @@ if (! function_exists('user_id'))
 	/**
 	 * Returns the User ID for the current logged in user.
 	 *
-	 * @return int|null
+	 * @return \Myth\Auth\Entities\User|null
 	 */
 	function user_id()
 	{
-		$authenticate = service('authentication');
+		$authenticate = Services::authentication();
 		$authenticate->check();
 		return $authenticate->id();
 	}
@@ -64,8 +64,8 @@ if (! function_exists('in_groups'))
 	 */
 	function in_groups($groups): bool
 	{
-		$authenticate = service('authentication');
-        $authorize    = service('authorization');
+		$authenticate = Services::authentication();
+        $authorize    = Services::authorization();
 
         if ($authenticate->check())
         {
@@ -88,8 +88,8 @@ if (! function_exists('has_permission'))
 	 */
 	function has_permission($permission): bool
 	{
-		$authenticate = service('authentication');
-        $authorize    = service('authorization');
+		$authenticate = Services::authentication();
+        $authorize    = Services::authorization();
 
         if ($authenticate->check())
         {

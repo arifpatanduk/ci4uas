@@ -391,8 +391,8 @@ class Negotiate
 	{
 		// PHPDocumentor v2 cannot parse yet the shorter list syntax,
 		// causing no API generation for the file.
-		[$aType, $aSubType] = explode('/', $acceptable['value']);
-		[$sType, $sSubType] = explode('/', $supported['value']);
+		list($aType, $aSubType) = explode('/', $acceptable['value']);
+		list($sType, $sSubType) = explode('/', $supported['value']);
 
 		// If the types don't match, we're done.
 		if ($aType !== $sType)

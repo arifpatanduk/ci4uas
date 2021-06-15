@@ -285,13 +285,35 @@ class FileHandler extends BaseHandler
 	{
 		$key = static::validateKey($key, $this->prefix);
 
-		if (false === $data = $this->getItem($key))
+		if (! is_file($this->path . $key))
 		{
 			return false; // This will return null in a future release
 		}
 
+		$data = @unserialize(file_get_contents($this->path . $key));
+
+		if (! is_array($data) || ! isset($data['ttl']))
+		{
+			return false; // This will return null in a future release
+		}
+
+		// Consider expired items as missing
+		$expire = $data['time'] + $data['ttl'];
+
+		// @phpstan-ignore-next-line
+		if ($data['ttl'] > 0 && time() > $expire)
+		{
+			// If the file is still there then remove it
+			if (is_file($this->path . $key))
+			{
+				unlink($this->path . $key);
+			}
+
+			return false; // This will return null in a future release
+		}
+
 		return [
-			'expire' => $data['time'] + $data['ttl'],
+			'expire' => $expire,
 			'mtime'  => filemtime($this->path . $key),
 			'data'   => $data['data'],
 		];
@@ -326,19 +348,15 @@ class FileHandler extends BaseHandler
 			return false;
 		}
 
-		$data = @unserialize(file_get_contents($this->path . $filename));
-		if (! is_array($data) || ! isset($data['ttl']))
-		{
-			return false;
-		}
+		$data = unserialize(file_get_contents($this->path . $filename));
 
 		// @phpstan-ignore-next-line
 		if ($data['ttl'] > 0 && time() > $data['time'] + $data['ttl'])
 		{
-			// If the file is still there then try to remove it
+			// If the file is still there then remove it
 			if (is_file($this->path . $filename))
 			{
-				@unlink($this->path . $filename);
+				unlink($this->path . $filename);
 			}
 
 			return false;

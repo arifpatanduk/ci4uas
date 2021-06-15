@@ -4,7 +4,7 @@ return [
     // Exceptions
     'invalidModel'              => 'Se debe cargar el modelo {0} antes de usarlo.',
     'userNotFound'              => 'No se puede localizar al usuario con ID = {0, number}.',
-    'noUserEntity'              => 'Se debe proporcionar la entidad de usuario para la validación de la contraseña.',
+    'noUserEntity'              => 'User Entity must be provided for password validation.', //todo: translate
     'tooManyCredentials'        => 'Sólo se puede valir contra 1 credencial además de la contraseña.',
     'invalidFields'             => 'El campo "{0}" no puede utilizarse para validar credenciales.',
     'unsetPasswordLength'       => 'Se debe setear la variable `minimumPasswordLength` en la configuración.',
@@ -15,15 +15,15 @@ return [
     // Registration
     'registerDisabled'          => 'La creación de cuentas de usuario está deshabilitada.',
     'registerSuccess'           => '¡Bienvenido! Por favor ingrese sus credenciales.',
-    'registerCLI'               => 'Nuevo usuario creado: {0}, #{1}',
+    'registerCLI'               => 'New user created: {0}, #{1}', //todo: translate
 
     // Activation
-    'activationNoUser'          => 'No se puede localizar al usuario con ese código de activación.',
-    'activationSubject'         => 'Activación de cuenta',
-    'activationSuccess'         => 'Por favor confirma tu cuenta haciendo clic en el link de activación del correo electrónico que se te envió.',
-    'activationResend'          => 'Reenviar el mensaje de activación una vez más.',
-    'notActivated'              => 'La cuenta de este usuario aún no está activada.',
-    'errorSendingActivation'    => 'Falló el envío del mensaje de activación para: {0}',
+    'activationNoUser'          => 'Unable to locate a user with that activation code.', // translate
+    'activationSubject'         => 'Activate your account', // translate
+    'activationSuccess'         => 'Please confirm your account by clicking the activation link in the email we have sent.', // translate
+    'activationResend'          => 'Resend activation message one more time.', // translate
+    'notActivated'              => 'This user account is not yet activated.', // translate
+    'errorSendingActivation'    => 'Failed to send activation message to: {0}', // translate
 
     // Login
     'badAttempt'                => 'No se pudo ingresar al sistema. Por favor, chequee sus credenciales.',
@@ -31,13 +31,12 @@ return [
     'invalidPassword'           => 'No se pudo ingresar al sistema. Por favor, chequee sus credenciales.',
 
     // Forgotten Passwords
-    'forgotDisabled'            => 'La opción de restablecimiento de contraseña ha sido deshabilitada.',
+    'forgotDisabled'            => 'Resseting password option has been disabled.', // translate
     'forgotNoUser'              => 'No se pudo localizar un usuario con ese correo electrónico.',
     'forgotSubject'             => 'Instrucciones para resetear la contraseña',
     'resetSuccess'              => 'El cambio de contraseña fue correcto. Por favor ingrese con su nueva contraseña.',
     'forgotEmailSent'           => 'Se ha enviado un código de seguridad a su e-mail. Ingréselo en el cuadro siguiente para continuar.',
-    'errorEmailSent'            => 'No se pudo enviar el correo electrónico con las instrucciones para el reseteo de contraseña a: {0}',
-    'errorResetting'            => 'No se pudo enviar las instrucciones de reseteo a {0}',
+    'errorEmailSent'            => 'Unable to send email with password reset instructions to: {0}', // translate
 
     // Passwords
     'errorPasswordLength'       => 'La contraseña debe tener al menos {0, number} caracteres.',
@@ -46,14 +45,14 @@ return [
     'suggestPasswordCommon'     => 'La contraseña fue contrastada contra 65.000 de uso habitual y las que fueron hackeadas.',
     'errorPasswordPersonal'     => 'Las contraseñas no pueden contener información personal.',
     'suggestPasswordPersonal'   => 'Variaciones de su e-mail o usuario no deben usarse como contraseñas.',
-    'errorPasswordTooSimilar'   => 'La contraseña es muy similar al usuario.',
-    'suggestPasswordTooSimilar' => 'No uses partes de tu usuario en tu contraseña.',
-    'errorPasswordPwned'        => 'La contraseña {0} ha estado expuesta debido a una violación de datos y se ha visto {1, number} veces en {2} como contraseñas comprometidas.',
-    'suggestPasswordPwned'      => '{0} nunca debe ser usada como sontraseña. Si lo estás usando en cualquier lugar, cámbielo inmediatamente.',
+    'errorPasswordTooSimilar'    => 'Password is too similar to the username.',  //todo: translate
+    'suggestPasswordTooSimilar'  => 'Do not use parts of your username in your password.',  //todo: translate
+    'errorPasswordPwned'        => 'The password {0} has been exposed due to a data breach and has been seen {1, number} times in {2} of compromised passwords.',//todo: translate
+    'suggestPasswordPwned'      => '{0} should never be used as a password. If you are using it anywhere change it immediately.', //todo: translate
     'errorPasswordEmpty'        => 'Se requiere una contraseña.',
     'passwordChangeSuccess'     => 'Contraseña cambiada',
     'userDoesNotExist'          => 'No se cambió la contraseña. El usuario no existe',
-    'resetTokenExpired'         => 'Lo sentimos. El token de reseteo ha expirado.',
+    'resetTokenExpired'         => 'Sorry. Your reset token has expired.', //todo: translate
 
     // Groups
     'groupNotFound'             => 'No se puede localizar al grupo: {0}.',

@@ -127,16 +127,25 @@ class Seeder
 	 */
 	public function call(string $class)
 	{
-		$class = trim($class);
-
-		if ($class === '')
+		if (empty($class))
 		{
 			throw new InvalidArgumentException('No seeder was specified.');
 		}
 
-		if (strpos($class, '\\') === false)
+		$path = str_replace('.php', '', $class) . '.php';
+
+		// If we have namespaced class, simply try to load it.
+		if (strpos($class, '\\') !== false)
 		{
-			$path = $this->seedPath . str_replace('.php', '', $class) . '.php';
+			/**
+			 * @var Seeder
+			 */
+			$seeder = new $class($this->config);
+		}
+		// Otherwise, try to load the class manually.
+		else
+		{
+			$path = $this->seedPath . $path;
 
 			if (! is_file($path))
 			{
@@ -151,13 +160,14 @@ class Seeder
 			{
 				require_once $path;
 			}
+
+			/**
+			 * @var Seeder
+			 */
+			$seeder = new $class($this->config);
 			// @codeCoverageIgnoreEnd
 		}
 
-		/**
-		 * @var Seeder
-		 */
-		$seeder = new $class($this->config);
 		$seeder->setSilent($this->silent)->run();
 
 		unset($seeder);

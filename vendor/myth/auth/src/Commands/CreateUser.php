@@ -2,6 +2,7 @@
 
 use CodeIgniter\CLI\BaseCommand;
 use CodeIgniter\CLI\CLI;
+use CodeIgniter\Config\Services;
 use Myth\Auth\Entities\User;
 use Myth\Auth\Models\UserModel;
 
@@ -39,10 +40,10 @@ class CreateUser extends BaseCommand
 			$row['email'] = CLI::prompt('Email', null, 'required');
 		}
 
-		// Run the user through the entity and insert it
+		// Run the user through the entity and save it
 		$user = new User($row);
 
-		$users = model(UserModel::class);
+		$users = new UserModel();
 		if ($userId = $users->insert($user))
 		{
 			CLI::write(lang('Auth.registerCLI', [$row['username'], $userId]), 'green');

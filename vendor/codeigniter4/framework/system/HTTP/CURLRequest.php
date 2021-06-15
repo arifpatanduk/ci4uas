@@ -347,8 +347,7 @@ class CURLRequest extends Request
 
 		$uri = $this->baseURI->resolveRelativeURI($url);
 
-		// Create the string instead of casting to prevent baseURL muddling
-		return URI::createURIString($uri->getScheme(), $uri->getAuthority(), $uri->getPath(), $uri->getQuery(), $uri->getFragment());
+		return (string) $uri;
 	}
 
 	//--------------------------------------------------------------------

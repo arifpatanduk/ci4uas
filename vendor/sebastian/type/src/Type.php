@@ -17,10 +17,6 @@ abstract class Type
 {
     public static function fromValue($value, bool $allowsNull): self
     {
-        if ($value === false) {
-            return new FalseType;
-        }
-
         $typeName = gettype($value);
 
         if ($typeName === 'object') {
@@ -41,9 +37,6 @@ abstract class Type
         switch (strtolower($typeName)) {
             case 'callable':
                 return new CallableType($allowsNull);
-
-            case 'false':
-                return new FalseType;
 
             case 'iterable':
                 return new IterableType($allowsNull);

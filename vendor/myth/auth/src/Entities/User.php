@@ -3,7 +3,6 @@
 use CodeIgniter\Entity;
 use Myth\Auth\Authorization\GroupModel;
 use Myth\Auth\Authorization\PermissionModel;
-use Myth\Auth\Password;
 
 class User extends Entity
 {
@@ -54,7 +53,34 @@ class User extends Entity
 	 */
 	public function setPassword(string $password)
 	{
-        $this->attributes['password_hash'] = Password::hash($password);
+        $config = config('Auth');
+
+        if (
+            (defined('PASSWORD_ARGON2I') && $config->hashAlgorithm == PASSWORD_ARGON2I)
+                ||
+            (defined('PASSWORD_ARGON2ID') && $config->hashAlgorithm == PASSWORD_ARGON2ID)
+            )
+        {
+            $hashOptions = [
+                'memory_cost' => $config->hashMemoryCost,
+                'time_cost'   => $config->hashTimeCost,
+                'threads'     => $config->hashThreads
+                ];
+        }
+        else
+        {
+            $hashOptions = [
+                'cost' => $config->hashCost
+                ];
+        }
+
+        $this->attributes['password_hash'] = password_hash(
+            base64_encode(
+                hash('sha384', $password, true)
+            ),
+            $config->hashAlgorithm,
+            $hashOptions
+        );
 
         /*
             Set these vars to null in case a reset password was asked.
@@ -219,7 +245,7 @@ class User extends Entity
 
         if (empty($this->permissions))
         {
-            $this->permissions = model(PermissionModel::class)->getPermissionsForUser($this->id);
+            $this->permissions = (new PermissionModel())->getPermissionsForUser($this->id);
         }
 
         return $this->permissions;
@@ -244,7 +270,7 @@ class User extends Entity
 
         if (empty($this->roles))
         {
-            $groups = model(GroupModel::class)->getGroupsForUser($this->id);
+            $groups = (new GroupModel())->getGroupsForUser($this->id);
 
             foreach ($groups as $group)
             {

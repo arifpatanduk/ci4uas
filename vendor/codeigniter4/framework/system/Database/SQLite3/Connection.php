@@ -11,6 +11,7 @@
 
 namespace CodeIgniter\Database\SQLite3;
 
+use CodeIgniter\Database\Query;
 use CodeIgniter\Database\BaseConnection;
 use CodeIgniter\Database\Exceptions\DatabaseException;
 use ErrorException;

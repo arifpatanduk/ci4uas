@@ -2,17 +2,17 @@
     "packages": [
         {
             "name": "codeigniter4/framework",
-            "version": "v4.1.3",
-            "version_normalized": "4.1.3.0",
+            "version": "v4.1.2",
+            "version_normalized": "4.1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/codeigniter4/framework.git",
-                "reference": "3416a0b4ca5c824f639beaf43f9e5b7e87511c5c"
+                "reference": "0bf61820417a3e4a6e7f6c725c5cccf285a1b7c4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/codeigniter4/framework/zipball/3416a0b4ca5c824f639beaf43f9e5b7e87511c5c",
-                "reference": "3416a0b4ca5c824f639beaf43f9e5b7e87511c5c",
+                "url": "https://api.github.com/repos/codeigniter4/framework/zipball/0bf61820417a3e4a6e7f6c725c5cccf285a1b7c4",
+                "reference": "0bf61820417a3e4a6e7f6c725c5cccf285a1b7c4",
                 "shasum": ""
             },
             "require": {
@@ -36,7 +36,7 @@
             "suggest": {
                 "ext-fileinfo": "Improves mime type detection for files"
             },
-            "time": "2021-06-05T23:58:18+00:00",
+            "time": "2021-05-18T02:07:31+00:00",
             "type": "project",
             "installation-source": "dist",
             "autoload": {
@@ -1063,44 +1063,35 @@
         },
         {
             "name": "myth/auth",
-            "version": "v1.0",
-            "version_normalized": "1.0.0.0",
+            "version": "1.0-beta.3",
+            "version_normalized": "1.0.0.0-beta3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lonnieezell/myth-auth.git",
-                "reference": "9bba52bd710a0c35a0b2d8cef64a70706224648a"
+                "reference": "85572d1f1bb312d7d2e0a444b45531170773d2de"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lonnieezell/myth-auth/zipball/9bba52bd710a0c35a0b2d8cef64a70706224648a",
-                "reference": "9bba52bd710a0c35a0b2d8cef64a70706224648a",
+                "url": "https://api.github.com/repos/lonnieezell/myth-auth/zipball/85572d1f1bb312d7d2e0a444b45531170773d2de",
+                "reference": "85572d1f1bb312d7d2e0a444b45531170773d2de",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.3 || ^8.0"
-            },
-            "provide": {
-                "codeigniter4/authentication-implementation": "1.0"
+                "php": ">=7.2"
             },
             "require-dev": {
                 "codeigniter4/codeigniter4": "dev-develop",
-                "codeigniter4/codeigniter4-standard": "^1.0",
-                "fakerphp/faker": "^1.9",
+                "fzaninotto/faker": "^1.9@dev",
                 "mockery/mockery": "^1.0",
-                "phpstan/phpstan": "^0.12",
-                "phpunit/phpunit": "^9.2",
-                "squizlabs/php_codesniffer": "^3.5"
+                "phpunit/phpunit": "^7.0"
             },
-            "time": "2021-06-10T04:25:01+00:00",
+            "time": "2020-05-12T04:56:34+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
                     "Myth\\Auth\\": "src"
-                },
-                "exclude-from-classmap": [
-                    "**/Database/Migrations/**"
-                ]
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -1123,7 +1114,7 @@
             ],
             "support": {
                 "issues": "https://github.com/lonnieezell/myth-auth/issues",
-                "source": "https://github.com/lonnieezell/myth-auth/tree/v1.0"
+                "source": "https://github.com/lonnieezell/myth-auth/tree/1.0-beta.3"
             },
             "funding": [
                 {
@@ -1997,17 +1988,17 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "9.5.5",
-            "version_normalized": "9.5.5.0",
+            "version": "9.5.4",
+            "version_normalized": "9.5.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "89ff45ea9d70e35522fb6654a2ebc221158de276"
+                "reference": "c73c6737305e779771147af66c96ca6a7ed8a741"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/89ff45ea9d70e35522fb6654a2ebc221158de276",
-                "reference": "89ff45ea9d70e35522fb6654a2ebc221158de276",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/c73c6737305e779771147af66c96ca6a7ed8a741",
+                "reference": "c73c6737305e779771147af66c96ca6a7ed8a741",
                 "shasum": ""
             },
             "require": {
@@ -2037,7 +2028,7 @@
                 "sebastian/global-state": "^5.0.1",
                 "sebastian/object-enumerator": "^4.0.3",
                 "sebastian/resource-operations": "^3.0.3",
-                "sebastian/type": "^2.3.2",
+                "sebastian/type": "^2.3",
                 "sebastian/version": "^3.0.2"
             },
             "require-dev": {
@@ -2048,7 +2039,7 @@
                 "ext-soap": "*",
                 "ext-xdebug": "*"
             },
-            "time": "2021-06-05T04:49:07+00:00",
+            "time": "2021-03-23T07:16:29+00:00",
             "bin": [
                 "phpunit"
             ],
@@ -2087,7 +2078,7 @@
             ],
             "support": {
                 "issues": "https://github.com/sebastianbergmann/phpunit/issues",
-                "source": "https://github.com/sebastianbergmann/phpunit/tree/9.5.5"
+                "source": "https://github.com/sebastianbergmann/phpunit/tree/9.5.4"
             },
             "funding": [
                 {
@@ -2890,17 +2881,17 @@
         },
         {
             "name": "sebastian/global-state",
-            "version": "5.0.3",
-            "version_normalized": "5.0.3.0",
+            "version": "5.0.2",
+            "version_normalized": "5.0.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/global-state.git",
-                "reference": "23bd5951f7ff26f12d4e3242864df3e08dec4e49"
+                "reference": "a90ccbddffa067b51f574dea6eb25d5680839455"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/global-state/zipball/23bd5951f7ff26f12d4e3242864df3e08dec4e49",
-                "reference": "23bd5951f7ff26f12d4e3242864df3e08dec4e49",
+                "url": "https://api.github.com/repos/sebastianbergmann/global-state/zipball/a90ccbddffa067b51f574dea6eb25d5680839455",
+                "reference": "a90ccbddffa067b51f574dea6eb25d5680839455",
                 "shasum": ""
             },
             "require": {
@@ -2915,7 +2906,7 @@
             "suggest": {
                 "ext-uopz": "*"
             },
-            "time": "2021-06-11T13:31:12+00:00",
+            "time": "2020-10-26T15:55:19+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -2945,7 +2936,7 @@
             ],
             "support": {
                 "issues": "https://github.com/sebastianbergmann/global-state/issues",
-                "source": "https://github.com/sebastianbergmann/global-state/tree/5.0.3"
+                "source": "https://github.com/sebastianbergmann/global-state/tree/5.0.2"
             },
             "funding": [
                 {
@@ -3259,17 +3250,17 @@
         },
         {
             "name": "sebastian/type",
-            "version": "2.3.3",
-            "version_normalized": "2.3.3.0",
+            "version": "2.3.1",
+            "version_normalized": "2.3.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/type.git",
-                "reference": "ca39369c41313ed12c071ed38ecda8fcdb248859"
+                "reference": "81cd61ab7bbf2de744aba0ea61fae32f721df3d2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/type/zipball/ca39369c41313ed12c071ed38ecda8fcdb248859",
-                "reference": "ca39369c41313ed12c071ed38ecda8fcdb248859",
+                "url": "https://api.github.com/repos/sebastianbergmann/type/zipball/81cd61ab7bbf2de744aba0ea61fae32f721df3d2",
+                "reference": "81cd61ab7bbf2de744aba0ea61fae32f721df3d2",
                 "shasum": ""
             },
             "require": {
@@ -3278,7 +3269,7 @@
             "require-dev": {
                 "phpunit/phpunit": "^9.3"
             },
-            "time": "2021-06-15T10:50:11+00:00",
+            "time": "2020-10-26T13:18:59+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -3306,7 +3297,7 @@
             "homepage": "https://github.com/sebastianbergmann/type",
             "support": {
                 "issues": "https://github.com/sebastianbergmann/type/issues",
-                "source": "https://github.com/sebastianbergmann/type/tree/2.3.3"
+                "source": "https://github.com/sebastianbergmann/type/tree/2.3.1"
             },
             "funding": [
                 {

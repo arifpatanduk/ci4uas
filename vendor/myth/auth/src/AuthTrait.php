@@ -1,5 +1,6 @@
 <?php namespace Myth\Auth;
 
+use Config\Services;
 use CodeIgniter\Router\Exceptions\RedirectException;
 
 trait AuthTrait {
@@ -167,7 +168,7 @@ trait AuthTrait {
         /*
          * Authentication
          */
-        $this->authenticate = service('authentication', $this->authenticationLib);
+        $this->authenticate = Services::authentication($this->authenticationLib);
 
         // Try to log us in automatically.
         $this->authenticate->check();
@@ -175,7 +176,7 @@ trait AuthTrait {
         /*
          * Authorization
          */
-        $this->authorize = service('authorization');
+        $this->authorize = Services::authorization();
 
         $this->classesLoaded = true;
     }

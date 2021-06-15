@@ -35,7 +35,7 @@ interface AuthenticatorInterface
     /**
      * Returns the User instance for the current logged in user.
      *
-     * @return User|null
+     * @return \Myth\Auth\Entities\User|null
      */
     public function user();
 }

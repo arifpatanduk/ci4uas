@@ -638,14 +638,14 @@ abstract class BaseHandler implements ImageHandlerInterface
 		$origWidth  = $this->image()->origWidth;
 		$origHeight = $this->image()->origHeight;
 
-		[$cropWidth, $cropHeight] = $this->calcAspectRatio($width, $height, $origWidth, $origHeight);
+		list($cropWidth, $cropHeight) = $this->calcAspectRatio($width, $height, $origWidth, $origHeight);
 
 		if (is_null($height))
 		{
 			$height = ceil(($width / $cropWidth) * $cropHeight);
 		}
 
-		[$x, $y] = $this->calcCropCoords($cropWidth, $cropHeight, $origWidth, $origHeight, $position);
+		list($x, $y) = $this->calcCropCoords($cropWidth, $cropHeight, $origWidth, $origHeight, $position);
 
 		return $this->crop($cropWidth, $cropHeight, $x, $y)
 						->resize($width, $height);
