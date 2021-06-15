@@ -1,4 +1,6 @@
-<?php namespace Myth\Auth\Config;
+<?php
+
+namespace Myth\Auth\Config;
 
 /**
  * Helper class that will register our bulk plugins
@@ -17,8 +19,12 @@ class Registrar
     {
         return [
             'plugins' => [
-                'logged_in' => [ function ($str, array $params = []) { return service('authentication')->check() ? $str : ''; } ],
-                'logged_out' => [ function ($str, array $params = []) { return ! service('authentication')->check() ? $str : ''; } ],
+                'logged_in' => [function ($str, array $params = []) {
+                    return service('authentication')->check() ? $str : '';
+                }],
+                'logged_out' => [function ($str, array $params = []) {
+                    return !service('authentication')->check() ? $str : '';
+                }],
             ]
         ];
     }

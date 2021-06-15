@@ -74,6 +74,8 @@ $routes->group('admin', ['filter' => 'role:admin'], function ($routes) {
 
 	// kelola peminjaman
 	$routes->get('peminjaman', 'Admin\PeminjamanController::index');
+	$routes->get('peminjaman/getdata', 'Admin\PeminjamanController::getData');
+	$routes->post('peminjaman/kembali/(:segment)', 'Admin\PeminjamanController::kembali/$1');
 	$routes->get('peminjaman/detail/(:segment)', 'Admin\PeminjamanController::detail/$1');
 
 	// kelola users

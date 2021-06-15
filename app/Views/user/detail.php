@@ -142,14 +142,4 @@
 
 
 </div>
-
-
-<script>
-    // $(document).ready(function() {
-    //     $("#pinjam").click(function() {
-    //         var status = $(this).data('status');
-    //         $("#ketersediaan").text(status);
-    //     });
-    // });
-</script>
 <?= $this->endSection(); ?>
