@@ -57,11 +57,9 @@ class PeminjamanController extends BaseController
 		];
 		$peminjaman->save($input);
 
-		// update status on dokumen
+		// // update status on dokumen
 		$dokumen = new DokumenModel();
-		$dokumen->set('status', 'Tidak Tersedia');
-		$dokumen->where('id', $id);
-		$dokumen->update();
+		$dokumen->update($id, ['status' => 'Tidak Tersedia']);
 
 		session()->setFlashData('pinjam', 'Peminjaman Berhasil dikirim');
 
