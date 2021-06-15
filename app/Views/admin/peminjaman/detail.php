@@ -23,6 +23,10 @@
                     <table class="table table-sm">
                         <tbody>
                             <tr>
+                                <th class="max">Token Pinjam</th>
+                                <td><?= $pinjam->token_pinjam; ?></td>
+                            </tr>
+                            <tr>
                                 <th class="max">Tangal Pinjam</th>
                                 <td><?= $pinjam->tgl_pinjam; ?></td>
                             </tr>

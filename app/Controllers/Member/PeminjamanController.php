@@ -11,7 +11,7 @@ class PeminjamanController extends BaseController
 	public function index()
 	{
 		$peminjaman = new PeminjamanModel();
-		$peminjaman = $peminjaman->withDocument()->where('id_user', user_id())->get()->getResultArray();
+		$peminjaman = $peminjaman->withDocument()->where('id_user', user_id())->orderBy('tgl_pinjam', 'ASC')->get()->getResultArray();
 
 		$data = [
 			'title' => 'Peminjaman Dokumen',
@@ -24,13 +24,17 @@ class PeminjamanController extends BaseController
 
 	public function detail_pinjam($id)
 	{
+		$peminjaman = new PeminjamanModel();
+		$pinjam = $peminjaman->where('id_peminjaman', $id)->get()->getRow();
+
 		$docs = new DokumenModel();
-		$doc = $docs->objectDokumen()->where('id', $id)->get()->getRow();
+		$doc = $docs->objectDokumen()->where('id', $pinjam->id_dokumen)->get()->getRow();
 
 		$data = [
 			'title' => 'Detail Peminjaman',
 			'active' => 'peminjaman',
-			'dokumen' => $doc,
+			'doc' => $doc,
+			'pinjam' => $pinjam,
 		];
 
 		return view('/user/peminjaman/detail', $data);
