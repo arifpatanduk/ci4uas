@@ -1,8 +1,5 @@
-<?php
+<?php namespace Myth\Auth\Filters;
 
-namespace Myth\Auth\Filters;
-
-use Config\Services;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use CodeIgniter\Filters\FilterInterface;
@@ -19,13 +16,15 @@ class LoginFilter implements FilterInterface
 	 * sent back to the client, allowing for error pages,
 	 * redirects, etc.
 	 *
-	 * @param \CodeIgniter\HTTP\RequestInterface $request
+	 * @param RequestInterface $request
+	 * @param array|null                         $params
 	 *
 	 * @return mixed
 	 */
-	public function before(RequestInterface $request, $arguments = NULL)
+	public function before(RequestInterface $request, $params = null)
 	{
-		if (!function_exists('logged_in')) {
+		if (! function_exists('logged_in'))
+		{
 			helper('auth');
 		}
 
@@ -34,14 +33,23 @@ class LoginFilter implements FilterInterface
 			->setScheme('')
 			->stripQuery('token');
 
+		$config = config(App::class);
+		if($config->forceGlobalSecureRequests)
+		{
+			# Remove "https:/"
+			$current = substr($current, 7);
+		}
+
 		// Make sure this isn't already a login route
-		if (in_array((string)$current, [route_to('login'), route_to('forgot'), route_to('reset-password'), route_to('register')])) {
+		if (in_array((string)$current, [route_to('login'), route_to('forgot'), route_to('reset-password'), route_to('register'), route_to('activate-account')]))
+		{
 			return;
 		}
 
 		// if no user is logged in then send to the login form
-		$authenticate = Services::authentication();
-		if (!$authenticate->check()) {
+		$authenticate = service('authentication');
+		if (! $authenticate->check())
+		{
 			session()->set('redirect_url', current_url());
 			return redirect('login');
 		}
@@ -55,13 +63,15 @@ class LoginFilter implements FilterInterface
 	 * to stop execution of other after filters, short of
 	 * throwing an Exception or Error.
 	 *
-	 * @param \CodeIgniter\HTTP\RequestInterface  $request
-	 * @param \CodeIgniter\HTTP\ResponseInterface $response
+	 * @param RequestInterface  $request
+	 * @param ResponseInterface $response
+	 * @param array|null                          $arguments
 	 *
-	 * @return mixed
+	 * @return void
 	 */
-	public function after(RequestInterface $request, ResponseInterface $response, $arguments = NULL)
+	public function after(RequestInterface $request, ResponseInterface $response, $arguments = null)
 	{
+
 	}
 
 	//--------------------------------------------------------------------

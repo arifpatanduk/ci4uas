@@ -1,6 +1,5 @@
 <?php namespace Myth\Auth\Authentication\Passwords;
 
-use Config\Services;
 use Myth\Auth\Entities\User;
 
 /**
@@ -63,13 +62,13 @@ class ValidationRules
     /**
      * Builds a new user instance from the global request.
      *
-     * @return \Myth\Auth\Entities\User
+     * @return User
      */
     protected function buildUserFromRequest()
     {
         $fields = $this->prepareValidFields();
 
-        $data = service('request')->getPost($fields);
+        $data = array_filter(service('request')->getPost($fields));
 
         return new User($data);
     }
@@ -79,7 +78,7 @@ class ValidationRules
      *
      * @param array $data Assigned data
      *
-     * @return \Myth\Auth\Entities\User
+     * @return User
      */
     protected function buildUserFromData(array $data = [])
     {

@@ -1,9 +1,9 @@
 <?php namespace Myth\Auth\Filters;
 
-use Config\Services;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use CodeIgniter\Filters\FilterInterface;
+use Myth\Auth\Exceptions\PermissionException;
 
 class PermissionFilter implements FilterInterface
 {
@@ -17,7 +17,7 @@ class PermissionFilter implements FilterInterface
 	 * sent back to the client, allowing for error pages,
 	 * redirects, etc.
 	 *
-	 * @param \CodeIgniter\HTTP\RequestInterface $request
+	 * @param RequestInterface $request
 	 * @param array|null                         $params
 	 *
 	 * @return mixed
@@ -34,7 +34,7 @@ class PermissionFilter implements FilterInterface
 			return;
 		}
 
-		$authenticate = Services::authentication();
+		$authenticate = service('authentication');
 
 		// if no user is logged in then send to the login form
 		if (! $authenticate->check())
@@ -43,7 +43,7 @@ class PermissionFilter implements FilterInterface
 			return redirect('login');
 		}
 
-		$authorize = Services::authorization();
+		$authorize = service('authorization');
 		$result = true;
 
 		// Check each requested permission
@@ -61,7 +61,7 @@ class PermissionFilter implements FilterInterface
 				return redirect()->to($redirectURL)->with('error', lang('Auth.notEnoughPrivilege'));
 			}
 			else {
-				throw new \RuntimeException(lang('Auth.notEnoughPrivilege'));
+				throw new PermissionException(lang('Auth.notEnoughPrivilege'));
 			}
 		}
 	}
@@ -74,12 +74,13 @@ class PermissionFilter implements FilterInterface
 	 * to stop execution of other after filters, short of
 	 * throwing an Exception or Error.
 	 *
-	 * @param \CodeIgniter\HTTP\RequestInterface  $request
-	 * @param \CodeIgniter\HTTP\ResponseInterface $response
+	 * @param RequestInterface  $request
+	 * @param ResponseInterface $response
+	 * @param array|null                          $arguments
 	 *
-	 * @return mixed
+	 * @return void
 	 */
-	public function after(RequestInterface $request, ResponseInterface $response)
+	public function after(RequestInterface $request, ResponseInterface $response, $arguments = null)
 	{
 
 	}
