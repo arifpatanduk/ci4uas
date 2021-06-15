@@ -86,6 +86,7 @@ $routes->group('admin', ['filter' => 'role:admin'], function ($routes) {
 	$routes->get('/test', 'Admin/AdminController::getSubKategori');
 
 	//dokumen routes
+	$routes->get('dokumen/tambah', 'Admin\AdminController::tambah');
 	$routes->post('dokumen/insert', 'Admin/AdminController::insert');
 	$routes->get('dokumen/(:segment)', 'Admin\AdminController::detail/$1');
 	$routes->get('dokumen/edit/(:segment)', 'Admin\AdminController::edit/$1');

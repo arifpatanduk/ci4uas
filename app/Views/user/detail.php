@@ -9,7 +9,7 @@
             <h1>Document</h1>
             <div class="section-header-breadcrumb">
                 <div class="breadcrumb-item active"><a href="<?= base_url(); ?>">Home</a></div>
-                <div class="breadcrumb-item">Document</div>
+                <div class="breadcrumb-item">Dokumen</div>
             </div>
         </div>
 
@@ -18,7 +18,7 @@
                 <table class="table ">
                     <tbody>
                         <tr>
-                            <th>Judul</th>
+                            <th width="15%">Judul</th>
                             <td><?= $dokumen->judul; ?></td>
                         </tr>
                         <tr>
@@ -73,7 +73,7 @@
         <div class="card mb-3" id="full">
             <div class="card-body">
                 <div class="embed-responsive embed-responsive-16by9">
-                    <iframe src="https://drive.google.com/file/d/1WjgQOl-B6Ri08KhsSC1bOLlOZe9yZgx5/preview" width="640" height="480" frameborder="0" scrolling="no" seamless="" allowfullscreen="allowfullscreen"></iframe>
+                    <iframe src="https://drive.google.com/file/d/<?= $dokumen->nama_file; ?>/preview" width="640" height="480" frameborder="0" scrolling="no" seamless="" allowfullscreen="allowfullscreen"></iframe>
                     <div style="width: 80px; height: 80px; position: absolute; opacity: 0; right: 0px; top: 0px;"></div>
                 </div>
             </div>

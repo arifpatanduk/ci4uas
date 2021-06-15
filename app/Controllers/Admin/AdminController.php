@@ -4,9 +4,24 @@ namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
 use App\Models\DokumenModel;
+use Google_Client;
+use Google_Service_Drive;
+use Google_Service_Drive_DriveFile;
+
+include '../vendor/autoload.php';
 
 class AdminController extends BaseController
 {
+	protected $client;
+    protected $service;
+
+    public function __construct(){
+        // setting config untuk layanan akses ke google drive
+        $this->client = new Google_Client();
+        $this->client->setAuthConfig("../oauth-credentials.json");
+        $this->client->addScope("https://www.googleapis.com/auth/drive");
+        $this->service = new Google_Service_Drive($this->client);
+    }
 
 	public function dokumen()
 	{;
@@ -32,6 +47,31 @@ class AdminController extends BaseController
 		$data = $model->getSubKategori($postData);
 		echo json_encode($data);
 		// dd($data);
+	}
+
+	public function tambah(){
+		// proses membaca token pasca login
+        if (isset($_GET['code'])) {
+            $token = $this->client->fetchAccessTokenWithAuthCode($_GET['code']);
+            // simpan token ke session
+            $_SESSION['upload_token'] = $token;
+        }
+
+        if (empty($_SESSION['upload_token'])){
+            // jika token belum ada, maka lakukan login via oauth
+            $authUrl = $this->client->createAuthUrl();
+            
+            return redirect()->to($authUrl);
+        } 
+        else {
+			$model = new DokumenModel();
+            $data = [
+                'title' => 'Dokumen',
+                'active' => 'dokumen',
+				'kategori' => $model->getKategori(),
+            ];
+            return view('admin/tambah', $data);
+        }
 	}
 
 	public function insert()
@@ -112,12 +152,29 @@ class AdminController extends BaseController
 				if ($this->request->getFile('dokumen')->getName() != '') {
 					$dokumen = $this->request->getFile('dokumen');
 					$namadokumen = $dokumen->getRandomName();
-					$dokumen->move(ROOTPATH . 'public/dokumen', $namadokumen);
+
+					// menggunakan token untuk mengakses google drive  
+					$this->client->setAccessToken($_SESSION['upload_token']);
+					// membaca token respon dari google drive
+					$this->client->getAccessToken();
+			
+					// instansiasi obyek file yg akan diupload ke Google Drive
+					$file = new Google_Service_Drive_DriveFile();
+					// set nama file di Google Drive disesuaikan dg nama file aslinya
+					$file->setName($namadokumen);
+					// proses upload file ke Google Drive dg multipart
+					$result = $this->service->files->create($file, array(
+						'data' => file_get_contents($_FILES["dokumen"]["tmp_name"]),
+						'mimeType' => 'application/octet-stream',
+						'uploadType' => 'multipart'));
+
 				}
+
+				
 
 				$input = [
 					'judul' => $this->request->getVar('judul'),
-					'nama_file' => $namadokumen,
+					'nama_file' => $result->id,
 					'abstrak' => $this->request->getVar('abstrak'),
 					'penulis' => $this->request->getVar('penulis'),
 					'tahun_publikasi' => $this->request->getVar('tahun'),
@@ -238,7 +295,24 @@ class AdminController extends BaseController
 				if ($this->request->getFile('dokumen')->getName() != '') {
 					$dokumen = $this->request->getFile('dokumen');
 					$namadokumen = $dokumen->getRandomName();
-					$dokumen->move(ROOTPATH . 'public/dokumen', $namadokumen);
+					
+					// menggunakan token untuk mengakses google drive  
+					$this->client->setAccessToken($_SESSION['upload_token']);
+					// membaca token respon dari google drive
+					$this->client->getAccessToken();
+			
+					// instansiasi obyek file yg akan diupload ke Google Drive
+					$file = new Google_Service_Drive_DriveFile();
+					// set nama file di Google Drive disesuaikan dg nama file aslinya
+					$file->setName($namadokumen);
+					// proses upload file ke Google Drive dg multipart
+					$result = $this->service->files->create($file, array(
+						'data' => file_get_contents($_FILES["dokumen"]["tmp_name"]),
+						'mimeType' => 'application/octet-stream',
+						'uploadType' => 'multipart'));
+
+					$namadokumen = $result->id;
+
 				} else {
 					$namadokumen = $this->request->getVar('file_old');
 				}
