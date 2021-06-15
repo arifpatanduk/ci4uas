@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
+-- version 4.9.2
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 14, 2021 at 09:20 PM
--- Server version: 10.1.38-MariaDB
--- PHP Version: 7.3.2
+-- Generation Time: Jun 15, 2021 at 04:23 PM
+-- Server version: 10.4.11-MariaDB
+-- PHP Version: 7.4.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -98,8 +98,8 @@ INSERT INTO `auth_groups` (`id`, `name`, `description`) VALUES
 --
 
 CREATE TABLE `auth_groups_permissions` (
-  `group_id` int(11) UNSIGNED NOT NULL DEFAULT '0',
-  `permission_id` int(11) UNSIGNED NOT NULL DEFAULT '0'
+  `group_id` int(11) UNSIGNED NOT NULL DEFAULT 0,
+  `permission_id` int(11) UNSIGNED NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -118,8 +118,8 @@ INSERT INTO `auth_groups_permissions` (`group_id`, `permission_id`) VALUES
 --
 
 CREATE TABLE `auth_groups_users` (
-  `group_id` int(11) UNSIGNED NOT NULL DEFAULT '0',
-  `user_id` int(11) UNSIGNED NOT NULL DEFAULT '0'
+  `group_id` int(11) UNSIGNED NOT NULL DEFAULT 0,
+  `user_id` int(11) UNSIGNED NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -130,7 +130,8 @@ INSERT INTO `auth_groups_users` (`group_id`, `user_id`) VALUES
 (1, 1),
 (1, 19),
 (2, 6),
-(2, 12);
+(2, 12),
+(2, 20);
 
 -- --------------------------------------------------------
 
@@ -211,7 +212,22 @@ INSERT INTO `auth_logins` (`id`, `ip_address`, `email`, `user_id`, `date`, `succ
 (57, '::1', 'arifp@student.uns.ac.id', 12, '2021-06-14 05:46:01', 1),
 (58, '0.0.0.0', 'arifp@student.uns.ac.id', 12, '2021-06-14 13:06:52', 1),
 (59, '0.0.0.0', 'arifpatanduk2@gmail.com', 1, '2021-06-14 14:17:27', 1),
-(60, '0.0.0.0', 'arifp@student.uns.ac.id', 12, '2021-06-14 14:18:07', 1);
+(60, '0.0.0.0', 'arifp@student.uns.ac.id', 12, '2021-06-14 14:18:07', 1),
+(61, '::1', 'b.timur504@student.uns.ac.id', 19, '2021-06-15 01:32:52', 1),
+(62, '::1', 'arifp@student.uns.ac.id', 12, '2021-06-15 01:33:19', 1),
+(63, '::1', 'b.timur504@gmail.com', 20, '2021-06-15 01:35:47', 1),
+(64, '::1', 'b.timur504@gmail.com', 20, '2021-06-15 01:38:07', 1),
+(65, '::1', 'b.timur504@student.uns.ac.id', 19, '2021-06-15 01:39:31', 1),
+(66, '::1', 'b.timur504@student.uns.ac.id', 19, '2021-06-15 04:35:36', 1),
+(67, '::1', 'b.timur504@student.uns.ac.id', 19, '2021-06-15 05:27:58', 1),
+(68, '::1', 'b.timur504@student.uns.ac.id', 19, '2021-06-15 05:48:40', 1),
+(69, '::1', 'b.timur504@student.uns.ac.id', 19, '2021-06-15 06:32:59', 1),
+(70, '::1', 'b.timur504@student.uns.ac.id', 19, '2021-06-15 06:38:01', 1),
+(71, '::1', 'b.timur504@student.uns.ac.id', 19, '2021-06-15 07:08:05', 1),
+(72, '::1', 'b.timur504@student.uns.ac.id', NULL, '2021-06-15 07:15:06', 0),
+(73, '::1', 'b.timur504@student.uns.ac.id', 19, '2021-06-15 07:15:11', 1),
+(74, '::1', 'arifp@student.uns.ac.id', 12, '2021-06-15 08:12:48', 1),
+(75, '::1', 'b.timur504@student.uns.ac.id', 19, '2021-06-15 08:33:18', 1);
 
 -- --------------------------------------------------------
 
@@ -269,8 +285,8 @@ CREATE TABLE `auth_tokens` (
 --
 
 CREATE TABLE `auth_users_permissions` (
-  `user_id` int(11) UNSIGNED NOT NULL DEFAULT '0',
-  `permission_id` int(11) UNSIGNED NOT NULL DEFAULT '0'
+  `user_id` int(11) UNSIGNED NOT NULL DEFAULT 0,
+  `permission_id` int(11) UNSIGNED NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -297,9 +313,8 @@ CREATE TABLE `dokumen` (
 --
 
 INSERT INTO `dokumen` (`id`, `judul`, `nama_file`, `abstrak`, `penulis`, `tahun_publikasi`, `status`, `id_sub_kategori`, `created_at`, `updated_at`) VALUES
-(1, 'Pengembangan Aplikasi Mobile', 'pengembalian_aplikasi_mobile.pdf', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum as', 'Bintang Timur', 2020, 'Tersedia', 1, '0000-00-00 00:00:00', '2021-06-14 03:33:47'),
-(19, 'test judul', '1623693989_12db9ccae6f102ea4559.pdf', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas quia alias deleniti cumque fuga. Perspiciatis corporis expedita aliquam nesciunt obcaecati doloremque facilis accusantium illo distinctio quis, fugiat quae. Possimus, error!', 'siapa', 2011, 'Tersedia', 6, '2021-06-14 13:06:29', '2021-06-14 13:06:29'),
-(20, 'asdfghjkl', '1623698274_e6438fdef5199e30a2d8.pdf', 'aga sdnfhaofhnapefyanewyraioluwe', 'dfghjkl;', 2013, 'Tersedia', 4, '2021-06-14 14:17:54', '2021-06-14 14:17:54');
+(1, 'test123', '1NsXLTJLNQix_K3uwqx6TZp8126yMDf_g', 'sajdaskjdqweioisao', 'penulis', 2011, 'Tersedia', 1, '2021-06-15 08:49:14', '2021-06-15 08:53:37'),
+(2, 'test', '1EfEBtbDSKrX6xn0LFqhr68kAixB72i23', 'sajdaskjdqweioisao', 'pen', 2011, 'Tersedia', 1, '2021-06-15 08:50:51', '2021-06-15 08:51:00');
 
 -- --------------------------------------------------------
 
@@ -350,7 +365,8 @@ CREATE TABLE `peminjaman` (
 
 INSERT INTO `peminjaman` (`id`, `id_dokumen`, `id_user`, `tgl_pinjam`, `tgl_kembali`, `deadline`, `token_pinjam`, `status`, `denda`, `created_at`, `updated_at`) VALUES
 (1, 19, 12, '2021-06-16 00:00:00', NULL, '2021-06-19 17:00:00', 'AR12-1623819600', NULL, NULL, '2021-06-14 13:58:54', '2021-06-14 13:58:54'),
-(2, 1, 12, '2021-06-17 00:00:00', NULL, '2021-06-20 17:00:00', 'AR12-1623906000', NULL, NULL, '2021-06-14 14:13:57', '2021-06-14 14:13:57');
+(2, 1, 12, '2021-06-17 00:00:00', NULL, '2021-06-20 17:00:00', 'AR12-1623906000', NULL, NULL, '2021-06-14 14:13:57', '2021-06-14 14:13:57'),
+(3, 1, 20, '2021-06-16 00:00:00', NULL, '2021-06-19 17:00:00', 'BI20-1623819600', NULL, NULL, '2021-06-15 01:38:29', '2021-06-15 01:38:29');
 
 -- --------------------------------------------------------
 
@@ -423,8 +439,8 @@ CREATE TABLE `users` (
   `activate_hash` varchar(255) DEFAULT NULL,
   `status` varchar(255) DEFAULT NULL,
   `status_message` varchar(255) DEFAULT NULL,
-  `active` tinyint(1) NOT NULL DEFAULT '0',
-  `force_pass_reset` tinyint(1) NOT NULL DEFAULT '0',
+  `active` tinyint(1) NOT NULL DEFAULT 0,
+  `force_pass_reset` tinyint(1) NOT NULL DEFAULT 0,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL
@@ -438,7 +454,8 @@ INSERT INTO `users` (`id`, `email`, `username`, `nama`, `nim`, `no_hp`, `alamat`
 (1, 'arifpatanduk2@gmail.com', 'arifpatanduk', NULL, NULL, NULL, NULL, 'default.png', '$2y$10$flTlCVPGXkrnapFL.S49uubSX5Amzn9DSr9WMJ/4qtROxhxkErTeq', NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, '2021-05-14 14:53:23', '2021-05-14 14:53:23', NULL),
 (6, 'andriapuspita9@gmail.com', 'test', NULL, NULL, NULL, NULL, 'default.png', '$2y$10$nJHjgJU.vtZ15zSeZGnb/usfmK75eLnNRiO0sSMK4SoqYlWb5ixm6', NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, '2021-05-19 02:35:15', '2021-05-26 01:30:51', NULL),
 (12, 'arifp@student.uns.ac.id', 'arifp', 'Arif W', 'K35180112', '123532', 'Solooo', 'default.png', '$2y$10$QF0sbYKLmNuG8J6/y52tLeECnD8aStMT9HjGmVwnnp997kt2IfkRG', NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, '2021-05-26 23:00:18', '2021-06-14 05:47:31', NULL),
-(19, 'b.timur504@student.uns.ac.id', 'bintangtimurk', 'bintang', 'K3518015', '134', 'Surakarta', 'default.png', '$2y$10$d3mgWE6P/Q6vMTonpQGG6uEnntGSQ/WAk35bc0WBIsGbG/JTBGMQ2', NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, '2021-06-11 03:19:53', '2021-06-11 03:19:53', NULL);
+(19, 'b.timur504@student.uns.ac.id', 'bintangtimurk', 'bintang', 'K3518015', '134', 'Surakarta', 'default.png', '$2y$10$d3mgWE6P/Q6vMTonpQGG6uEnntGSQ/WAk35bc0WBIsGbG/JTBGMQ2', NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, '2021-06-11 03:19:53', '2021-06-11 03:19:53', NULL),
+(20, 'b.timur504@gmail.com', 'bintangt', 'bintang', '12', '123', 'solo', 'default.png', '$2y$10$QF0sbYKLmNuG8J6/y52tLeECnD8aStMT9HjGmVwnnp997kt2IfkRG', NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, NULL, NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -566,7 +583,7 @@ ALTER TABLE `auth_groups`
 -- AUTO_INCREMENT for table `auth_logins`
 --
 ALTER TABLE `auth_logins`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
 
 --
 -- AUTO_INCREMENT for table `auth_permissions`
@@ -590,7 +607,7 @@ ALTER TABLE `auth_tokens`
 -- AUTO_INCREMENT for table `dokumen`
 --
 ALTER TABLE `dokumen`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `migrations`
@@ -602,7 +619,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `peminjaman`
 --
 ALTER TABLE `peminjaman`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `ref_kategori`
@@ -620,7 +637,7 @@ ALTER TABLE `ref_sub_kategori`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- Constraints for dumped tables
@@ -652,12 +669,6 @@ ALTER TABLE `auth_tokens`
 ALTER TABLE `auth_users_permissions`
   ADD CONSTRAINT `auth_users_permissions_permission_id_foreign` FOREIGN KEY (`permission_id`) REFERENCES `auth_permissions` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `auth_users_permissions_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
-
---
--- Constraints for table `dokumen`
---
-ALTER TABLE `dokumen`
-  ADD CONSTRAINT `dokumen_ibfk_1` FOREIGN KEY (`id_sub_kategori`) REFERENCES `ref_sub_kategori` (`id_sub_kategori`);
 
 --
 -- Constraints for table `peminjaman`
