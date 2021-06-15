@@ -1,6 +1,7 @@
 <?php namespace Myth\Auth\Authentication\Resetters;
 
-use Myth\Auth\Entities\User;
+use CodeIgniter\Entity;
+
 /**
  * Interface ResetterInterface
  *
@@ -13,9 +14,9 @@ interface ResetterInterface
      *
      * @param User $user
      *
-     * @return bool
+     * @return mixed
      */
-    public function send(User $user = null): bool;
+    public function send(Entity $user = null): bool;
 
     /**
      * Returns the error string that should be displayed to the user.
@@ -23,4 +24,5 @@ interface ResetterInterface
      * @return string
      */
     public function error(): string;
+
 }

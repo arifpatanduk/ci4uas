@@ -115,15 +115,15 @@ class Language
 
 		// Parse out the file name and the actual alias.
 		// Will load the language file and strings.
-		[$file, $parsedLine] = $this->parseLine($line, $this->locale);
+		list($file, $parsedLine) = $this->parseLine($line, $this->locale);
 
 		$output = $this->getTranslationOutput($this->locale, $file, $parsedLine);
 
 		if ($output === null && strpos($this->locale, '-'))
 		{
-			[$locale] = explode('-', $this->locale, 2);
+			list($locale) = explode('-', $this->locale, 2);
 
-			[$file, $parsedLine] = $this->parseLine($line, $locale);
+			list($file, $parsedLine) = $this->parseLine($line, $locale);
 
 			$output = $this->getTranslationOutput($locale, $file, $parsedLine);
 		}
@@ -131,7 +131,7 @@ class Language
 		// if still not found, try English
 		if ($output === null)
 		{
-			[$file, $parsedLine] = $this->parseLine($line, 'en');
+			list($file, $parsedLine) = $this->parseLine($line, 'en');
 
 			$output = $this->getTranslationOutput('en', $file, $parsedLine);
 		}

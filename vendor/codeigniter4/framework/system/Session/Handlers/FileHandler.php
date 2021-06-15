@@ -240,8 +240,6 @@ class FileHandler extends BaseHandler
 
 		if (($length = strlen($sessionData)) > 0)
 		{
-			$result = null;
-
 			for ($written = 0; $written < $length; $written += $result)
 			{
 				if (($result = fwrite($this->fileHandle, substr($sessionData, $written))) === false)
@@ -250,7 +248,7 @@ class FileHandler extends BaseHandler
 				}
 			}
 
-			if (! is_int($result))
+			if (! is_int($result)) // @phpstan-ignore-line
 			{
 				$this->fingerprint = md5(substr($sessionData, 0, $written));
 				$this->logger->error('Session: Unable to write data.');

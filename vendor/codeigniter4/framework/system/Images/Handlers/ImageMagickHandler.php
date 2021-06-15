@@ -234,11 +234,10 @@ class ImageMagickHandler extends BaseHandler
 			$this->config->libraryPath = rtrim($this->config->libraryPath, '/') . '/convert';
 		}
 
-		$cmd  = $this->config->libraryPath;
+		$cmd = $this->config->libraryPath;
 		$cmd .= $action === '-version' ? ' ' . $action : ' -quality ' . $quality . ' ' . $action;
 
 		$retval = 1;
-		$output = [];
 		// exec() might be disabled
 		if (function_usable('exec'))
 		{
@@ -251,7 +250,7 @@ class ImageMagickHandler extends BaseHandler
 			throw ImageException::forImageProcessFailed();
 		}
 
-		return $output;
+		return $output; // @phpstan-ignore-line
 	}
 
 	//--------------------------------------------------------------------
@@ -450,7 +449,7 @@ class ImageMagickHandler extends BaseHandler
 		// Color
 		if (isset($options['color']))
 		{
-			[$r, $g, $b] = sscanf("#{$options['color']}", '#%02x%02x%02x');
+			list($r, $g, $b) = sscanf("#{$options['color']}", '#%02x%02x%02x');
 
 			$cmd .= " -fill 'rgba({$r},{$g},{$b},{$options['opacity']})'";
 		}

@@ -1,12 +1,12 @@
 <?php namespace Myth\Auth\Authentication;
 
+use Config\App;
 use CodeIgniter\Events\Events;
 use CodeIgniter\Model;
-use Myth\Auth\Config\Auth as AuthConfig;
+use Config\Services;
 use Myth\Auth\Entities\User;
 use Myth\Auth\Exceptions\AuthException;
 use Myth\Auth\Exceptions\UserNotFoundException;
-use Myth\Auth\Models\LoginModel;
 
 class AuthenticationBase
 {
@@ -21,7 +21,7 @@ class AuthenticationBase
     protected $userModel;
 
     /**
-     * @var LoginModel
+     * @var Model
      */
     protected $loginModel;
 
@@ -31,7 +31,7 @@ class AuthenticationBase
     protected $error;
 
     /**
-     * @var AuthConfig
+     * @var \Config\Auth
      */
     protected $config;
 
@@ -67,7 +67,7 @@ class AuthenticationBase
      * NOTE: does not perform validation. All validation should
      * be done prior to using the login method.
      *
-     * @param User $user
+     * @param \Myth\Auth\Entities\User $user
      * @param bool                     $remember
      *
      * @return bool
@@ -84,7 +84,7 @@ class AuthenticationBase
         $this->user = $user;
 
         // Always record a login attempt
-        $ipAddress = service('request')->getIPAddress();
+        $ipAddress = Services::request()->getIPAddress();
         $this->recordLoginAttempt($user->email, $ipAddress, $user->id ?? null, true);
 
         // Regenerate the session ID to help protect against session fixation
@@ -97,7 +97,7 @@ class AuthenticationBase
         session()->set('logged_in', $this->user->id);
 
         // When logged in, ensure cache control headers are in place
-        service('response')->noCache();
+        Services::response()->noCache();
 
         if ($remember && $this->config->allowRemembering)
         {
@@ -168,34 +168,27 @@ class AuthenticationBase
     {
         helper('cookie');
 
+        $user = $this->user();
+
         // Destroy the session data - but ensure a session is still
         // available for flash messages, etc.
         if (isset($_SESSION))
         {
-            foreach ($_SESSION as $key => $value)
+            foreach ( $_SESSION as $key => $value )
             {
-                $_SESSION[$key] = NULL;
-                unset($_SESSION[$key]);
+                $_SESSION[ $key ] = NULL;
+                unset( $_SESSION[ $key ] );
             }
         }
 
         // Regenerate the session ID for a touch of added safety.
         session()->regenerate(true);
 
-        // Remove the cookie
-        delete_cookie("remember");
+        // Take care of any remember me functionality
+        $this->loginModel->purgeRememberTokens($user->id);
 
-        // Handle user-specific tasks
-        if ($user = $this->user())
-        {
-            // Take care of any remember me functionality
-            $this->loginModel->purgeRememberTokens($user->id);
-
-            // Trigger logout event
-            Events::trigger('logout', $user);
-
-            $this->user = null;
-        }
+        // trigger logout event
+		Events::trigger('logout', $user);
     }
 
     /**
@@ -242,19 +235,19 @@ class AuthenticationBase
         $this->loginModel->rememberUser($userID, $selector, hash('sha256', $validator), $expires);
 
         // Save it to the user's browser in a cookie.
-        $appConfig = config('App');
-        $response = service('response');
+        $appConfig = new App();
+        $response = \Config\Services::response();
 
         // Create the cookie
         $response->setCookie(
-            'remember',      							// Cookie Name
-            $token,                         			// Value
-            $this->config->rememberLength,  			// # Seconds until it expires
+            'remember',                     // Cookie Name
+            $token,                         // Value
+            $this->config->rememberLength,  // # Seconds until it expires
             $appConfig->cookieDomain,
             $appConfig->cookiePath,
             $appConfig->cookiePrefix,
-            $appConfig->cookieSecure,                   // Only send over HTTPS?
-            true                    					// Hide from Javascript?
+            false,                          // Only send over HTTPS?
+            true                            // Hide from Javascript?
         );
     }
 
@@ -284,18 +277,18 @@ class AuthenticationBase
         // Save it to the user's browser in a cookie.
         helper('cookie');
 
-        $appConfig = config('App');
+        $appConfig = new App();
 
         // Create the cookie
         set_cookie(
-            'remember',      							// Cookie Name
-            $selector.':'.$validator, 					// Value
-            $this->config->rememberLength,  			// # Seconds until it expires
+            'remember',               // Cookie Name
+            $selector.':'.$validator, // Value
+            $this->config->rememberLength,  // # Seconds until it expires
             $appConfig->cookieDomain,
             $appConfig->cookiePath,
             $appConfig->cookiePrefix,
-            $appConfig->cookieSecure,                   // Only send over HTTPS?
-            true                  						// Hide from Javascript?
+            false,                  // Only send over HTTPS?
+            true                  // Hide from Javascript?
         );
     }
 
@@ -314,7 +307,7 @@ class AuthenticationBase
     /**
      * Returns the User instance for the current logged in user.
      *
-     * @return User|null
+     * @return \Myth\Auth\Entities\User|null
      */
     public function user()
     {
@@ -351,7 +344,7 @@ class AuthenticationBase
      * Sets the model that should be used to work with
      * user accounts.
      *
-     * @param Model $model
+     * @param \CodeIgniter\Model $model
      *
      * @return $this
      */

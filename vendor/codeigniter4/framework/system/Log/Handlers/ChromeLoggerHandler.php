@@ -26,6 +26,8 @@ class ChromeLoggerHandler extends BaseHandler
 {
 	/**
 	 * Version of this library - for ChromeLogger use.
+	 *
+	 * @var float
 	 */
 	const VERSION = 1.0;
 
@@ -85,7 +87,9 @@ class ChromeLoggerHandler extends BaseHandler
 	{
 		parent::__construct($config);
 
-		$this->json['request_uri'] = current_url();
+		$request = Services::request(null, true);
+
+		$this->json['request_uri'] = (string) $request->uri;
 	}
 
 	//--------------------------------------------------------------------

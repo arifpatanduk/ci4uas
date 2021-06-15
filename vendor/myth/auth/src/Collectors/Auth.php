@@ -1,13 +1,11 @@
 <?php namespace Myth\Auth\Collectors;
 
-use CodeIgniter\Debug\Toolbar\Collectors\BaseCollector;
-use Myth\Auth\Authorization\GroupModel;
-
 /**
- * Debug Toolbar Collector for Auth
+ * Auth collector
  */
-class Auth extends BaseCollector
+class Auth extends \CodeIgniter\Debug\Toolbar\Collectors\BaseCollector
 {
+
 	/**
 	 * Whether this collector has data that can
 	 * be displayed in the Timeline.
@@ -49,7 +47,33 @@ class Auth extends BaseCollector
 	 */
 	public function getTitleDetails(): string
 	{
-		return get_class(service('authentication'));
+		return '';
+	}
+
+	//--------------------------------------------------------------------
+
+	/**
+	 * Returns the timeline data formatted for correct usage.
+	 *
+	 * @return string
+	 */
+	protected function formatTimelineData(): array
+	{
+		$data = [];
+/*
+		$rows = $this->viewer->getPerformanceData();
+
+		foreach ($rows as $name => $info)
+		{
+			$data[] = [
+				'name'      => 'View: ' . $info['view'],
+				'component' => 'Views',
+				'start'     => $info['start'],
+				'duration'  => $info['end'] - $info['start'],
+			];
+		}
+*/
+		return $data;
 	}
 	
 	/**
@@ -63,11 +87,27 @@ class Auth extends BaseCollector
 
 		if ($authenticate->isLoggedIn())
 		{
-			$user   = $authenticate->user();
-			$groups = model(GroupModel::class)->getGroupsForUser($user->id);
+			$user = $authenticate->user();
 
-			$groupsForUser = implode(', ', array_column($groups, 'name'));
-			
+			/**
+			 *  Should groups be added here,
+			 *  as an afterFind action in UserModel
+			 *  so it's available globally,
+			 *  or not at all?
+			 */
+			$groupModel = new \Myth\Auth\Authorization\GroupModel();
+			$user->groups =  $groupModel->getGroupsForUser($user->id);
+
+			$groupsForUser = '';
+
+			if (!empty($user->groups))
+			{
+				foreach($user->groups as $group)
+				{
+					$groupsForUser .= $group['name'].', ';
+				}
+			}
+
 			$html = '<h3>Current User</h3>';
 			$html .= '<table><tbody>';
 			$html .= "<tr><td style='width:150px;'>User ID</td><td>#{$user->id}</td></tr>";
@@ -76,22 +116,25 @@ class Auth extends BaseCollector
 			$html .= "<tr><td>Groups</td><td>{$groupsForUser}</td></tr>";
 			$html .= '</tbody></table>';
 		}
-		else
-		{
+		else {
 			$html = '<p>Not logged in.</p>';
 		}
 		return $html;
 	}
 
+	//--------------------------------------------------------------------
+
 	/**
 	 * Gets the "badge" value for the button.
 	 *
-	 * @return int|null ID of the current User, or null when not logged in
+	 * @return integer
 	 */
-	public function getBadgeValue(): ?int
+	public function getBadgeValue(): int
 	{
-		return service('authentication')->isLoggedIn() ? service('authentication')->id() : null;
+		return 1;
 	}
+
+	//--------------------------------------------------------------------
 
 	/**
 	 * Display the icon.

@@ -43,7 +43,7 @@ class Fabricator
 	/**
 	 * Model instance (can be non-framework if it follows framework design)
 	 *
-	 * @var Model|object
+	 * @var CodeIgniter\Model|object
 	 */
 	protected $model;
 

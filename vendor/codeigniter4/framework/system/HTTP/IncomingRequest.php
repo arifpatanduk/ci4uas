@@ -14,6 +14,7 @@ namespace CodeIgniter\HTTP;
 use CodeIgniter\HTTP\Exceptions\HTTPException;
 use CodeIgniter\HTTP\Files\FileCollection;
 use CodeIgniter\HTTP\Files\UploadedFile;
+use CodeIgniter\HTTP\URI;
 use Config\App;
 use Config\Services;
 use InvalidArgumentException;
@@ -269,7 +270,7 @@ class IncomingRequest extends Request
 			foreach (explode('/', $_SERVER['SCRIPT_NAME']) as $i => $segment)
 			{
 				// If these segments are not the same then we're done
-				if (! isset($segments[$i]) || $segment !== $segments[$i])
+				if ($segment !== $segments[$i])
 				{
 					break;
 				}

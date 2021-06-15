@@ -20,6 +20,13 @@ use stdClass;
  */
 class Result extends BaseResult
 {
+	/**
+	 * Row offset
+	 *
+	 * @var integer
+	 */
+	private $rowOffset = 0;
+
 	//--------------------------------------------------------------------
 
 	/**
@@ -99,7 +106,7 @@ class Result extends BaseResult
 			$retVal[$i]             = new stdClass();
 			$retVal[$i]->name       = $field['Name'];
 			$retVal[$i]->type       = $field['Type'];
-			$retVal[$i]->type_name  = $dataTypes[$field['Type']] ?? null;
+			$retVal[$i]->type_name  = isset($dataTypes[$field['Type']]) ? $dataTypes[$field['Type']] : null;
 			$retVal[$i]->max_length = $field['Size'];
 		}
 

@@ -301,8 +301,12 @@ class Table
 
 		foreach ($this->fields as $name => $details)
 		{
-			$newFields[] = $details['new_name'] ?? $name;
-			$exFields[]  = $name;
+			$newFields[] = isset($details['new_name'])
+				// Are we modifying the column?
+				? $details['new_name']
+				: $name;
+
+			$exFields[] = $name;
 		}
 
 		$exFields  = implode(', ', $exFields);
@@ -332,9 +336,9 @@ class Table
 		foreach ($fields as $field)
 		{
 			$return[$field->name] = [
-				'type'    => $field->type,
-				'default' => $field->default,
-				'null'    => $field->nullable,
+				'type'     => $field->type,
+				'default'  => $field->default,
+				'nullable' => $field->nullable,
 			];
 
 			if ($field->primary_key)

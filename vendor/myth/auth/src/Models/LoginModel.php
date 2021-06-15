@@ -74,10 +74,7 @@ class LoginModel extends Model
     {
         return $this->db->table('auth_tokens')
             ->where('selector', $selector)
-            ->update([
-                'hashedValidator' => hash('sha256', $validator),
-                'expires'         => (new \DateTime)->modify('+' . config('Auth')->rememberLength . ' seconds')->format('Y-m-d H:i:s'),
-            ]);
+            ->update(['hashedValidator' => hash('sha256', $validator)]);
     }
 
 

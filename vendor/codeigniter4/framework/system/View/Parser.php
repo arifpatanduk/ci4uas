@@ -101,13 +101,16 @@ class Parser extends View
 		$fileExt = pathinfo($view, PATHINFO_EXTENSION);
 		$view    = empty($fileExt) ? $view . '.php' : $view; // allow Views as .html, .tpl, etc (from CI3)
 
-		$cacheName = $options['cache_name'] ?? str_replace('.php', '', $view);
-
 		// Was it cached?
-		if (isset($options['cache']) && ($output = cache($cacheName)))
+		if (isset($options['cache']))
 		{
-			$this->logPerformance($start, microtime(true), $view);
-			return $output;
+			$cacheName = $options['cache_name'] ?? str_replace('.php', '', $view);
+
+			if ($output = cache($cacheName))
+			{
+				$this->logPerformance($start, microtime(true), $view);
+				return $output;
+			}
 		}
 
 		$file = $this->viewPath . $view;
@@ -140,7 +143,7 @@ class Parser extends View
 		// Should we cache?
 		if (isset($options['cache']))
 		{
-			cache()->save($cacheName, $output, (int) $options['cache']);
+			cache()->save($cacheName, $output, (int) $options['cache']); // @phpstan-ignore-line
 		}
 		$this->tempData = null;
 		return $output;

@@ -184,7 +184,7 @@ class Cookie implements ArrayAccess, CloneableCookieInterface
 		{
 			if (strpos($part, '=') !== false)
 			{
-				[$attr, $val] = explode('=', $part);
+				list($attr, $val) = explode('=', $part);
 			}
 			else
 			{
@@ -220,19 +220,15 @@ class Cookie implements ArrayAccess, CloneableCookieInterface
 			unset($options['max-age']);
 		}
 
-		// to preserve backward compatibility with array-based cookies in previous CI versions
-		$prefix = $options['prefix'] ?: self::$defaults['prefix'];
-		$path   = $options['path'] ?: self::$defaults['path'];
-		$domain = $options['domain'] ?: self::$defaults['domain'];
-
-		// empty string SameSite should use the default for browsers
+		// to retain backward compatibility with previous versions' fallback
+		$prefix   = $options['prefix'] ?: self::$defaults['prefix'];
+		$path     = $options['path'] ?: self::$defaults['path'];
+		$domain   = $options['domain'] ?: self::$defaults['domain'];
+		$secure   = $options['secure'] ?: self::$defaults['secure'];
+		$httponly = $options['httponly'] ?: self::$defaults['httponly'];
 		$samesite = $options['samesite'] ?: self::$defaults['samesite'];
 
-		$raw      = $options['raw'];
-		$secure   = $options['secure'];
-		$httponly = $options['httponly'];
-
-		$this->validateName($name, $raw);
+		$this->validateName($name, $options['raw']);
 		$this->validatePrefix($prefix, $secure, $path, $domain);
 		$this->validateSameSite($samesite, $secure);
 
@@ -245,7 +241,7 @@ class Cookie implements ArrayAccess, CloneableCookieInterface
 		$this->secure   = $secure;
 		$this->httponly = $httponly;
 		$this->samesite = ucfirst(strtolower($samesite));
-		$this->raw      = $raw;
+		$this->raw      = $options['raw'];
 	}
 
 	//=========================================================================
