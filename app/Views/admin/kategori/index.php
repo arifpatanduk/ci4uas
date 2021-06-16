@@ -25,7 +25,7 @@
                     <button class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Tambah Kategori</button>
                 </div>
                 <div class="card-body">
-                    <table class="table">
+                    <table class="table" id="myTable">
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
@@ -90,6 +90,17 @@
     </div>
 
 </div>
+<script>
+    $(document).ready(function() {
+        $('#myTable').DataTable( {
+            dom: 'lBfrtip',
+            buttons: [
+                'excelHtml5',
+                'pdfHtml5'
+            ],
+        } );
+    });
+</script>
 
 <script>
     $(document).ready(function() {

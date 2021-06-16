@@ -13,7 +13,8 @@ class InfografisController extends BaseController
 		$data = [
 			'title' => 'Infografis',
 			'active' => 'infografis',
-			'list' => $model->getInfo()
+			'list' => $model->getInfo(),
+			'list2'=> $model->getInfoPinjam()
 
 		];
 

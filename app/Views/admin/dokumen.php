@@ -25,7 +25,7 @@
                     <a class="btn btn-primary" href="<?= base_url('admin/dokumen/tambah'); ?>">Tambah Dokumen</a>
                 </div>
                 <div class="card-body">
-                    <table class="table">
+                    <table class="table" id="myTable">
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
@@ -51,8 +51,11 @@
                                     <td><?= $item['updated_at'] ?></td>
                                     <td>
                                         <a class="btn btn-primary" href="<?= base_url('admin/dokumen/' . $item['id']); ?>">Detail</a>
-                                        <a class="btn btn-warning" href="<?= base_url('admin/dokumen/edit/' . $item['id']); ?>">Edit</a>
-                                        <a class="btn btn-danger" href="#" onclick="hapus('<?= $item['id'] ?>')">Delete </a>
+                                        <?php if ($item['status_tersedia'] == "Tersedia") { ?>
+                                            <a class="btn btn-warning" href="<?= base_url('admin/dokumen/edit/' . $item['id']); ?>">Edit</a>
+                                            <a class="btn btn-danger" href="#" onclick="hapus('<?= $item['id'] ?>')">Delete </a>
+                                        <?php } ?>
+
                                     </td>
                                 </tr>
                             <?php } ?>
@@ -64,6 +67,17 @@
     </section>
 
 </div>
+<script>
+    $(document).ready(function() {
+        $('#myTable').DataTable( {
+            dom: 'lBfrtip',
+            buttons: [
+                'excelHtml5',
+                'pdfHtml5'
+            ],
+        } );
+    });
+</script>
 
 <script>
     $(document).ready(function() {
