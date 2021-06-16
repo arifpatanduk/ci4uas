@@ -95,9 +95,9 @@
         $('#myTable').DataTable( {
             dom: 'lBfrtip',
             buttons: [
-                'excelHtml5',
-                'pdfHtml5'
-            ],
+                { extend: 'excelHtml5', className: 'btn btn-success' },
+                { extend: 'pdfHtml5', className: 'btn btn-danger' },
+            ],  
         } );
     });
 </script>
