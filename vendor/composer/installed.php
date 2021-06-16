@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => 'a4c33953a8ee7cf52c4df2fadfbfa0da033e52c8',
+    'reference' => 'cfd9b559926f4735379ffd003db70c5cb5b7593c',
     'name' => 'codeigniter4/appstarter',
   ),
   'versions' => 
@@ -18,16 +18,23 @@
       'aliases' => 
       array (
       ),
-      'reference' => 'a4c33953a8ee7cf52c4df2fadfbfa0da033e52c8',
+      'reference' => 'cfd9b559926f4735379ffd003db70c5cb5b7593c',
+    ),
+    'codeigniter4/authentication-implementation' => 
+    array (
+      'provided' => 
+      array (
+        0 => '1.0',
+      ),
     ),
     'codeigniter4/framework' => 
     array (
-      'pretty_version' => 'v4.1.2',
-      'version' => '4.1.2.0',
+      'pretty_version' => 'v4.1.3',
+      'version' => '4.1.3.0',
       'aliases' => 
       array (
       ),
-      'reference' => '0bf61820417a3e4a6e7f6c725c5cccf285a1b7c4',
+      'reference' => '3416a0b4ca5c824f639beaf43f9e5b7e87511c5c',
     ),
     'doctrine/instantiator' => 
     array (
@@ -170,12 +177,12 @@
     ),
     'myth/auth' => 
     array (
-      'pretty_version' => '1.0-beta.3',
-      'version' => '1.0.0.0-beta3',
+      'pretty_version' => 'v1.0',
+      'version' => '1.0.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '85572d1f1bb312d7d2e0a444b45531170773d2de',
+      'reference' => '9bba52bd710a0c35a0b2d8cef64a70706224648a',
     ),
     'nikic/php-parser' => 
     array (
@@ -296,12 +303,12 @@
     ),
     'phpunit/phpunit' => 
     array (
-      'pretty_version' => '9.5.4',
-      'version' => '9.5.4.0',
+      'pretty_version' => '9.5.5',
+      'version' => '9.5.5.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'c73c6737305e779771147af66c96ca6a7ed8a741',
+      'reference' => '89ff45ea9d70e35522fb6654a2ebc221158de276',
     ),
     'psr/cache' => 
     array (
@@ -436,12 +443,12 @@
     ),
     'sebastian/global-state' => 
     array (
-      'pretty_version' => '5.0.2',
-      'version' => '5.0.2.0',
+      'pretty_version' => '5.0.3',
+      'version' => '5.0.3.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'a90ccbddffa067b51f574dea6eb25d5680839455',
+      'reference' => '23bd5951f7ff26f12d4e3242864df3e08dec4e49',
     ),
     'sebastian/lines-of-code' => 
     array (
@@ -490,12 +497,12 @@
     ),
     'sebastian/type' => 
     array (
-      'pretty_version' => '2.3.1',
-      'version' => '2.3.1.0',
+      'pretty_version' => '2.3.4',
+      'version' => '2.3.4.0',
       'aliases' => 
       array (
       ),
-      'reference' => '81cd61ab7bbf2de744aba0ea61fae32f721df3d2',
+      'reference' => 'b8cd8a1c753c90bc1a0f5372170e3e489136f914',
     ),
     'sebastian/version' => 
     array (
@@ -550,6 +557,15 @@
       array (
       ),
       'reference' => '9a142215a36a3888e30d0a9eeea9766764e96976',
+    ),
+    'tecnickcom/tcpdf' => 
+    array (
+      'pretty_version' => '6.4.1',
+      'version' => '6.4.1.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '5ba838befdb37ef06a16d9f716f35eb03cb1b329',
     ),
     'theseer/tokenizer' => 
     array (

@@ -47,7 +47,9 @@ class Publish extends BaseCommand
      *
      * @var array
      */
-    protected $options = [];
+    protected $options = [
+        '-f'    => 'Force overwrite ALL existing files in destination',
+    ];
 
     /**
      * The path to Myth\Auth\src directory.
@@ -55,6 +57,13 @@ class Publish extends BaseCommand
      * @var string
      */
     protected $sourcePath;
+
+    /**
+     * Whether the Views were published for local use.
+     *
+     * @var bool
+     */
+    protected $viewsPublished = false;
 
     //--------------------------------------------------------------------
 
@@ -95,6 +104,7 @@ class Publish extends BaseCommand
         if (CLI::prompt('Publish Views?', ['y', 'n']) == 'y')
         {
             $this->publishViews();
+            $this->viewsPublished = true;
         }
 
         // Filters
@@ -224,7 +234,15 @@ class Publish extends BaseCommand
 
         $content = file_get_contents($path);
         $content = str_replace('namespace Myth\Auth\Config', "namespace Config", $content);
+        $content = str_replace("use CodeIgniter\Config\BaseConfig;\n", '', $content);
         $content = str_replace('extends BaseConfig', "extends \Myth\Auth\Config\Auth", $content);
+
+        // are we also changing the views?
+        if ($this->viewsPublished)
+        {
+            $namespace = defined('APP_NAMESPACE') ? APP_NAMESPACE : 'App';
+            $content = str_replace('Myth\Auth\Views', $namespace . '\Views', $content);
+        }
 
         $this->writeFile("Config/Auth.php", $content);
     }
@@ -287,25 +305,32 @@ class Publish extends BaseCommand
         $config = new Autoload();
         $appPath = $config->psr4[APP_NAMESPACE];
 
-        $directory = dirname($appPath . $path);
+        $filename = $appPath . $path;
+        $directory = dirname($filename);
 
         if (! is_dir($directory))
         {
             mkdir($directory, 0777, true);
         }
 
-        try
+        if (file_exists($filename))
         {
-            write_file($appPath . $path, $content);
-        }
-        catch (\Exception $e)
-        {
-            $this->showError($e);
-            exit();
+            $overwrite = (bool) CLI::getOption('f');
+
+            if (! $overwrite && CLI::prompt("  File '{$path}' already exists in destination. Overwrite?", ['n', 'y']) === 'n')
+            {
+                CLI::error("  Skipped {$path}. If you wish to overwrite, please use the '-f' option or reply 'y' to the prompt.");
+                return;
+            }
         }
 
-        $path = str_replace($appPath, '', $path);
-
-        CLI::write(CLI::color('  created: ', 'green') . $path);
+        if (write_file($filename, $content))
+        {
+            CLI::write(CLI::color('  Created: ', 'green') . $path);
+        }
+        else
+        {
+            CLI::error("  Error creating {$path}.");
+        }
     }
 }

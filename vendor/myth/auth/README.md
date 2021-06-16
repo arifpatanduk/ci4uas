@@ -1,6 +1,6 @@
 # Myth:Auth
 
-[![](https://github.com/lonnieezell/myth-auth/workflows/PHP%20Tests/badge.svg)](https://github.com/lonnieezell/myth-auth/actions?query=workflow%3A%22PHP+Tests%22)
+[![](https://github.com/lonnieezell/myth-auth/workflows/PHPUnit/badge.svg)](https://github.com/lonnieezell/myth-auth/actions?query=workflow%3A%22PHPUnit%22)
 
 Flexible, Powerful, Secure auth package for CodeIgniter 4.
 
@@ -113,11 +113,11 @@ The following Services are provided by the package:
 Provides access to any of the authentication packages that Myth:Auth knows about. By default
 it will return the "Local Authentication" library, which is the basic password-based system.
 
-    $authenticate = Config\Services::authentication();
+    $authenticate = service('authentication');
     
 You can specify the library to use as the first argument:
 
-    $authenticate = Config\Services::authentication('jwt');
+    $authenticate = service('authentication', 'jwt');
     
 **authorization**
 
@@ -125,7 +125,7 @@ Provides access to any of the authorization libraries that Myth:Auth knows about
 it will return the "Flat" authorization library, which is a Flat RBAC (role-based access control)
 as defined by NIST. It provides user-specific permissions as well as group (role) based permissions.
 
-    $authorize = Config\Services::authorization();
+    $authorize = service('authorization');
 
 **passwords**
 
@@ -134,7 +134,7 @@ supports many of [NIST's latest Digital Identity guidelines](https://pages.nist.
 validator comes with a dictionary of over 620,000 common/leaked passwords that can be checked against.
 A handful of variations on the user's email/username are automatically checked against. 
 
-    $authenticate = Config\Services::passwords();
+    $authenticate = service('passwords');
    
 Most of the time you should not need to access this library directly, though, as a new Validation rule
 is provided that can be used with the Validation library, `strong_password`. In order to enable this, 
@@ -297,7 +297,5 @@ $routes->group('admin', ['filter' => 'role:admin,superadmin'], function($routes)
 
 ## Customization
 
-This library is intentionally slim on user identifying information, having only the fields necessary for
-authentication and authorization. You will likely want to add fields like a user's name or phone number.
-You can create your own migration to add these fields (see: [an example migration](bin/20190603101528_alter_table_users.php).
-If you used `auth:publish` you can also add these fields to your `UserModel`'s `$allowedFields` property.
+See the [Extending](docs/extending.md) documentation.
+

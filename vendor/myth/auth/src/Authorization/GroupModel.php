@@ -36,6 +36,7 @@ class GroupModel extends Model
     public function addUserToGroup(int $userId, int $groupId)
     {
         cache()->delete("{$userId}_groups");
+        cache()->delete("{$userId}_permissions");
 
         $data = [
             'user_id'   => (int)$userId,
@@ -56,6 +57,7 @@ class GroupModel extends Model
     public function removeUserFromGroup(int $userId, $groupId)
     {
         cache()->delete("{$userId}_groups");
+        cache()->delete("{$userId}_permissions");
 
         return $this->db->table('auth_groups_users')
             ->where([
@@ -69,11 +71,12 @@ class GroupModel extends Model
      *
      * @param $userId
      *
-     * @return mixed
+     * @return bool
      */
     public function removeUserFromAllGroups(int $userId)
     {
         cache()->delete("{$userId}_groups");
+        cache()->delete("{$userId}_permissions");
 
         return $this->db->table('auth_groups_users')
             ->where('user_id', (int)$userId)
@@ -85,7 +88,7 @@ class GroupModel extends Model
      *
      * @param $userId
      *
-     * @return object
+     * @return array
      */
     public function getGroupsForUser(int $userId)
     {
@@ -103,6 +106,29 @@ class GroupModel extends Model
         return $found;
     }
 
+    /**
+     * Returns an array of all users that are members of a group.
+     *
+     * @param $groupId
+     *
+     * @return array
+     */
+    public function getUsersForGroup(int $groupId)
+    {
+        if (! $found = cache("{$groupId}_users"))
+        {
+            $found = $this->builder()
+                ->select('auth_groups_users.*, users.*')
+                ->join('auth_groups_users', 'auth_groups_users.group_id = auth_groups.id', 'left')
+                ->join('users', 'auth_groups_users.user_id = users.id', 'left')
+                ->where('auth_groups.id', $groupId)
+                ->get()->getResultArray();
+
+            cache()->save("{$groupId}_users", $found, 300);
+        }
+
+        return $found;
+    }
 
     //--------------------------------------------------------------------
     // Permissions

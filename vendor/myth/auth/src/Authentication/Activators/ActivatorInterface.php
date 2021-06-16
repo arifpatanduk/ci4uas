@@ -1,6 +1,6 @@
 <?php namespace Myth\Auth\Authentication\Activators;
 
-use CodeIgniter\Entity;
+use Myth\Auth\Entities\User;
 
 /**
  * Interface ActivatorInterface
@@ -14,9 +14,9 @@ interface ActivatorInterface
      *
      * @param User $user
      *
-     * @return mixed
+     * @return bool
      */
-    public function send(Entity $user = null): bool;
+    public function send(User $user = null): bool;
 
     /**
      * Returns the error string that should be displayed to the user.

@@ -34,7 +34,7 @@ class Controller
 	/**
 	 * Instance of the main Request object.
 	 *
-	 * @var HTTP\IncomingRequest
+	 * @var RequestInterface
 	 */
 	protected $request;
 
@@ -83,7 +83,8 @@ class Controller
 		$this->response = $response;
 		$this->logger   = $logger;
 
-		if ($this->forceHTTPS > 0) {
+		if ($this->forceHTTPS > 0)
+		{
 			$this->forceHTTPS($this->forceHTTPS);
 		}
 
@@ -134,7 +135,8 @@ class Controller
 	 */
 	protected function loadHelpers()
 	{
-		if (empty($this->helpers)) {
+		if (empty($this->helpers))
+		{
 			return;
 		}
 
@@ -157,17 +159,20 @@ class Controller
 		$this->validator = Services::validation();
 
 		// If you replace the $rules array with the name of the group
-		if (is_string($rules)) {
+		if (is_string($rules))
+		{
 			$validation = config('Validation');
 
 			// If the rule wasn't found in the \Config\Validation, we
 			// should throw an exception so the developer can find it.
-			if (!isset($validation->$rules)) {
+			if (! isset($validation->$rules))
+			{
 				throw ValidationException::forRuleNotFound($rules);
 			}
 
 			// If no error message is defined, use the error message in the Config\Validation file
-			if (!$messages) {
+			if (! $messages)
+			{
 				$errorName = $rules . '_errors';
 				$messages  = $validation->$errorName ?? [];
 			}

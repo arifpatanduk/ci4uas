@@ -2,13 +2,12 @@
 
 use CodeIgniter\CLI\BaseCommand;
 use CodeIgniter\CLI\CLI;
-use Config\Services;
 
 class CreateGroup extends BaseCommand
 {
-    protected $group       = 'Auth';
-    protected $name        = 'auth:create_group';
-    protected $description = "Adds a new group to the database.";
+	protected $group       = 'Auth';
+	protected $name        = 'auth:create_group';
+	protected $description = "Adds a new group to the database.";
 
 	protected $usage     = "auth:create_group [name] [description]";
 	protected $arguments = [
@@ -18,8 +17,7 @@ class CreateGroup extends BaseCommand
 
 	public function run(array $params = [])
     {
-		$db = db_connect();
-		$auth  = Services::authorization();
+		$auth = service('authorization');
 
 		// consume or prompt for group name
 		$name = array_shift($params);

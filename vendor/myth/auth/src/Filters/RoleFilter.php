@@ -1,11 +1,9 @@
-<?php
+<?php namespace Myth\Auth\Filters;
 
-namespace Myth\Auth\Filters;
-
-use Config\Services;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use CodeIgniter\Filters\FilterInterface;
+use Myth\Auth\Exceptions\PermissionException;
 
 class RoleFilter implements FilterInterface
 {
@@ -19,45 +17,51 @@ class RoleFilter implements FilterInterface
 	 * sent back to the client, allowing for error pages,
 	 * redirects, etc.
 	 *
-	 * @param \CodeIgniter\HTTP\RequestInterface $request
+	 * @param RequestInterface $request
 	 * @param array|null                         $params
 	 *
 	 * @return mixed
 	 */
-	public function before(RequestInterface $request, $params = null, $arguments = NULL)
+	public function before(RequestInterface $request, $params = null)
 	{
-		if (!function_exists('logged_in')) {
+		if (! function_exists('logged_in'))
+		{
 			helper('auth');
 		}
 
-		if (empty($params)) {
+		if (empty($params))
+		{
 			return;
 		}
 
-		$authenticate = Services::authentication();
+		$authenticate = service('authentication');
 
 		// if no user is logged in then send to the login form
-		if (!$authenticate->check()) {
+		if (! $authenticate->check())
+		{
 			session()->set('redirect_url', current_url());
 			return redirect('login');
 		}
 
-		$authorize = Services::authorization();
+		$authorize = service('authorization');
 
 		// Check each requested permission
-		foreach ($params as $group) {
-			if ($authorize->inGroup($group, $authenticate->id())) {
+		foreach ($params as $group)
+		{
+			if($authorize->inGroup($group, $authenticate->id()))
+			{
 				return;
 			}
 		}
 
-		if ($authenticate->silent()) {
+		if ($authenticate->silent())
+		{
 			$redirectURL = session('redirect_url') ?? '/';
 			unset($_SESSION['redirect_url']);
 			return redirect()->to($redirectURL)->with('error', lang('Auth.notEnoughPrivilege'));
-		} else {
-			// throw new \RuntimeException(lang('Auth.notEnoughPrivilege'));
-			return redirect()->to('/user');
+		}
+		else {
+			throw new PermissionException(lang('Auth.notEnoughPrivilege'));
 		}
 	}
 
@@ -69,13 +73,15 @@ class RoleFilter implements FilterInterface
 	 * to stop execution of other after filters, short of
 	 * throwing an Exception or Error.
 	 *
-	 * @param \CodeIgniter\HTTP\RequestInterface  $request
-	 * @param \CodeIgniter\HTTP\ResponseInterface $response
+	 * @param RequestInterface  $request
+	 * @param ResponseInterface $response
+	 * @param array|null                          $arguments
 	 *
-	 * @return mixed
+	 * @return void
 	 */
-	public function after(RequestInterface $request, ResponseInterface $response, $arguments = NULL)
+	public function after(RequestInterface $request, ResponseInterface $response, $arguments = null)
 	{
+
 	}
 
 	//--------------------------------------------------------------------

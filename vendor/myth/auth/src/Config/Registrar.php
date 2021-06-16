@@ -1,8 +1,4 @@
-<?php
-
-namespace Myth\Auth\Config;
-
-use Config\Services;
+<?php namespace Myth\Auth\Config;
 
 /**
  * Helper class that will register our bulk plugins
@@ -14,8 +10,6 @@ use Config\Services;
  *      protected $registrars = [
  *          \Myth\Template\Registrar::class
  *      ];
- *
- * @package Myth\Template
  */
 class Registrar
 {
@@ -23,12 +17,8 @@ class Registrar
     {
         return [
             'plugins' => [
-                'logged_in' => [function ($str, array $params = []) {
-                    return Services::authentication()->check() ? $str : '';
-                }],
-                'logged_out' => [function ($str, array $params = []) {
-                    return !Services::authentication()->check() ? $str : '';
-                }],
+                'logged_in' => [ function ($str, array $params = []) { return service('authentication')->check() ? $str : ''; } ],
+                'logged_out' => [ function ($str, array $params = []) { return ! service('authentication')->check() ? $str : ''; } ],
             ]
         ];
     }
