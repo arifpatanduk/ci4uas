@@ -36,8 +36,8 @@ class DocController extends BaseController
 		$doc = $docs->objectDokumen()->where('id', $id)->get()->getRow();
 
 		$peminjaman = new PeminjamanModel();
-		$pinjam = $peminjaman->where('id_user', user_id())->where('id_dokumen', $id)->get()->getRow();
-		$jml_pinjam = count($peminjaman->where('id_user', user_id())->get()->getResultArray());
+		$pinjam = $peminjaman->where('id_user', user_id())->where('id_dokumen', $id)->where('tgl_kembali', null)->get()->getRow();
+		$jml_pinjam = count($peminjaman->where('id_user', user_id())->where('tgl_kembali', null)->get()->getResultArray());
 
 		$data = [
 			'title' => 'Document',

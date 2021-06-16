@@ -53,7 +53,7 @@
                                 <?php if (in_groups('member')) : ?>
                                     <?php if (!$pinjam) : ?>
                                         <?php if ($jml_pinjam < 2) : ?>
-                                            <button id="pinjam" class="btn btn-warning my-2" data-toggle="modal" data-target="<?= $dokumen->status == 'Tersedia' ? '#modal-pinjam' : '#modal-no-pinjam'; ?>" data-status="<?= $dokumen->status; ?>">
+                                            <button id="pinjam" class="btn btn-warning my-2" data-toggle="modal" data-target="<?= $dokumen->status_tersedia == 'Tersedia' ? '#modal-pinjam' : '#modal-no-pinjam'; ?>" data-status="<?= $dokumen->status_tersedia; ?>">
                                                 <i class="fas fa-file-import"></i>
                                                 Pinjam Document
                                             </button>
@@ -128,7 +128,7 @@
 
                 <div class="modal-body">
                     <p class="card-text">
-                        Dokumen tidak dapat dipinjam. Saat ini dokumen<span class="badge badge-sm badge-danger"> Tidak Tersedia</span>
+                        Dokumen tidak dapat dipinjam. Saat ini dokumen <span class="badge badge-sm badge-danger"> Tidak Tersedia</span>
                     </p>
                 </div>
                 <div class="modal-footer bg-whitesmoke br">
@@ -142,14 +142,4 @@
 
 
 </div>
-
-
-<script>
-    // $(document).ready(function() {
-    //     $("#pinjam").click(function() {
-    //         var status = $(this).data('status');
-    //         $("#ketersediaan").text(status);
-    //     });
-    // });
-</script>
 <?= $this->endSection(); ?>

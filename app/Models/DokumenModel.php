@@ -14,7 +14,7 @@ class DokumenModel extends Model
     protected $returnType           = 'array';
     protected $useSoftDelete        = false;
     protected $protectFields        = true;
-    protected $allowedFields        = ['judul', 'nama_file', 'abstrak', 'penulis', 'tahun_publikasi', 'id_sub_kategori'];
+    protected $allowedFields        = ['judul', 'nama_file', 'abstrak', 'penulis', 'tahun_publikasi', 'id_sub_kategori', 'status_tersedia'];
     // Dates
     protected $useTimestamps        = true;
     protected $dateFormat           = 'datetime';

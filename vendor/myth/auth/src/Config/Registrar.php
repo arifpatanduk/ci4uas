@@ -1,4 +1,6 @@
-<?php namespace Myth\Auth\Config;
+<?php
+
+namespace Myth\Auth\Config;
 
 use Config\Services;
 
@@ -21,8 +23,12 @@ class Registrar
     {
         return [
             'plugins' => [
-                'logged_in' => [ function($str, array $params=[]) { return Services::authentication()->check() ? $str : ''; } ],
-                'logged_out' => [ function($str, array $params=[]) { return ! Services::authentication()->check() ? $str : ''; } ],
+                'logged_in' => [function ($str, array $params = []) {
+                    return Services::authentication()->check() ? $str : '';
+                }],
+                'logged_out' => [function ($str, array $params = []) {
+                    return !Services::authentication()->check() ? $str : '';
+                }],
             ]
         ];
     }
