@@ -5,6 +5,7 @@ namespace App\Controllers\Member;
 use App\Controllers\BaseController;
 use App\Models\DokumenModel;
 use App\Models\PeminjamanModel;
+use TCPDF;
 
 class PeminjamanController extends BaseController
 {
@@ -111,5 +112,40 @@ class PeminjamanController extends BaseController
 		session()->setFlashData('pinjam', 'Peminjaman Berhasil dikirim');
 
 		return redirect('user/peminjaman');
+	}
+
+	public function tiket($id)
+	{
+		$peminjaman = new PeminjamanModel();
+		$pinjam = $peminjaman->where('id_peminjaman', $id)->get()->getRow();
+
+		$docs = new DokumenModel();
+		$doc = $docs->objectDokumen()->where('id', $pinjam->id_dokumen)->get()->getRow();
+
+		$data = [
+			'doc' => $doc,
+			'pinjam' => $pinjam,
+		];
+
+		$html = view('/user/peminjaman/tiket', $data);
+
+		$pdf = new TCPDF('P', PDF_UNIT, 'A4', true, 'UTF-8', false);
+
+		$pdf->SetCreator(PDF_CREATOR);
+		$pdf->SetAuthor('SIMAD - PTIK');
+		$pdf->SetTitle('Peminjaman');
+		$pdf->SetSubject('Tiket');
+
+		$pdf->setPrintHeader(false);
+		$pdf->setPrintFooter(false);
+
+		$pdf->addPage();
+
+		// output the HTML content
+		$pdf->writeHTML($html, true, false, true, false, '');
+		//line ini penting
+		$this->response->setContentType('application/pdf');
+		//Close and output PDF document
+		$pdf->Output('peminjaman-simad-ptik.pdf', 'I');
 	}
 }

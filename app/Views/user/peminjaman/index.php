@@ -65,7 +65,7 @@
                                     </td>
                                     <td class="min">
                                         <a href="<?= base_url('user/peminjaman/detail/' . $data['id_peminjaman']); ?>" class="btn btn-sm btn-secondary mx-1"><i class="fas fa-eye"></i> Detail</a>
-                                        <a href="#" class="btn btn-sm btn-primary mx-1"><i class="fas fa-download"></i> Tiket</a>
+                                        <a href="<?= base_url('user/peminjaman/tiket/' . $data['id_peminjaman']); ?>" class="btn btn-sm btn-primary mx-1"><i class="fas fa-download"></i> Tiket</a>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
