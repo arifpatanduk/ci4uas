@@ -39,7 +39,9 @@
                     <a class="nav-link" href="<?= base_url('admin/peminjaman'); ?>"><i class="fas fa-briefcase"></i> <span>Peminjaman</span></a>
                 </li>
 
-                <li><a class="nav-link" href="#"><i class="fas fa-book-reader"></i> <span>History</span></a></li>
+                <li class="<?= ($active === 'history') ? 'active' : ''; ?>">
+                    <a class="nav-link" href="<?= base_url('admin/peminjaman/history'); ?>"><i class="fas fa-book-reader"></i> <span>History</span></a>
+                </li>
 
 
                 <!-- user management -->

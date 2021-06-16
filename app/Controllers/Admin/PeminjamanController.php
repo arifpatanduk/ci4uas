@@ -126,4 +126,36 @@ class PeminjamanController extends BaseController
 			exit('Dokumen tidak dapat dikembalikan');
 		}
 	}
+
+	public function history()
+	{
+		$peminjaman = new PeminjamanModel();
+		$peminjaman = $peminjaman->withDocument()->where('tgl_kembali !=', null)->orderBy('tgl_pinjam', 'ASC')->get()->getResultArray();
+
+		$data = [
+			'title' => 'History Peminjaman Dokumen',
+			'active' => 'history',
+			'peminjaman' => $peminjaman,
+		];
+
+		return view('/admin/peminjaman/history/history', $data);
+	}
+
+	public function detail_history($id)
+	{
+		$peminjaman = new PeminjamanModel();
+		$pinjam = $peminjaman->where('id_peminjaman', $id)->get()->getRow();
+
+		$docs = new DokumenModel();
+		$doc = $docs->objectDokumen()->where('id', $pinjam->id_dokumen)->get()->getRow();
+
+		$data = [
+			'title' => 'Detail History Peminjaman',
+			'active' => 'history',
+			'doc' => $doc,
+			'pinjam' => $pinjam,
+		];
+
+		return view('/admin/peminjaman/history/detail', $data);
+	}
 }

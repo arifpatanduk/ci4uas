@@ -78,6 +78,10 @@ $routes->group('admin', ['filter' => 'role:admin'], function ($routes) {
 	$routes->post('peminjaman/kembali/(:segment)', 'Admin\PeminjamanController::kembali/$1');
 	$routes->get('peminjaman/detail/(:segment)', 'Admin\PeminjamanController::detail/$1');
 
+	// history peminjaman
+	$routes->get('peminjaman/history', 'Admin\PeminjamanController::history');
+	$routes->get('peminjaman/history/detail/(:segment)', 'Admin\PeminjamanController::detail_history/$1');
+
 	// kelola users
 	$routes->get('users', 'Admin/UserController::index');
 	$routes->get('changeStatus', 'Admin/UserController::changeStatus');
@@ -112,7 +116,6 @@ $routes->group('admin', ['filter' => 'role:admin'], function ($routes) {
 	// test upload gdrive
 	$routes->get('gdrive', 'Admin\GDriveController::gdrive');
 	$routes->post('gdrive/insert', 'Admin\GDriveController::upload');
-
 });
 
 /*
