@@ -47,7 +47,7 @@ $routes->get('/doc/(:segment)', 'Member\DocController::detail_guest/$1');
 // MEMBER & ADMIN
 // profile
 $routes->get('/user/profile', 'Member\ProfileController::index');
-$routes->post('/user/profile/update', 'Member\ProfileController::update');
+$routes->post('/us7er/profile/update', 'Member\ProfileController::update');
 
 // dokumen
 $routes->get('/user/doc/(:segment)', 'Member\DocController::detail_member/$1');
@@ -110,6 +110,7 @@ $routes->group('admin', ['filter' => 'role:admin'], function ($routes) {
 	// test upload gdrive
 	$routes->get('gdrive', 'Admin\GDriveController::gdrive');
 	$routes->post('gdrive/insert', 'Admin\GDriveController::upload');
+
 });
 
 /*
