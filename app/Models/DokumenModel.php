@@ -103,4 +103,11 @@ class DokumenModel extends Model
         return $this->db->table('dokumen')->select('nama_file')->where('id', $id)
             ->get()->getResultArray();
     }
+
+    public function getInfo(){
+        return $this->db->table('dokumen')->selectCount('dokumen.id_sub_kategori')->select('ref_kategori.jenis')
+            ->join('ref_sub_kategori', 'ref_sub_kategori.id_sub_kategori = dokumen.id_sub_kategori')
+            ->join('ref_kategori', 'ref_kategori.id_kategori = ref_sub_kategori.id_kategori')
+            ->get()->getFirstRow();
+    }
 }

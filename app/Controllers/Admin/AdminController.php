@@ -24,8 +24,7 @@ class AdminController extends BaseController
     }
 
 	public function dokumen()
-	{;
-
+	{
 		$model = new DokumenModel();
 		$data = [
 			'title' => 'Dokumen',
