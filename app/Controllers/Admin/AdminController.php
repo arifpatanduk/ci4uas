@@ -290,7 +290,6 @@ class AdminController extends BaseController
 				echo json_encode($pesan);
 			} else {
 				$dokumenModel = new DokumenModel();
-				$id = $dokumenModel->find($id);
 				if ($this->request->getFile('dokumen')->getName() != '') {
 					$dokumen = $this->request->getFile('dokumen');
 					$namadokumen = $dokumen->getRandomName();
@@ -316,15 +315,16 @@ class AdminController extends BaseController
 					$namadokumen = $this->request->getVar('file_old');
 				}
 
-				$input = [
-					'judul' => $this->request->getVar('judul'),
-					'nama_file' => $namadokumen,
-					'abstrak' => $this->request->getVar('abstrak'),
-					'penulis' => $this->request->getVar('penulis'),
-					'tahun_publikasi' => $this->request->getVar('tahun'),
-					'id_sub_kategori' => $this->request->getVar('subkategori'),
-				];
-				$dokumenModel->update($id, $input);
+				$dokumenModel->set('judul', $this->request->getVar('judul'));
+				$dokumenModel->set('nama_file', $namadokumen);
+				$dokumenModel->set('abstrak', $this->request->getVar('abstrak'));
+				$dokumenModel->set('penulis', $this->request->getVar('penulis'));
+				$dokumenModel->set('tahun_publikasi', $this->request->getVar('tahun'));
+				$dokumenModel->set('id_sub_kategori', $this->request->getVar('subkategori'));
+
+				$dokumenModel->where('id', $id);
+				$dokumenModel->update();
+
 				$pesan = [
 					'sukses' => 'Data dokumen berhasil diupdate'
 				];

@@ -108,6 +108,16 @@ class DokumenModel extends Model
         return $this->db->table('dokumen')->selectCount('dokumen.id_sub_kategori')->select('ref_kategori.jenis')
             ->join('ref_sub_kategori', 'ref_sub_kategori.id_sub_kategori = dokumen.id_sub_kategori')
             ->join('ref_kategori', 'ref_kategori.id_kategori = ref_sub_kategori.id_kategori')
-            ->get()->getFirstRow();
+            ->groupBy('jenis')
+            ->get()->getResultArray();
+    }
+
+    public function getInfoPinjam(){
+        return $this->db->table('dokumen')->selectCount('dokumen.id_sub_kategori')->select('ref_kategori.jenis')
+            ->join('ref_sub_kategori', 'ref_sub_kategori.id_sub_kategori = dokumen.id_sub_kategori')
+            ->join('ref_kategori', 'ref_kategori.id_kategori = ref_sub_kategori.id_kategori')
+            ->where('status_tersedia', 'Tidak Tersedia')
+            ->groupBy('jenis')
+            ->get()->getResultArray();
     }
 }
