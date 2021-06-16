@@ -32,14 +32,14 @@
                         <a href="<?= base_url('admin/peminjaman/detail/') . '/' . $data['id_peminjaman']; ?>" class="btn btn-sm btn-warning mx-1"><i class="fas fa-eye"></i> Detail</a>
 
                         <?php if ($data['isAmbil'] == "1") { ?>
-                            <button id="button-kembali" class="btn btn-sm btn-primary mx-1" onclick="kembali('<?= $data['token_pinjam']; ?>', '<?= $data['total_denda']; ?>')">
+                            <button id="button-kembali" class="btn btn-sm btn-success mx-1" onclick="kembali('<?= $data['token_pinjam']; ?>', '<?= $data['total_denda']; ?>')">
                                 <i class="fas fa-arrow-circle-left"></i> Kembali
                             </button>
                         <?php } ?>
 
                         <?php if ($data['isAmbil'] == "0") { ?>
                             <button id="button-ambil" class="btn btn-sm btn-primary mx-1" onclick="ambil('<?= $data['token_pinjam']; ?>')">
-                                <i class="fas fa-arrow-circle-left"></i> Konfirmasi
+                                <i class="fas fa-check"></i> Konfirmasi
                             </button>
                         <?php } ?>
 
