@@ -97,6 +97,30 @@ class PeminjamanController extends BaseController
 		return view('/admin/peminjaman/detail', $data);
 	}
 
+	public function konfirmasi($token_pinjam)
+	{
+		if ($this->request->isAjax()) {
+			$peminjaman = new PeminjamanModel();
+			$pinjam = $peminjaman->where('token_pinjam', $token_pinjam)->get()->getRow();
+
+			$id_pinjam = $pinjam->id_peminjaman;
+			$tgl_kembali = date("Y-m-d H:i:s");
+
+			// update table peminjaman
+			$peminjaman->set('isAmbil', 1);
+			$peminjaman->where('id_peminjaman', $id_pinjam);
+			$peminjaman->update();
+
+			$pesan = [
+				'sukses' => 'Dokumen dengan token peminjaman ' . $token_pinjam . ' terambil.'
+			];
+
+			echo json_encode($pesan);
+		} else {
+			exit('Dokumen tidak dapat dikembalikan');
+		}
+	}
+
 	public function kembali($token_pinjam)
 	{
 		if ($this->request->isAjax()) {

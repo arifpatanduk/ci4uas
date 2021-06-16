@@ -73,8 +73,11 @@
                 <th>Kategori</th>
                 <td>
                     <span><?= $doc->jenis; ?></span>
-                    <span><?= $doc->nama; ?></span>
                 </td>
+            </tr>
+            <tr>
+                <th>Sub Kategori</th>
+                <td><?= $doc->nama; ?></td>
             </tr>
         </tbody>
     </table>

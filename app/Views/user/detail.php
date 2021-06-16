@@ -97,7 +97,7 @@
                             <div class="row">
                                 <div class="form-group col-sm-6">
                                     <label>Tanggal Pengambilan Dokumen</label>
-                                    <input type="date" class="form-control" name="tgl_pinjam">
+                                    <input type="date" class="form-control" name="tgl_pinjam" required>
                                 </div>
                                 <p>
                                     <small><i>*Silahkan masukkan tanggal pengambilan dokumen. Tanggal peminjaman akan dihitung dari tanggal pengambilan.</i></small>

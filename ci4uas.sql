@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
+-- version 4.9.2
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 16, 2021 at 07:54 AM
--- Server version: 10.1.38-MariaDB
--- PHP Version: 7.3.2
+-- Generation Time: Jun 16, 2021 at 11:39 AM
+-- Server version: 10.4.11-MariaDB
+-- PHP Version: 7.4.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -98,8 +98,8 @@ INSERT INTO `auth_groups` (`id`, `name`, `description`) VALUES
 --
 
 CREATE TABLE `auth_groups_permissions` (
-  `group_id` int(11) UNSIGNED NOT NULL DEFAULT '0',
-  `permission_id` int(11) UNSIGNED NOT NULL DEFAULT '0'
+  `group_id` int(11) UNSIGNED NOT NULL DEFAULT 0,
+  `permission_id` int(11) UNSIGNED NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -118,8 +118,8 @@ INSERT INTO `auth_groups_permissions` (`group_id`, `permission_id`) VALUES
 --
 
 CREATE TABLE `auth_groups_users` (
-  `group_id` int(11) UNSIGNED NOT NULL DEFAULT '0',
-  `user_id` int(11) UNSIGNED NOT NULL DEFAULT '0'
+  `group_id` int(11) UNSIGNED NOT NULL DEFAULT 0,
+  `user_id` int(11) UNSIGNED NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -230,7 +230,15 @@ INSERT INTO `auth_logins` (`id`, `ip_address`, `email`, `user_id`, `date`, `succ
 (76, '0.0.0.0', 'arifpatanduk2@gmail.com', 1, '2021-06-16 00:09:46', 1),
 (77, '0.0.0.0', 'b.timur504@student.uns.ac.id', NULL, '2021-06-16 00:36:40', 0),
 (78, '0.0.0.0', 'arifpatanduk2@gmail.com', 1, '2021-06-16 00:36:54', 1),
-(79, '0.0.0.0', 'arifpatanduk2@gmail.com', 1, '2021-06-16 00:43:09', 1);
+(79, '0.0.0.0', 'arifpatanduk2@gmail.com', 1, '2021-06-16 00:43:09', 1),
+(80, '::1', 'b.timur504@student.uns.ac.id', 19, '2021-06-16 03:43:22', 1),
+(81, '::1', 'arifp@student.uns.ac.id', 12, '2021-06-16 03:49:14', 1),
+(82, '::1', 'b.timur504@student.uns.ac.id', 19, '2021-06-16 03:53:17', 1),
+(83, '::1', 'arifp@student.uns.ac.id', 12, '2021-06-16 04:14:10', 1),
+(84, '::1', 'b.timur504@student.uns.ac.id', 19, '2021-06-16 04:16:43', 1),
+(85, '::1', 'b.timur504@student.uns.ac.id', NULL, '2021-06-16 04:21:35', 0),
+(86, '::1', 'b.timur504@student.uns.ac.id', NULL, '2021-06-16 04:21:43', 0),
+(87, '::1', 'b.timur504@student.uns.ac.id', 19, '2021-06-16 04:21:49', 1);
 
 -- --------------------------------------------------------
 
@@ -288,8 +296,8 @@ CREATE TABLE `auth_tokens` (
 --
 
 CREATE TABLE `auth_users_permissions` (
-  `user_id` int(11) UNSIGNED NOT NULL DEFAULT '0',
-  `permission_id` int(11) UNSIGNED NOT NULL DEFAULT '0'
+  `user_id` int(11) UNSIGNED NOT NULL DEFAULT 0,
+  `permission_id` int(11) UNSIGNED NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -316,10 +324,10 @@ CREATE TABLE `dokumen` (
 --
 
 INSERT INTO `dokumen` (`id`, `judul`, `nama_file`, `abstrak`, `penulis`, `tahun_publikasi`, `status_tersedia`, `id_sub_kategori`, `created_at`, `updated_at`) VALUES
-(1, 'Pengembangan Aplikasi Mobile', '1NsXLTJLNQix_K3uwqx6TZp8126yMDf_g', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum as', 'Bintang Timur', 2020, 'Tersedia', 1, '0000-00-00 00:00:00', '2021-06-14 03:33:47'),
-(19, 'test judul', '1EfEBtbDSKrX6xn0LFqhr68kAixB72i23', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas quia alias deleniti cumque fuga. Perspiciatis corporis expedita aliquam nesciunt obcaecati doloremque facilis accusantium illo distinctio quis, fugiat quae. Possimus, error!', 'siapa', 2011, 'Tidak Tersedia', 6, '2021-06-14 13:06:29', '2021-06-15 13:04:32'),
-(20, 'asdfghjkl', '1EfEBtbDSKrX6xn0LFqhr68kAixB72i23', 'aga sdnfhaofhnapefyanewyraioluwe', 'dfghjkl;', 2013, 'Tidak Tersedia', 4, '2021-06-14 14:17:54', '2021-06-15 10:50:23'),
-(21, 'PEMBUATAN FRONT-END DARI APLIKASI BURSA KERJA ONLINE KABUPATEN PURBALINGGA BERBASIS WEBSITE MENGGUNAKAN CI BOOTSTRAP', '1k3MX6wFjWnQVbQ93-TdRg67IWT_W2tp-', 'Era digitalisasi yang semakin maju kini tidak hanya berkembang dalam aspek ekonomi, bisnis, atau bahkan pendidikan saja. Perkembangan alat dan teknologi dari waktu ke waktu semakin meningkat menjadikan hadirnya kecanggihan teknologi dapat memberikan kemudahan dalam beraktivitas. Kemudahan dalam mengakses teknologi membuat aktivitas yang sebelunya bersifat konvensional berubah menjadi berbasis teknologi dan internet.', 'KHIARA NURULITA', 2020, 'Tersedia', 10, '2021-06-16 00:51:53', '2021-06-16 00:51:53');
+(1, 'test judul1', '1EfEBtbDSKrX6xn0LFqhr68kAixB72i23', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas quia alias deleniti cumque fuga. Perspiciatis corporis expedita aliquam nesciunt obcaecati doloremque facilis accusantium illo distinctio quis, fugiat quae. Possimus, error!', 'siapa', 2011, 'Tersedia', 6, '0000-00-00 00:00:00', '2021-06-16 02:02:06'),
+(19, 'test j', '1EfEBtbDSKrX6xn0LFqhr68kAixB72i23', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas quia alias deleniti cumque fuga. Perspiciatis corporis expedita aliquam nesciunt obcaecati doloremque facilis accusantium illo distinctio quis, fugiat quae. Possimus, error!', 'siapa', 2011, 'Tersedia', 1, '2021-06-14 13:06:29', '2021-06-16 04:17:08'),
+(20, 'asdfghjkl', '1EfEBtbDSKrX6xn0LFqhr68kAixB72i23', 'aga sdnfhaofhnapefyanewyraioluwe', 'dfghjkl;', 2013, 'Tersedia', 5, '2021-06-14 14:17:54', '2021-06-16 04:38:19'),
+(21, 'PEMBUATAN FRONT-END DARI APLIKASI BURSA KERJA ONLINE KABUPATEN PURBALINGGA BERBASIS WEBSITE MENGGUNAKAN CI BOOTSTRAP', '1k3MX6wFjWnQVbQ93-TdRg67IWT_W2tp-', 'Era digitalisasi yang semakin maju kini tidak hanya berkembang dalam aspek ekonomi, bisnis, atau bahkan pendidikan saja. Perkembangan alat dan teknologi dari waktu ke waktu semakin meningkat menjadikan hadirnya kecanggihan teknologi dapat memberikan kemudahan dalam beraktivitas. Kemudahan dalam mengakses teknologi membuat aktivitas yang sebelunya bersifat konvensional berubah menjadi berbasis teknologi dan internet.', 'KHIARA NURULITA', 2020, 'Tidak Tersedia', 10, '2021-06-16 00:51:53', '2021-06-16 04:14:27');
 
 -- --------------------------------------------------------
 
@@ -355,6 +363,7 @@ CREATE TABLE `peminjaman` (
   `id_dokumen` int(255) NOT NULL,
   `id_user` int(11) UNSIGNED NOT NULL,
   `tgl_pinjam` datetime NOT NULL,
+  `isAmbil` int(11) NOT NULL DEFAULT 0,
   `tgl_kembali` datetime DEFAULT NULL,
   `deadline` datetime NOT NULL,
   `token_pinjam` varchar(255) NOT NULL,
@@ -369,11 +378,12 @@ CREATE TABLE `peminjaman` (
 -- Dumping data for table `peminjaman`
 --
 
-INSERT INTO `peminjaman` (`id_peminjaman`, `id_dokumen`, `id_user`, `tgl_pinjam`, `tgl_kembali`, `deadline`, `token_pinjam`, `is_late`, `jml_late`, `total_denda`, `created_at`, `updated_at`) VALUES
-(1, 19, 12, '2021-06-16 00:00:00', '2021-06-15 09:53:50', '2021-06-19 17:00:00', 'AR12-1623819600', 0, NULL, NULL, '2021-06-14 13:58:54', '2021-06-15 09:53:50'),
-(2, 1, 12, '2021-06-17 00:00:00', '2021-06-15 09:52:12', '2021-06-20 17:00:00', 'AR12-1623906000', 0, NULL, NULL, '2021-06-14 14:13:57', '2021-06-15 09:52:12'),
-(6, 20, 12, '2021-06-15 00:00:00', NULL, '2021-06-18 17:00:00', 'AR12-1623733200', 0, NULL, NULL, '2021-06-15 10:42:20', '2021-06-15 10:42:20'),
-(8, 19, 6, '2021-06-13 00:00:00', NULL, '2021-06-14 00:00:00', '6-1623646800', 1, 2, 6000, '2021-06-15 13:04:32', '2021-06-16 00:11:44');
+INSERT INTO `peminjaman` (`id_peminjaman`, `id_dokumen`, `id_user`, `tgl_pinjam`, `isAmbil`, `tgl_kembali`, `deadline`, `token_pinjam`, `is_late`, `jml_late`, `total_denda`, `created_at`, `updated_at`) VALUES
+(1, 19, 12, '2021-06-16 00:00:00', 0, '2021-06-15 09:53:50', '2021-06-19 17:00:00', 'AR12-1623819600', 0, NULL, NULL, '2021-06-14 13:58:54', '2021-06-15 09:53:50'),
+(2, 1, 12, '2021-06-17 00:00:00', 0, '2021-06-15 09:52:12', '2021-06-20 17:00:00', 'AR12-1623906000', 0, NULL, NULL, '2021-06-14 14:13:57', '2021-06-15 09:52:12'),
+(6, 20, 12, '2021-06-15 00:00:00', 1, '2021-06-16 04:38:19', '2021-06-18 17:00:00', 'AR12-1623733200', 0, NULL, NULL, '2021-06-15 10:42:20', '2021-06-16 04:38:19'),
+(8, 19, 6, '2021-06-13 00:00:00', 0, '2021-06-16 04:17:08', '2021-06-14 00:00:00', '6-1623646800', 1, 2, 10000, '2021-06-15 13:04:32', '2021-06-16 04:17:08'),
+(9, 21, 12, '2021-06-17 00:00:00', 0, NULL, '2021-06-20 17:00:00', 'AR12-1623906000', 0, NULL, NULL, '2021-06-16 04:14:27', '2021-06-16 04:14:27');
 
 -- --------------------------------------------------------
 
@@ -446,8 +456,8 @@ CREATE TABLE `users` (
   `activate_hash` varchar(255) DEFAULT NULL,
   `status` varchar(255) DEFAULT NULL,
   `status_message` varchar(255) DEFAULT NULL,
-  `active` tinyint(1) NOT NULL DEFAULT '0',
-  `force_pass_reset` tinyint(1) NOT NULL DEFAULT '0',
+  `active` tinyint(1) NOT NULL DEFAULT 0,
+  `force_pass_reset` tinyint(1) NOT NULL DEFAULT 0,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL
@@ -460,7 +470,7 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `email`, `username`, `nama`, `nim`, `no_hp`, `alamat`, `avatar`, `password_hash`, `reset_hash`, `reset_at`, `reset_expires`, `activate_hash`, `status`, `status_message`, `active`, `force_pass_reset`, `created_at`, `updated_at`, `deleted_at`) VALUES
 (1, 'arifpatanduk2@gmail.com', 'arifpatanduk', NULL, NULL, NULL, NULL, 'default.png', '$2y$10$flTlCVPGXkrnapFL.S49uubSX5Amzn9DSr9WMJ/4qtROxhxkErTeq', NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, '2021-05-14 14:53:23', '2021-05-14 14:53:23', NULL),
 (6, 'andriapuspita9@gmail.com', 'test', NULL, NULL, NULL, NULL, 'default.png', '$2y$10$nJHjgJU.vtZ15zSeZGnb/usfmK75eLnNRiO0sSMK4SoqYlWb5ixm6', NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, '2021-05-19 02:35:15', '2021-05-26 01:30:51', NULL),
-(12, 'arifp@student.uns.ac.id', 'arifp', 'Arif W', 'K35180112', '123532', 'Solooo', 'default.png', '$2y$10$QF0sbYKLmNuG8J6/y52tLeECnD8aStMT9HjGmVwnnp997kt2IfkRG', NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, '2021-05-26 23:00:18', '2021-06-14 05:47:31', NULL),
+(12, 'arifp@student.uns.ac.id', 'arifp', 'Arif W', 'K35180112', '123532', 'Solooo', 'default.png', '$2y$10$QF0sbYKLmNuG8J6/y52tLeECnD8aStMT9HjGmVwnnp997kt2IfkRG', NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, '2021-05-26 23:00:18', '2021-06-16 04:02:57', NULL),
 (19, 'b.timur504@student.uns.ac.id', 'bintangtimurk', 'bintang', 'K3518015', '134', 'Surakarta', 'default.png', '$2y$10$d3mgWE6P/Q6vMTonpQGG6uEnntGSQ/WAk35bc0WBIsGbG/JTBGMQ2', NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, '2021-06-11 03:19:53', '2021-06-11 03:19:53', NULL);
 
 --
@@ -533,7 +543,8 @@ ALTER TABLE `auth_users_permissions`
 --
 ALTER TABLE `dokumen`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `id_sub_kategori` (`id_sub_kategori`);
+  ADD KEY `id_sub_kategori` (`id_sub_kategori`),
+  ADD KEY `id_sub_kategori_2` (`id_sub_kategori`);
 
 --
 -- Indexes for table `migrations`
@@ -589,7 +600,7 @@ ALTER TABLE `auth_groups`
 -- AUTO_INCREMENT for table `auth_logins`
 --
 ALTER TABLE `auth_logins`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
 
 --
 -- AUTO_INCREMENT for table `auth_permissions`
@@ -625,7 +636,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `peminjaman`
 --
 ALTER TABLE `peminjaman`
-  MODIFY `id_peminjaman` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_peminjaman` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `ref_kategori`
@@ -675,12 +686,6 @@ ALTER TABLE `auth_tokens`
 ALTER TABLE `auth_users_permissions`
   ADD CONSTRAINT `auth_users_permissions_permission_id_foreign` FOREIGN KEY (`permission_id`) REFERENCES `auth_permissions` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `auth_users_permissions_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
-
---
--- Constraints for table `dokumen`
---
-ALTER TABLE `dokumen`
-  ADD CONSTRAINT `dokumen_ibfk_1` FOREIGN KEY (`id_sub_kategori`) REFERENCES `ref_sub_kategori` (`id_sub_kategori`);
 
 --
 -- Constraints for table `peminjaman`

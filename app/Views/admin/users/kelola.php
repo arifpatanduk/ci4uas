@@ -64,7 +64,13 @@
 
 <script>
     $(document).ready(function() {
-        $('#myTable').DataTable();
+        $('#myTable').DataTable( {
+            dom: 'lBfrtip',
+            buttons: [
+                { extend: 'excelHtml5', className: 'btn btn-success' },
+                { extend: 'pdfHtml5', className: 'btn btn-danger' },
+            ],  
+        } );
     });
 
     $(function() {
