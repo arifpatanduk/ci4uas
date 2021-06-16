@@ -14,7 +14,7 @@ class PeminjamanModel extends Model
 	protected $returnType           = 'array';
 	protected $useSoftDeletes       = false;
 	protected $protectFields        = true;
-	protected $allowedFields        = ['tgl_pinjam', 'tgl_kembali', 'deadline', 'token_pinjam', 'is_late', 'jml_late', 'total_denda', 'id_dokumen', 'id_user', 'created_at', 'updated_at'];
+	protected $allowedFields        = ['tgl_pinjam', 'tgl_kembali', 'isAmbil', 'deadline', 'token_pinjam', 'is_late', 'jml_late', 'total_denda', 'id_dokumen', 'id_user', 'created_at', 'updated_at'];
 
 	// Dates
 	protected $useTimestamps        = true;

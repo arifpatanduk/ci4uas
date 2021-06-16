@@ -31,10 +31,17 @@
 
                         <a href="<?= base_url('admin/peminjaman/detail/') . '/' . $data['id_peminjaman']; ?>" class="btn btn-sm btn-warning mx-1"><i class="fas fa-eye"></i> Detail</a>
 
+                        <?php if ($data['isAmbil'] == "1") { ?>
+                            <button id="button-kembali" class="btn btn-sm btn-primary mx-1" onclick="kembali('<?= $data['token_pinjam']; ?>', '<?= $data['total_denda']; ?>')">
+                                <i class="fas fa-arrow-circle-left"></i> Kembali
+                            </button>
+                        <?php } ?>
 
-                        <button id="button-kembali" class="btn btn-sm btn-primary mx-1" onclick="kembali('<?= $data['token_pinjam']; ?>', '<?= $data['total_denda']; ?>')">
-                            <i class="fas fa-arrow-circle-left"></i> Kembali
-                        </button>
+                        <?php if ($data['isAmbil'] == "0") { ?>
+                            <button id="button-ambil" class="btn btn-sm btn-primary mx-1" onclick="ambil('<?= $data['token_pinjam']; ?>')">
+                                <i class="fas fa-arrow-circle-left"></i> Konfirmasi
+                            </button>
+                        <?php } ?>
 
                     </td>
                 </tr>
@@ -54,11 +61,6 @@
         } );
     });
     
-    
-    $(document).ready(function() {
-        $('#myTable').DataTable();
-    });
-
     function kembali(token, denda) {
         var denda = denda != '' ? denda : 0;
         Swal.fire({
@@ -76,6 +78,37 @@
                 $.ajax({
                     type: "POST",
                     url: "<?= base_url('/admin/peminjaman/kembali'); ?>" + "/" + token,
+                    success: function(response) {
+                        var respon = JSON.parse(response);
+                        Swal.fire({
+                            title: 'Berhasil',
+                            text: respon.sukses,
+                            icon: 'success',
+                            confirmButtonText: 'Oke'
+                        });
+                        tampilkan();
+                    }
+                });
+            }
+        });
+    }
+
+    function ambil(token) {
+        Swal.fire({
+            title: 'Pengambilan Dokumen',
+            html: '<p>Token Pinjam : ' + token + '</p><h5 class="text-center">Konfirmasi pengambilan dokumen?</h5>',
+            text: "Apakah Anda yakin akan mengambil dokumen dengan Token Pinjam = " + token + "?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Konfirmasi!',
+            cancelButtonText: 'Tidak'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    type: "POST",
+                    url: "<?= base_url('/admin/peminjaman/konfirmasi'); ?>" + "/" + token,
                     success: function(response) {
                         var respon = JSON.parse(response);
                         Swal.fire({
