@@ -86,32 +86,57 @@ class PeminjamanController extends BaseController
 
 	public function pinjam($id)
 	{
-		if (!$this->validate(['tgl_pinjam' => 'required'])) {
-			return redirect('/user/doc/' . $id)->withInput()->with('errors', service('validation')->getErrors());
+		$validasi = \Config\Services::validation();
+		// if (!$this->validate(['tgl_pinjam' => 'required'])) {
+		// 	return redirect('/user/doc/' . $id)->withInput()->with('errors', service('validation')->getErrors());
+		// }
+
+		$valid = $this->validate([
+			'tgl_pinjam' => [
+				'label' => 'Tanggal Pinjam',
+				'rules' => 'required',
+				'errors' => [
+					'required' => '{field} tidak boleh kosong'
+				]
+			]
+		]);
+
+		if (!$valid) {
+			$pesan = [
+				'error' => [
+					'tgl_pinjam'     => $validasi->getError('tgl_pinjam')
+				]
+			];
+
+			echo json_encode($pesan);
+
+		} else {
+			$tgl_pinjam = date('Y-m-d H:i:s', strtotime($this->request->getVar('tgl_pinjam')));
+			$deadline = date('Y-m-d H:i:s', strtotime('+3 days 17 hours', strtotime($this->request->getVar('tgl_pinjam'))));
+			$token_pinjam = strtoupper(user()->nama[0] . user()->nama[1]) . user_id() . '-' . strtotime($this->request->getVar('tgl_pinjam'));
+
+			// insert to peminjaman
+			$peminjaman = new PeminjamanModel();
+			$input = [
+				'tgl_pinjam' => $tgl_pinjam,
+				'deadline' => $deadline,
+				'token_pinjam' => $token_pinjam,
+				'id_dokumen' => $id,
+				'id_user' => user_id(),
+			];
+			$peminjaman->save($input);
+
+			// // update status on dokumen
+			$dokumen = new DokumenModel();
+			$dokumen->update($id, ['status_tersedia' => 'Tidak Tersedia']);
+
+			$pesan = [
+				'sukses' => 'Peminjaman sukses silahkan datang ke kampus dan membawa bukti peminjaman'
+			];
+			echo json_encode($pesan);
+
 		}
 
-		$tgl_pinjam = date('Y-m-d H:i:s', strtotime($this->request->getVar('tgl_pinjam')));
-		$deadline = date('Y-m-d H:i:s', strtotime('+3 days 17 hours', strtotime($this->request->getVar('tgl_pinjam'))));
-		$token_pinjam = strtoupper(user()->nama[0] . user()->nama[1]) . user_id() . '-' . strtotime($this->request->getVar('tgl_pinjam'));
-
-		// insert to peminjaman
-		$peminjaman = new PeminjamanModel();
-		$input = [
-			'tgl_pinjam' => $tgl_pinjam,
-			'deadline' => $deadline,
-			'token_pinjam' => $token_pinjam,
-			'id_dokumen' => $id,
-			'id_user' => user_id(),
-		];
-		$peminjaman->save($input);
-
-		// // update status on dokumen
-		$dokumen = new DokumenModel();
-		$dokumen->update($id, ['status_tersedia' => 'Tidak Tersedia']);
-
-		session()->setFlashData('pinjam', 'Peminjaman Berhasil dikirim');
-
-		return redirect('user/peminjaman');
 	}
 
 	public function tiket($id)

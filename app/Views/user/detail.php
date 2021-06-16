@@ -97,7 +97,8 @@
                             <div class="row">
                                 <div class="form-group col-sm-6">
                                     <label>Tanggal Pengambilan Dokumen</label>
-                                    <input type="date" class="form-control" name="tgl_pinjam" required>
+                                    <input type="date" id ="tgl" class="form-control" name="tgl_pinjam">
+                                    <div class="invalid-feedback" id="errortgl"></div>
                                 </div>
                                 <p>
                                     <small><i>*Silahkan masukkan tanggal pengambilan dokumen. Tanggal peminjaman akan dihitung dari tanggal pengambilan.</i></small>
@@ -142,4 +143,50 @@
 
 
 </div>
+
+<script>
+    $(document).ready(function() {
+        $('#form').submit(function(e) {
+            e.preventDefault();
+            $.ajax({
+                type: $(this).attr('method'),
+                url: $(this).attr('action'),
+                data: new FormData(this),
+                processData: false,
+                contentType: false,
+                beforeSend: function() {
+                    $('#submit').attr('disable', 'disabled');
+                    $('#submit').html('<i class="fa fa-spin fa-spinner"></i>');
+                },
+                complete: function() {
+                    $('#submit').removeAttr('disable');
+                    $('#submit').html('Kirim');
+                },
+                success: function(response) {
+                    var respon = JSON.parse(response);
+                    if (respon.error) {
+                        if (respon.error.tgl_pinjam) {
+                            $('#tgl').addClass('is-invalid');
+                            $('#errortgl').html(respon.error.tgl_pinjam);
+                        } else {
+                            $('#jns').removeClass('is-invalid');
+                            $('#errortgl').html('');
+                        }
+
+                    }
+                    else {
+                        alert(respon.sukses);
+                        window.location.href = "<?= base_url() ?>/user/peminjaman";
+                    }
+                },
+                error: function(xhr, ajaxOptions, thrownError) {
+                    alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
+                }
+            });
+
+            return false;
+        });
+    });
+</script>
+
 <?= $this->endSection(); ?>
