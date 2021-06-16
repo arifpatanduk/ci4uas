@@ -9,7 +9,7 @@
             <h1>Detail Peminjaman</h1>
             <div class="section-header-breadcrumb">
                 <div class="breadcrumb-item active"><a href="<?= base_url(); ?>">Home</a></div>
-                <div class="breadcrumb-item active"><a href="<?= base_url('user/peminjaman'); ?>">Peminjaman</a></div>
+                <div class="breadcrumb-item active"><a href="<?= base_url('admin/peminjaman/history'); ?>">History Peminjaman</a></div>
                 <div class="breadcrumb-item">Detail Peminjaman</div>
             </div>
         </div>
@@ -55,7 +55,6 @@
                         </tbody>
                     </table>
                 </div>
-
 
                 <div class="mt-3">
                     <hr>
