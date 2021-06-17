@@ -97,7 +97,7 @@
                             <div class="row">
                                 <div class="form-group col-sm-6">
                                     <label>Tanggal Pengambilan Dokumen</label>
-                                    <input type="date" id ="tgl" class="form-control" name="tgl_pinjam">
+                                    <input type="date" id="tgl" class="form-control" name="tgl_pinjam">
                                     <div class="invalid-feedback" id="errortgl"></div>
                                 </div>
                                 <p>
@@ -173,10 +173,16 @@
                             $('#errortgl').html('');
                         }
 
-                    }
-                    else {
-                        alert(respon.sukses);
-                        window.location.href = "<?= base_url() ?>/user/peminjaman";
+                    } else {
+                        Swal.fire({
+                            title: 'Peminjaman Dokumen',
+                            text: respon.sukses,
+                            icon: 'success',
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                window.location.href = "<?= base_url() ?>/user/peminjaman";
+                            }
+                        });
                     }
                 },
                 error: function(xhr, ajaxOptions, thrownError) {
